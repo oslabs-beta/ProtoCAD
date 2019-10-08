@@ -1,21 +1,20 @@
 {
-  "name": "electron-quick-start",
+  "name": "ProtoCAD",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "React Prototyping Tool for Component as a Data",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "webpack -w",
-    "dev": "NODE_ENV=development webpack-dev-server",
-    "electron-dev": "webpack -w & electron-webpack dev"
+    "dev": "NODE_ENV=development concurrently \"npm run build\" \"npm run start\""
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "GraphQL",
+    "Prototyping",
+    "React",
+    "Redux"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
@@ -35,7 +34,9 @@
     "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
+    "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",
+    "d3": "^5.12.0",
     "node-sass": "^4.12.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -43,6 +44,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0"
   }

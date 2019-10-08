@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: [
-    './client/index.js',
+    './client/index.jsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -13,6 +13,7 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    apiHistoryFallback: true,
     publicPath: 'localhost:3000/dist',
     port: 5858
   },

@@ -13,7 +13,8 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    publicPath: 'localhost:3000/dist'
+    publicPath: 'localhost:3000/dist',
+    port: 5858
   },
   module: {
     rules: [

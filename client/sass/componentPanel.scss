@@ -1,0 +1,19 @@
+.panel {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 7px;
+  background: aliceblue;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  margin: 5px 0;
+  &:hover {
+    background: gray;
+    cursor: pointer;
+  }
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+.currentPanel {
+  background: darkslateblue;
+}

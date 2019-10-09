@@ -6,7 +6,9 @@
   "scripts": {
     "start": "electron .",
     "build": "webpack -w",
-    "dev": "NODE_ENV=development concurrently \"npm run build\" \"npm run start\""
+    "dev": "NODE_ENV=development concurrently \"npm run build\" \"npm run start\"",
+    "tsc:watch": "tsc -p",
+    "tsc:build": "tsc"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -20,25 +22,35 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@types/react": "^16.9.5",
+    "@types/react-dom": "^16.9.1",
     "babel-loader": "^8.0.6",
     "electron": "^6.0.11",
     "electron-prebuilt": "^1.4.13",
     "electron-webpack": "^2.7.4",
     "file-loader": "^4.2.0",
+    "source-map-loader": "^0.2.4",
     "source-map-support": "^0.5.13",
+    "ts-loader": "^6.2.0",
+    "typescript": "^3.6.3",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev": "^1.1.1",
     "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.5.0",
     "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",
     "d3": "^5.12.0",
+    "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "react": "^16.10.2",
+    "react-d3-tree": "^1.15.3",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",

@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: [
-    './client/index.js',
+    './client/index.tsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -13,19 +13,28 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    apiHistoryFallback: true,
     publicPath: 'localhost:3000/dist',
     port: 5858
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
+  },
+  devtool: "eval-source-map",
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader'
+        }
+      },
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
         }
       },
       {

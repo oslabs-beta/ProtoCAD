@@ -1,0 +1,7 @@
+export const UPDATE_COMPONENT: string = 'UPDATE_COMPONENT';
+export const CREATE_COMPONENT: string = 'CREATE_COMPONENT';
+export const DELETE_COMPONENT: string = 'DELETE_COMPONENT';
+export const ADD_CHILD_COMPONENT: string = 'ADD_CHILD_COMPONENT';
+
+export const SET_CURRENT_COMPONENT: string = 'SET_CURRENT_COMPONENT';
+export const EDIT_CURRENT_COMPONENT: string = 'EDIT_CURRENT_COMPONENT';

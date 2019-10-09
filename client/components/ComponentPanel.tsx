@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {deleteComponent, setCurrentComponent, updateComponent} from "../actions/componentsAction";
+import {deleteComponent, setCurrentComponent, updateComponent, addChildComponent} from "../actions/componentsAction";
 
 const Panel = props => {
    const current = useSelector(state => state.current.data);
@@ -23,11 +23,11 @@ const Panel = props => {
 };
 
 const AddPanel = props => {
-   // const current = useSelector(state => state.current.data);
    const dispatch = useDispatch();
 
    const onClick = () => {
-      dispatch(updateComponent(props.parentName, props.data));
+      dispatch(addChildComponent(props.selectedNode, props.data));
+      // setChange(true);
       props.handleClose();
    };
 
@@ -40,6 +40,7 @@ const AddPanel = props => {
 export default props => {
    // useSelector grabs redux state and selects components.data value and returns
    const components = useSelector(state => state.components.data);
+   const current = useSelector(state => state.current.data);
 
    const dispatch = useDispatch();
 
@@ -47,18 +48,17 @@ export default props => {
 
    const setNext = i => index = i;
 
-   let count = components.length;
    React.useEffect(() => {
-      if (count >= components.length) count = components.length;
-      else {
-         dispatch(setCurrentComponent(components[index] || {}));
-         count = components.length;
-      }
+      components.forEach(data => {
+         if (data.name === current.name) {
+            dispatch(setCurrentComponent(data));
+         }
+      })
    }, [ components ]);
 
    return <div id={'componentPanel'}>
       {
-         components.map((info, i) => props.modal ? <AddPanel key={info.name} data={info} {...info} parentName={props.parentName} handleClose={props.handleClose} /> : <Panel key={info.name} {...info} index={i} setNext={setNext} />).reverse()
+         components.map((info, i) => props.modal ? <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} /> : <Panel key={info.name} {...info} index={i} setNext={setNext} />).reverse()
       }
    </div>;
 };

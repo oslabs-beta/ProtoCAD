@@ -1,4 +1,4 @@
-import { CREATE_COMPONENT, DELETE_COMPONENT, EDIT_CURRENT_COMPONENT, SET_CURRENT_COMPONENT, UPDATE_COMPONENT } from './types';
+import { CREATE_COMPONENT, DELETE_COMPONENT, EDIT_CURRENT_COMPONENT, SET_CURRENT_COMPONENT, UPDATE_COMPONENT, ADD_CHILD_COMPONENT } from './types';
 
 export const createComponent = data => ({
     type: CREATE_COMPONENT,
@@ -10,10 +10,18 @@ export const deleteComponent = name => ({
     payload: name
 });
 
-export const updateComponent = (parentName, data) => ({
+export const updateComponent = (parentNode, data) => ({
     type: UPDATE_COMPONENT,
     payload: {
-        parentName,
+        parentNode,
+        data
+    }
+});
+
+export const addChildComponent = (parentNode, data) => ({
+    type: ADD_CHILD_COMPONENT,
+    payload: {
+        parentNode,
         data
     }
 });

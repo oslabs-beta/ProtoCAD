@@ -10,23 +10,15 @@ export default props => {
     // useSelector grabs redux state and selects components.data value and returns
     const components = useSelector(state => state.components.data);
 
-    let count = components.length;
-    React.useEffect(() => {
-        if (components.length > count) count = components.length;
-        else {
-            dispatch(setCurrentComponent(components[components.length - 1] || {}));
-            count = components.length;
-        }
-
-    }, [components]);
-
     const onClick = () => {
         if (components.every(data => data.name !== value)) {
-            dispatch(createComponent({
+            const obj = {
                 name: value,
                 attributes: {},
                 children: []
-            }));
+            };
+            dispatch(createComponent(obj));
+            dispatch(setCurrentComponent(obj));
         }
         setValue('');
     };

@@ -3,7 +3,11 @@ import { SET_CURRENT_COMPONENT, EDIT_CURRENT_COMPONENT } from '../actions/types'
 const defaultState = {
     error: null,
     loading: null,
-    data: {}
+    data: {
+        name: 'ComponentName',
+        attributes: {},
+        children: []
+    }
 };
 
 export default (state = defaultState, action) => {

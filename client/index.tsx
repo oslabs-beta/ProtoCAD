@@ -15,7 +15,6 @@ import App from './components/App';
 // Enabling redux extension on browser
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
-
 // You need to use HashRouter for Electron environment to use React-Router.
 // The reasoning: BrowserRouter & Router is meant for request-based environments (web) whereas HashRouter is meant for file-based environments (electron).
 const Root = () => (<Provider store={store}>

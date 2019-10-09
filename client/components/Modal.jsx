@@ -30,7 +30,7 @@ export default props => {
           }} className={classes.paper}>
               <h4 id="simple-modal-title">Your Library</h4>
               <hr />
-              <ComponentPanel modal={true} parentName={props.parentName} handleClose={props.handleClose} />
+              <ComponentPanel modal={true} selectedNode={props.selectedNode} handleClose={props.handleClose} />
           </div>
       </Modal>
     );

@@ -57,7 +57,8 @@ class MyTree extends React.PureComponent {
 
   render() {
     return <div id={'tree'} style={{width: '100%', height: '100%'}} ref={tc => (this.treeContainer = tc)}>
-      <Tree className={'myTree'} translate={this.state.translate}  data={this.props.current} collapsible={false} onClick={this.onClick} orientation={'vertical'} />
+      <Tree className={'myTree'} translate={this.state.translate} data={this.props.current} collapsible={false} onClick={this.onClick} orientation={'vertical'} />
+
       <MyModal handleClose={this.handleClose} open={this.state.open} x={this.state.clickPosition.x} y={this.state.clickPosition.y} selectedNode={this.state.selectedNode} />
     </div>;
   }

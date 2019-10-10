@@ -5,7 +5,7 @@ const defaultState = {
   error: null,
   loading: false,
   data: [{
-    name: 'ComponentName',
+    name: 'Root',
     attributes: {},
     children: []
   }]
@@ -29,11 +29,12 @@ export default (state = defaultState, action) => {
             } : data)
       };
     case DELETE_COMPONENT:
-      const newData = state.data.filter(data => data.name !== action.payload);
-      return {
-        ...state,
-        data: newData
-      };
+      return removeChildComponent(state, action.payload);
+      // const newData = state.data.filter(data => data.name !== action.payload);
+      // return {
+      //   ...state,
+      //   data: newData
+      // };
     case ADD_CHILD_COMPONENT:
       // return addChildComponentv2(state, action.payload);
       return addChildComponent(state, action.payload);
@@ -78,6 +79,26 @@ const iterateObject = (obj, {parentNode, data}) => {
   }
   obj.children = obj.children.map(childComponent => {
     return iterateObject(childComponent, {parentNode, data});
+  });
+  return obj;
+};
+
+
+const removeChildComponent = (state, node) => {
+  const deepCloned = cloneDeep(state.data);
+  const newData = deepCloned.map(component => {
+    return removeObject(component, node);
+  });
+  return {
+    ...state,
+    data: newData
+  }
+};
+
+const removeObject = (obj, node) => {
+  obj.children.filter(item => node.name !== item.name);
+  obj.children.map(childComponent => {
+    return removeObject(childComponent, node);
   });
   return obj;
 };

@@ -4,7 +4,7 @@ const defaultState = {
     error: null,
     loading: null,
     data: {
-        name: 'ComponentName',
+        name: 'Root',
         attributes: {},
         children: []
     }

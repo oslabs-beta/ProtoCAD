@@ -4,12 +4,10 @@ import {deleteComponent, setCurrentComponent, updateComponent, addChildComponent
 
 const Panel = props => {
    const current = useSelector(state => state.current.data);
-
    const dispatch = useDispatch();
 
    const onButtonClick = () => {
-      dispatch(deleteComponent(props.name));
-      props.setNext(props.index);
+     dispatch(deleteComponent(props));
    };
 
    const onClick = () => {
@@ -39,26 +37,22 @@ const AddPanel = props => {
 
 export default props => {
    // useSelector grabs redux state and selects components.data value and returns
-   const components = useSelector(state => state.components.data);
    const current = useSelector(state => state.current.data);
-
+   const components = useSelector(state => state.components.data);
    const dispatch = useDispatch();
 
-   let index = 0;
+   const [index, setIndex] = React.useState(0);
 
-   const setNext = i => index = i;
+   const setNext = i => setIndex(i);
 
    React.useEffect(() => {
-      components.forEach(data => {
-         if (data.name === current.name) {
-            dispatch(setCurrentComponent(data));
-         }
-      })
-   }, [ components ]);
+     const component = components[index];
+     dispatch(setCurrentComponent(component || {}));
+   }, [components]);
 
    return <div id={'componentPanel'}>
       {
-         components.map((info, i) => props.modal ? <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} /> : <Panel key={info.name} {...info} index={i} setNext={setNext} />).reverse()
+         components.map((info, i) => props.modal ? <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} /> : <Panel key={info.name} {...info} index={i} setNext={setNext} />)
       }
    </div>;
 };

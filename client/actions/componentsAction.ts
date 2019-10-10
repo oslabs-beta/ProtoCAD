@@ -5,9 +5,9 @@ export const createComponent = data => ({
     payload: data
 });
 
-export const deleteComponent = name => ({
+export const deleteComponent = (node) => ({
     type: DELETE_COMPONENT,
-    payload: name
+    payload: node
 });
 
 export const updateComponent = (parentNode, data) => ({

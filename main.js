@@ -14,7 +14,7 @@ let mainWindow;
 app.on('ready', function(){
 
   // Add React and Redux extension to Electron browser; And call this when browser is ready
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' && process.platform === 'darwin') {
     BrowserWindow.addDevToolsExtension(
       path.join(os.homedir(), `/Library/Application Support/Google/Chrome/Default/Extensions/${config('development').reactExtensionHash}`)
     );

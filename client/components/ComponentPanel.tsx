@@ -73,7 +73,7 @@ export default props => {
 
    return <div id={'componentPanel'}>
       {  props.modal ?
-          filtered.map((info, i) => <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} /> : components.map((info, i) => <Panel key={info.name} {...info} index={i} />)
+          filtered.map((info, i) => <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} />) : components.map((info, i) => <Panel key={info.name} {...info} index={i} />)
       }
    </div>;
 };

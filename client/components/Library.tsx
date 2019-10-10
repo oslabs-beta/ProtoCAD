@@ -18,7 +18,7 @@ export default props => {
                 children: []
             };
             dispatch(createComponent(obj));
-            dispatch(setCurrentComponent(obj));
+            // dispatch(setCurrentComponent(obj));
         }
         setValue('');
     };

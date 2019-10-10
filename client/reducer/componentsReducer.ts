@@ -5,8 +5,9 @@ const defaultState = {
   error: null,
   loading: false,
   data: [{
-    name: 'ComponentName',
-    attributes: {},
+    name: 'Root',
+    attributes: {
+    },
     children: []
   }]
 };
@@ -29,11 +30,12 @@ export default (state = defaultState, action) => {
             } : data)
       };
     case DELETE_COMPONENT:
-      const newData = state.data.filter(data => data.name !== action.payload);
-      return {
-        ...state,
-        data: newData
-      };
+      return removeChildComponent(state, action.payload);
+      // const newData = state.data.filter(data => data.name !== action.payload);
+      // return {
+      //   ...state,
+      //   data: newData
+      // };
     case ADD_CHILD_COMPONENT:
       // return addChildComponentv2(state, action.payload);
       return addChildComponent(state, action.payload);
@@ -76,8 +78,44 @@ const iterateObject = (obj, {parentNode, data}) => {
   if (obj.name === parentNode.name) {
     obj.children.push(data);
   }
-  obj.children = obj.children.map(childComponent => {
+  const newData = obj.children.map(childComponent => {
     return iterateObject(childComponent, {parentNode, data});
   });
-  return obj;
+  return {
+    ...obj,
+    children: newData
+  };
+};
+
+
+const removeChildComponent = (state, node) => {
+  const deepCloned = cloneDeep(state.data);
+  const newData = deepCloned.map(component => {
+    return removeObject(component, node);
+  });
+
+  const firstLayer = newData.filter(component => node.name !== component.name);
+  return {
+    ...state,
+    data: firstLayer
+  }
+};
+
+const removeObject = (obj, node) => {
+  const data = obj.children.filter(item => {
+    return node.name !== item.name
+  });
+  const newObj = {
+    ...obj,
+    children: data
+  }
+
+  const recursedData = newObj.children.map(childComponent => {
+    return removeObject(childComponent, node);
+  });
+
+  return {
+    ...newObj,
+    children: recursedData
+  }
 };

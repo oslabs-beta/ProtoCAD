@@ -5,9 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "webpack -w",
-    "dev": "NODE_ENV=development webpack-dev-server",
-    "electron-dev": "webpack -w & electron-webpack dev"
+    "dev": "webpack -w & electron . --disable-gpu"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [

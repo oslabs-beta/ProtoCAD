@@ -803,8 +803,8 @@ eval("/* WEBPACK VAR INJECTION */(function(__dirname) {if (true) {\n  module.hot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/myroot/Desktop/ProtoCAD/node_modules/electron-webpack/out/electron-main-hmr/main-hmr */"./node_modules/electron-webpack/out/electron-main-hmr/main-hmr.js");
-module.exports = __webpack_require__(/*! /Users/myroot/Desktop/ProtoCAD/src/main/index.js */"./src/main/index.js");
+__webpack_require__(/*! /home/jason/Codesmith/Projects/ProtoCAD/node_modules/electron-webpack/out/electron-main-hmr/main-hmr */"./node_modules/electron-webpack/out/electron-main-hmr/main-hmr.js");
+module.exports = __webpack_require__(/*! /home/jason/Codesmith/Projects/ProtoCAD/src/main/index.js */"./src/main/index.js");
 
 
 /***/ }),

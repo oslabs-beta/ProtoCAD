@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {deleteComponent, setCurrentComponent, updateComponent, addChildComponent} from "../actions/componentsAction";
+import { difference } from 'lodash';
 
 const Panel = props => {
    const current = useSelector(state => state.current.data);
@@ -41,6 +42,26 @@ export default props => {
    const components = useSelector(state => state.components.data);
    const dispatch = useDispatch();
 
+   const [filtered, setFiltered] = React.useState(components);
+
+   React.useEffect(() => {
+     if (!props.selectedNode) return;
+
+     const selectedName = props.selectedNode.name;
+     // console.log(props.selectedNode);
+     const selectedNode = components.filter(item => item.name === selectedName)[0];
+     // console.log(selectedNode);
+     const selectedChildrenName = selectedNode.children.map(item => item.name);
+     // console.log(selectedChildrenName);
+     const used = [selectedName, ...selectedChildrenName];
+     const filtedName = difference(components.map(item => item.name), used);
+     setFiltered(components.filter(item => filtedName.includes(item.name)));
+
+   }, [props.selectedNode]);
+
+   // console.log(props.selectedNode);
+
+
    const [index, setIndex] = React.useState(0);
 
    const setNext = i => setIndex(i);
@@ -51,8 +72,8 @@ export default props => {
    }, [components]);
 
    return <div id={'componentPanel'}>
-      {
-         components.map((info, i) => props.modal ? <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} /> : <Panel key={info.name} {...info} index={i} setNext={setNext} />)
+      {  props.modal ?
+          filtered.map((info, i) => <AddPanel key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose} /> : components.map((info, i) => <Panel key={info.name} {...info} index={i} />)
       }
    </div>;
 };

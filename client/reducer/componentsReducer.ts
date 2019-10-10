@@ -6,7 +6,8 @@ const defaultState = {
   loading: false,
   data: [{
     name: 'Root',
-    attributes: {},
+    attributes: {
+    },
     children: []
   }]
 };
@@ -77,10 +78,13 @@ const iterateObject = (obj, {parentNode, data}) => {
   if (obj.name === parentNode.name) {
     obj.children.push(data);
   }
-  obj.children = obj.children.map(childComponent => {
+  const newData = obj.children.map(childComponent => {
     return iterateObject(childComponent, {parentNode, data});
   });
-  return obj;
+  return {
+    ...obj,
+    children: newData
+  };
 };
 
 
@@ -89,16 +93,29 @@ const removeChildComponent = (state, node) => {
   const newData = deepCloned.map(component => {
     return removeObject(component, node);
   });
+
+  const firstLayer = newData.filter(component => node.name !== component.name);
   return {
     ...state,
-    data: newData
+    data: firstLayer
   }
 };
 
 const removeObject = (obj, node) => {
-  obj.children.filter(item => node.name !== item.name);
-  obj.children.map(childComponent => {
+  const data = obj.children.filter(item => {
+    return node.name !== item.name
+  });
+  const newObj = {
+    ...obj,
+    children: data
+  }
+
+  const recursedData = newObj.children.map(childComponent => {
     return removeObject(childComponent, node);
   });
-  return obj;
+
+  return {
+    ...newObj,
+    children: recursedData
+  }
 };

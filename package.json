@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.5.0",
+    "codemirror": "^5.49.0",
     "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",
     "d3": "^5.12.0",

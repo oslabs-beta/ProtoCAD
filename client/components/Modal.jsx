@@ -32,16 +32,16 @@ export default props => {
               top: `${props.y}px`,
               left: `${props.x}px`
           }} className={classes.paper}>
-                {components.length > 1 &&
+                {components.length > 0 &&
                   <div id="componentList">
                     <h4 id="simple-modal-title">Your Library</h4>
                     <hr />
-                    <ComponentPanel modal={true} selectedNode={props.selectedNode} handleClose={props.handleClose} />
+                    <ComponentPanel modal={true} handleClose={props.handleClose} />
                   </div>
                 }
               <h4 id="simple-modal-title">Add Prop</h4>
               <hr />
-              <AttributePanel modal={true} selectedNode={props.selectedNode} handleClose={props.handleClose} />
+              <AttributePanel modal={true} handleClose={props.handleClose} />
           </div>
       </Modal>
     );

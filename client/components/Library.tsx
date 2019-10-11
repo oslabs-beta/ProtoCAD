@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ComponentPanel from "./ComponentPanel";
-import { createComponent, setCurrentComponent } from '../actions/componentsAction';
+import { createComponent } from '../actions/componentsAction';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default props => {
@@ -15,6 +15,7 @@ export default props => {
             const obj = {
                 name: value,
                 attributes: {'id': 'ID'},
+                parent: {},
                 children: []
             };
             dispatch(createComponent(obj));

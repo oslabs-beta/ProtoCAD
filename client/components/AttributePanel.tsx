@@ -16,7 +16,7 @@ export default props => {
   });
 
   const handleChange = (e) => {
-    e.persist()
+    e.persist();
     setAttributes(oldValue => ({
         ...oldValue,
         [e.target.name]: e.target.value,

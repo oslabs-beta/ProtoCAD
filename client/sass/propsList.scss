@@ -1,0 +1,12 @@
+.attributeItem {
+  display: flex;
+  margin-bottom: 10px;
+
+  .attributeName {
+    margin-right: 6px;
+  }
+  .attributeType {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+}

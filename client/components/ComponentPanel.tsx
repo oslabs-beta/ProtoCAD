@@ -9,7 +9,7 @@ import {
 } from "../actions/componentsAction";
 import { difference, isEmpty } from 'lodash';
 
-const Panel = props => { // props = { ...component }
+const Panel = props => {
     const current = useSelector(state => state.current.data);
     const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const Panel = props => { // props = { ...component }
     </div>
 };
 
-const AddPanel = props => { // props = { ...component } ; key={info.name} data={info} {...info} selectedNode={props.selectedNode} handleClose={props.handleClose}
+const AddPanel = props => {
     const dispatch = useDispatch();
     const selected = useSelector(state => state.selected.data);
 

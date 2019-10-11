@@ -15,7 +15,7 @@ module.exports = {
     hot: true,
     apiHistoryFallback: true,
     publicPath: 'localhost:3000/dist',
-    port: 5858
+    port: 3000
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"]

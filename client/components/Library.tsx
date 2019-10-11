@@ -14,11 +14,10 @@ export default props => {
         if (components.every(data => data.name !== value)) {
             const obj = {
                 name: value,
-                attributes: {},
+                attributes: {'id': 'ID'},
                 children: []
             };
             dispatch(createComponent(obj));
-            // dispatch(setCurrentComponent(obj));
         }
         setValue('');
     };

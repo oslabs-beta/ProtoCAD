@@ -24,23 +24,35 @@ app.on('ready', function(){
   }
 
   //Create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+      preload: __dirname + '/preload.js'
+    }
+  });
   //Load html into window
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file',
     slashes: true
   }));
+
   //Quit app when closed
   mainWindow.on('closed', function() {
     app.quit();
   })
 });
 
+ipcMain.on('test', (e, data) => {
+  console.log(data);
+});
+
 // Catch item
 ipcMain.on('schema', function(e, data){
   //data will come as json so we parse
-  let item = JSON.parse(data);
+  let item = data;
   let schema = '';
   let query = 'type Query {\n';
   //let resolver = 'Query: {\n';

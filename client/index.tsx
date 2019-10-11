@@ -4,13 +4,14 @@ import { createStore, applyMiddleware } from 'redux';
 import {Provider} from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 import reducer from './reducer/reducer';
-import "./sass/styles.scss";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // middleware for redux (used for async operation)
 import thunk from 'redux-thunk';
 
 import App from './components/App';
+
+import "./sass/styles.scss";
 
 // Enabling redux extension on browser
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

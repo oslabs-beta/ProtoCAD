@@ -70,13 +70,14 @@ const updateComponent = (components, payload) => {
 
 // recursively delete components and child components with same name as payload
 const deleteComponent = (components, payload) => {
-  return components.filter(item => {
+  const newComponents = components.map(item => {
     if (item.name === payload.name) return false;
     else return {
       ...item,
       children: deleteComponent(item.children, payload)
     }
   });
+  return newComponents.filter(item => item !== false);
 };
 
 // recursively delete one specific component by parent and child components with same name as payload
@@ -115,7 +116,10 @@ const addAttribute = (components, { selectedComponent, attributes }) => {
   return components.map(item => {
     if (item.name === selectedComponent.name) return {
       ...item,
-      attributes
+      attributes: {
+        ...item.attributes,
+        ...attributes
+      }
     };
     else return {
       ...item,

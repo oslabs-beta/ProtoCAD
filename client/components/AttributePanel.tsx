@@ -15,6 +15,8 @@ export default props => {
     type: 'String',
   });
 
+  const selected = useSelector(state => state.selected.data);
+
   const handleChange = (e) => {
     e.persist();
     setAttributes(oldValue => ({
@@ -26,9 +28,9 @@ export default props => {
    const onButtonClick = () => {
      const obj = {};
      obj[attribute.name] = attribute.type;
-     dispatch(addAttribute(props.selectedNode, obj));
+     dispatch(addAttribute(selected, obj));
      props.handleClose();
-   }
+   };
 
    return (
     <div>

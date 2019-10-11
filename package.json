@@ -10,13 +10,14 @@
     "tsc:watch": "tsc -p",
     "tsc:build": "tsc"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/CAD-X/ProtoCAD",
   "keywords": [
     "Electron",
     "GraphQL",
     "Prototyping",
     "React",
-    "Redux"
+    "Redux",
+    "D3"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
@@ -30,6 +31,8 @@
     "@types/react-dom": "^16.9.1",
     "babel-loader": "^8.0.6",
     "electron": "^6.0.12",
+    "electron-builder": "^21.2.0",
+    "electron-packager": "^14.0.6",
     "electron-prebuilt": "^1.4.13",
     "electron-webpack": "^2.7.4",
     "file-loader": "^4.2.0",
@@ -50,6 +53,8 @@
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "react": "^16.10.2",
+    "react-codemirror": "^1.0.0",
+    "react-codemirror2": "^6.0.0",
     "react-d3-tree": "^1.15.3",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",

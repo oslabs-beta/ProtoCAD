@@ -2,9 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 declare const window: any;
-
-// const electron = window.require('electron');
-// const fs = electron.remote.require('fs');
 const ipcRenderer = window.ipcRenderer;
 
 export default props => {
@@ -14,10 +11,6 @@ export default props => {
   const onClick = () => {
       ipcRenderer.send('schema', components);
   };
-
-    ipcRenderer.on('schema', (e, data) => {
-        console.log(data);
-    });
 
   React.useEffect(() => {
   },[]);

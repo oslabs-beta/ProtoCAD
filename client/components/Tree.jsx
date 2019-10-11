@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Tree from 'react-d3-tree';
 import { connect } from 'react-redux';
-import { setCurrentComponent } from '../actions/componentsAction';
+import { setCurrentComponent, setSelectedComponent } from '../actions/componentsAction';
 import MyModal from './Modal.jsx';
 
 class MyTree extends React.PureComponent {
@@ -13,7 +13,10 @@ class MyTree extends React.PureComponent {
         y: 0
       },
       open: false,
-      selectedNode: {}
+      translate: {
+        x: 0,
+        y: 0
+      }
     };
     this.onClick = this.onClick.bind(this);
     this.onMouseClick = this.onMouseClick.bind(this);
@@ -50,16 +53,14 @@ class MyTree extends React.PureComponent {
 
   onClick = node => {
     this.handleOpen();
-    this.setState({
-      selectedNode: node
-    })
+    const selected = this.props.components.filter(item => item.name === node.name);
+    if (selected.length > 0) this.props.setSelectedComponent(selected[0]);
   };
 
   render() {
     return <div id={'tree'} style={{width: '100%', height: '100%'}} ref={tc => (this.treeContainer = tc)}>
-      <Tree className={'myTree'} translate={this.state.translate} data={this.props.current} collapsible={false} onClick={this.onClick} orientation={'vertical'} />
-
-      <MyModal handleClose={this.handleClose} open={this.state.open} x={this.state.clickPosition.x} y={this.state.clickPosition.y} selectedNode={this.state.selectedNode} />
+      <Tree className={'myTree'} styles={{width: '100%', height: '100%'}} translate={this.state.translate} data={this.props.current} collapsible={false} onClick={this.onClick} orientation={'vertical'} />
+      <MyModal handleClose={this.handleClose} open={this.state.open} x={this.state.clickPosition.x} y={this.state.clickPosition.y} />
     </div>;
   }
 
@@ -71,10 +72,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrent: data => {
-    console.log('called!');
-    dispatch(setCurrentComponent(data))
-  }
+  setSelectedComponent: data => dispatch(setSelectedComponent(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTree);

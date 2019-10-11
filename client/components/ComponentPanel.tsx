@@ -26,7 +26,6 @@ const AddPanel = props => {
 
    const onClick = () => {
       dispatch(addChildComponent(props.selectedNode, props.data));
-      // setChange(true);
       props.handleClose();
    };
 
@@ -48,18 +47,14 @@ export default props => {
      if (!props.selectedNode) return;
 
      const selectedName = props.selectedNode.name;
-     // console.log(props.selectedNode);
      const selectedNode = components.filter(item => item.name === selectedName)[0];
-     // console.log(selectedNode);
      const selectedChildrenName = selectedNode.children.map(item => item.name);
-     // console.log(selectedChildrenName);
      const used = [selectedName, ...selectedChildrenName];
      const filtedName = difference(components.map(item => item.name), used);
+
      setFiltered(components.filter(item => filtedName.includes(item.name)));
 
    }, [props.selectedNode]);
-
-   // console.log(props.selectedNode);
 
 
    const [index, setIndex] = React.useState(0);

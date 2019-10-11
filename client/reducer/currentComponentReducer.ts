@@ -5,7 +5,9 @@ const defaultState = {
     loading: null,
     data: {
         name: 'Root',
-        attributes: {},
+        attributes: {
+          'id': 'ID'
+        },
         children: []
     }
 };

@@ -1,4 +1,4 @@
-import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT} from '../actions/types';
+import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE} from '../actions/types';
 import {cloneDeep} from 'lodash';
 
 const defaultState = {
@@ -7,6 +7,7 @@ const defaultState = {
   data: [{
     name: 'Root',
     attributes: {
+      'id': 'ID',
     },
     children: []
   }]
@@ -20,7 +21,6 @@ export default (state = defaultState, action) => {
         data: [...state.data, action.payload]
       };
     case UPDATE_COMPONENT:
-      console.log(action.payload);
       return {
         ...state,
         data: state.data.map(data => data.name === action.payload.parentName ?
@@ -31,14 +31,18 @@ export default (state = defaultState, action) => {
       };
     case DELETE_COMPONENT:
       return removeChildComponent(state, action.payload);
-      // const newData = state.data.filter(data => data.name !== action.payload);
+    case ADD_CHILD_COMPONENT:
+      return addChildComponent(state, action.payload);
+    case ADD_ATTRIBUTE:
+      return addAttribute(state, action.payload);
       // return {
       //   ...state,
-      //   data: newData
+      //   data: state.data.map(data => data.name === action.payload.selectedNode.name ?
+      //       {
+      //         ...data,
+      //         attributes: {...data.attributes, ...action.payload.attribute}
+      //       } : data)
       // };
-    case ADD_CHILD_COMPONENT:
-      // return addChildComponentv2(state, action.payload);
-      return addChildComponent(state, action.payload);
     default:
       return state;
   }
@@ -102,9 +106,11 @@ const removeChildComponent = (state, node) => {
 };
 
 const removeObject = (obj, node) => {
+
   const data = obj.children.filter(item => {
     return node.name !== item.name
   });
+
   const newObj = {
     ...obj,
     children: data
@@ -112,6 +118,62 @@ const removeObject = (obj, node) => {
 
   const recursedData = newObj.children.map(childComponent => {
     return removeObject(childComponent, node);
+  });
+
+  return {
+    ...newObj,
+    children: recursedData
+  }
+};
+
+
+const addAttribute = (state, payload) => {
+
+  const deepCloned = cloneDeep(state.data);
+  const newData = deepCloned.map(component => {
+    return addObject(component, payload);
+  });
+
+  return {
+    ...state,
+    data: newData.map(data => data.name === payload.selectedNode.name ?
+      {
+        ...data,
+        attributes: {...data.attributes, ...payload.attribute}
+      } : data)
+  };
+};
+
+
+const addObject = (obj, payload) => {
+
+  console.log(obj)
+ console.log(obj.children.length)
+
+  if (obj.children.length === 0) {
+    console.log('helo')
+    return {
+      ...obj
+    }
+  }
+
+  const data = obj.children.map(item => {
+    if (item.name === payload.selectedNode.name) {
+      const newObj = {
+        ...data,
+        attributes: {...data, ...payload.attribute}
+      }
+      return newObj;
+    }
+  });
+
+  const newObj = {
+    ...obj,
+    children: data
+  }
+
+  const recursedData = newObj.children.map(childComponent => {
+    return addObject(childComponent, payload.selectedNode);
   });
 
   return {

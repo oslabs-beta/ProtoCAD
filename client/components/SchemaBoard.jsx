@@ -1,17 +1,13 @@
 import * as React from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2'
 
-// import CodeMirror from 'react-codemirror';
-
 const ipcRenderer = window.ipcRenderer;
-console.log(ipcRenderer);
 
 const Editor = props => {
     const [option, setOptions] = React.useState({
         lineNumbers: true
     });
 
-    console.log('re-render!');
 
     const onChange = (editor, data, value) => {
       // console.log('onChange');

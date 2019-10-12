@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 
+declare const window: any;
+
+const ipcRenderer = window.ipcRenderer;
+
 
 export default props => {
 
@@ -8,6 +12,7 @@ export default props => {
 
   const onClick = () => {
       console.log(components)
+      ipcRenderer.send('schema', components);
   };
 
    return <div id={'misc'}>

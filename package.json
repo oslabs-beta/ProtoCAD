@@ -18,6 +18,9 @@
     "Prototyping",
     "React",
     "Redux",
+    "Enzyme",
+    "Jest",
+    "TypeScript",
     "D3"
   ],
   "author": "GitHub",

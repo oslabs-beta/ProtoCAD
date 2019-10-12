@@ -5,3 +5,4 @@ yarn.lock
 dummyTest.js
 dist/
 coverage
+*.icloud

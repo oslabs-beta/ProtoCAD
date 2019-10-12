@@ -1,5 +1,5 @@
 import * as Enzyme from 'enzyme';
-import { shallow, mount, render } from 'enzyme';
+const { shallow, mount, render } = Enzyme;
 import * as Adapter from 'enzyme-adapter-react-16';
 
 // React 16 Enzyme adapter

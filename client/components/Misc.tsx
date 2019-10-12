@@ -1,8 +1,11 @@
 import * as React from 'react';
+import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
+
 
 declare const window: any;
 const ipcRenderer = window.ipcRenderer;
+
 
 export default props => {
 
@@ -16,6 +19,19 @@ export default props => {
   },[]);
 
    return <div id={'misc'}>
-    <button onClick={onClick}>Export Schema</button>
+      <Button
+        variant="contained"
+        size="small"
+        id="exportButton"
+        onClick={onClick}>
+          Export
+      </Button>
+      <Button
+        variant="contained"
+        size="small"
+        id="importButton"
+        onClick={}>
+          Import
+      </Button>
    </div>;
 };

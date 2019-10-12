@@ -1,4 +1,14 @@
-import { CREATE_COMPONENT, DELETE_COMPONENT, EDIT_CURRENT_COMPONENT, SET_CURRENT_COMPONENT, UPDATE_COMPONENT, ADD_CHILD_COMPONENT } from './types';
+import {
+    CREATE_COMPONENT,
+    DELETE_COMPONENT,
+    EDIT_CURRENT_COMPONENT,
+    SET_CURRENT_COMPONENT,
+    UPDATE_COMPONENT,
+    ADD_CHILD_COMPONENT,
+    ADD_ATTRIBUTE,
+    DELETE_ATTRIBUTE,
+    SET_SELECTED_COMPONENT
+} from './types';
 
 export const createComponent = data => ({
     type: CREATE_COMPONENT,
@@ -10,21 +20,34 @@ export const deleteComponent = (node) => ({
     payload: node
 });
 
-export const updateComponent = (parentNode, data) => ({
+export const updateComponent = data => ({
     type: UPDATE_COMPONENT,
+    payload: data
+});
+
+export const addChildComponent = (parentComponent, data) => ({
+    type: ADD_CHILD_COMPONENT,
     payload: {
-        parentNode,
+        parentComponent,
         data
     }
 });
 
-export const addChildComponent = (parentNode, data) => ({
-    type: ADD_CHILD_COMPONENT,
+export const addAttribute = (selectedComponent, attributes) => ({
+    type: ADD_ATTRIBUTE,
     payload: {
-        parentNode,
-        data
+        selectedComponent,
+        attributes
     }
 });
+
+export const deleteAttribute = (selectedComponent, attributeKey) => ({
+  type: DELETE_ATTRIBUTE,
+  payload: {
+      selectedComponent,
+      attributeKey
+  }
+})
 
 export const editCurrentComponent = data => ({
     type: EDIT_CURRENT_COMPONENT,
@@ -33,5 +56,11 @@ export const editCurrentComponent = data => ({
 
 export const setCurrentComponent = data => ({
     type: SET_CURRENT_COMPONENT,
+    payload: data
+});
+
+// Selected Component Actions
+export const setSelectedComponent = data => ({
+    type: SET_SELECTED_COMPONENT,
     payload: data
 });

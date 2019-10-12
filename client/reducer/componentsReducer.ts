@@ -1,5 +1,5 @@
-import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT} from '../actions/types';
-import {cloneDeep} from 'lodash';
+import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE, DELETE_ATTRIBUTE} from '../actions/types';
+// import {cloneDeep} from 'lodash';
 
 const defaultState = {
   error: null,
@@ -7,7 +7,9 @@ const defaultState = {
   data: [{
     name: 'Root',
     attributes: {
+      'id': 'ID',
     },
+    parent: {},
     children: []
   }]
 };
@@ -20,102 +22,122 @@ export default (state = defaultState, action) => {
         data: [...state.data, action.payload]
       };
     case UPDATE_COMPONENT:
-      console.log(action.payload);
       return {
         ...state,
-        data: state.data.map(data => data.name === action.payload.parentName ?
-            {
-              ...data,
-              children: [...data.children, action.payload.data]
-            } : data)
+        data: updateComponent(state.data, action.payload)
       };
     case DELETE_COMPONENT:
-      return removeChildComponent(state, action.payload);
-      // const newData = state.data.filter(data => data.name !== action.payload);
-      // return {
-      //   ...state,
-      //   data: newData
-      // };
+      return {
+        ...state,
+        data: deleteComponent(state.data, action.payload)
+      };
     case ADD_CHILD_COMPONENT:
-      // return addChildComponentv2(state, action.payload);
-      return addChildComponent(state, action.payload);
+      return {
+        ...state,
+        data: addChildComponent(state.data, action.payload)
+      };
+    case ADD_ATTRIBUTE:
+      return {
+        ...state,
+        data: addAttribute(state.data, action.payload)
+      };
+    case DELETE_ATTRIBUTE:
+      return {
+        ...state,
+        data: deleteAttribute(state.data, action.payload)
+      };
     default:
       return state;
   }
 };
 
-const addChildComponentv2 = (state, { parentNode, data }) => {
-  const deepCloned = cloneDeep(state.data);
-  deepCloned.forEach(component => {
-    if (component.name === parentNode.name) {
-      const ref = deepCloned.reduce((acc, curr) => {
-        console.log(curr);
-        if (acc.name === data.name) return acc;
-        else if (curr.name === data.name) return curr;
-      });
-      component.children.push(ref);
+// recursively update components and child components with same name as payload
+const updateComponent = (components, payload) => {
+  return components.map(item => {
+    if (item.name === payload.name) return payload;
+    else return {
+      ...item,
+      children: updateComponent(item.children, payload)
     }
   });
-  console.log(deepCloned);
-  return {
-    ...state,
-    data: deepCloned
-  }
 };
 
-const addChildComponent = (state, { parentNode, data }) => {
-  const deepCloned = cloneDeep(state.data);
-  const newData = deepCloned.map(component => {
-    return iterateObject(component, {parentNode, data});
+// recursively delete components and child components with same name as payload
+const deleteComponent = (components, payload) => {
+  const newComponents = components.map(item => {
+    if (item.name === payload.name) return false;
+    else return {
+      ...item,
+      children: deleteComponent(item.children, payload)
+    }
   });
-  return {
-    ...state,
-    data: newData
-  }
+  return newComponents.filter(item => item !== false);
 };
 
-const iterateObject = (obj, {parentNode, data}) => {
-  if (obj.name === parentNode.name) {
-    obj.children.push(data);
-  }
-  const newData = obj.children.map(childComponent => {
-    return iterateObject(childComponent, {parentNode, data});
+// recursively delete one specific component by parent and child components with same name as payload
+const deleteOneComponent = (components, { parentComponent, data }) => {
+  return components.map(item => {
+    if (item.name === parentComponent.name) return {
+      ...parentComponent,
+      children: parentComponent.children.filter(childItem => childItem.name === data.name)
+    };
+    else return {
+      ...item,
+      children: deleteOneComponent(item.children, {parentComponent, data})
+    };
   });
-  return {
-    ...obj,
-    children: newData
-  };
 };
 
-
-const removeChildComponent = (state, node) => {
-  const deepCloned = cloneDeep(state.data);
-  const newData = deepCloned.map(component => {
-    return removeObject(component, node);
+// recursively add child component of specific parent
+const addChildComponent = (components, { parentComponent, data }) => {
+  return components.map(item => {
+    if (item.name === parentComponent.name) return {
+      ...parentComponent,
+      children: [...item.children, {
+        ...data,
+        parent: parentComponent
+      }]
+    };
+    else return {
+      ...item,
+      children: addChildComponent(item.children, {parentComponent, data})
+    };
   });
-
-  const firstLayer = newData.filter(component => node.name !== component.name);
-  return {
-    ...state,
-    data: firstLayer
-  }
 };
 
-const removeObject = (obj, node) => {
-  const data = obj.children.filter(item => {
-    return node.name !== item.name
+// recursively add attributes to child components
+const addAttribute = (components, { selectedComponent, attributes }) => {
+  return components.map(item => {
+    if (item.name === selectedComponent.name) return {
+      ...item,
+      attributes: {
+        ...item.attributes,
+        ...attributes
+      }
+    };
+    else return {
+      ...item,
+      children: addAttribute(item.children, { selectedComponent, attributes })
+    };
   });
-  const newObj = {
-    ...obj,
-    children: data
-  }
+};
 
-  const recursedData = newObj.children.map(childComponent => {
-    return removeObject(childComponent, node);
+// recursively removes attributes to child components
+const deleteAttribute = (components, { selectedComponent, attributeKey }) => {
+  return components.map(item => {
+
+    let newData = Object.assign({}, item.attributes);
+    delete newData[attributeKey];
+
+    if (item.name === selectedComponent.name) return {
+      ...item,
+      attributes: {
+        ...newData
+      }
+    };
+    else return {
+      ...item,
+      children: deleteAttribute(item.children, { selectedComponent, attributeKey })
+    };
   });
-
-  return {
-    ...newObj,
-    children: recursedData
-  }
 };

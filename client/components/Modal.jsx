@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import ComponentPanel from "./ComponentPanel";
 import AttributePanel from "./AttributePanel";
+import PropsList from "./PropsList";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -39,9 +40,12 @@ export default props => {
                     <ComponentPanel modal={true} handleClose={props.handleClose} />
                   </div>
                 }
-              <h4 id="simple-modal-title">Add Prop</h4>
-              <hr />
-              <AttributePanel modal={true} handleClose={props.handleClose} />
+              <div id="propsContainer">
+                <PropsList modal={true} handleClose={props.handleClose} />
+                <h4 id="simple-modal-title">Add Prop</h4>
+                <hr />
+                <AttributePanel modal={true} handleClose={props.handleClose} />
+              </div>
           </div>
       </Modal>
     );

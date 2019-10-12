@@ -29,7 +29,8 @@ app.on('ready', function(){
     height: 600,
     webPreferences: {
       nodeIntegration: false,
-      preload: __dirname + '/preload.js'
+      preload: __dirname + '/preload.js',
+      experimentalFeatures: true // to enable grid on browserwindow electron
     }
   });
   //Load html into window

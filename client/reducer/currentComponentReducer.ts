@@ -8,6 +8,7 @@ const defaultState = {
         attributes: {
           'id': 'ID'
         },
+        parent: {},
         children: []
     }
 };

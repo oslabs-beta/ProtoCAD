@@ -11,6 +11,4 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-console.log('Hello!');
-
 window.ipcRenderer = require('electron').ipcRenderer;

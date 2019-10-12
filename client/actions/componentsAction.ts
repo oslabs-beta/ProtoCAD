@@ -1,11 +1,11 @@
 import {
     CREATE_COMPONENT,
     DELETE_COMPONENT,
-    EDIT_CURRENT_COMPONENT,
-    SET_CURRENT_COMPONENT,
     UPDATE_COMPONENT,
     ADD_CHILD_COMPONENT,
     ADD_ATTRIBUTE,
+    EDIT_CURRENT_COMPONENT,
+    SET_CURRENT_COMPONENT,
     SET_SELECTED_COMPONENT
 } from './types';
 
@@ -55,5 +55,6 @@ export const setSelectedComponent = data => ({
     type: SET_SELECTED_COMPONENT,
     payload: data
 });
+
 
 

@@ -1,9 +1,9 @@
 import configureStore from 'redux-mock-store';
-import { createComponent } from "../../../client/actions/componentsAction";
-import { CREATE_COMPONENT } from '../../../client/actions/types';
-import { addComponent, addComponentResult } from "../../fixtures/components/componentsData";
+import { deleteComponent } from "../../../client/actions/componentsAction";
+import { DELETE_COMPONENT } from '../../../client/actions/types';
+import { delComponent, delComponentResult } from "../../fixtures/components/componentsData";
 
-describe('add component redux', function () {
+describe('delete component redux', function () {
     const mockStore = configureStore(); // this returns a func mockStore
     const reduxStore = mockStore(); // mock store -> mock state
 
@@ -11,15 +11,15 @@ describe('add component redux', function () {
         reduxStore.clearActions();
     });
 
-    describe('add component action', function () {
+    describe('delete component action', function () {
         it('should dispatch the create component action', () => {
             const expectedActions = [
                 {
-                    payload: addComponent,
-                    type: CREATE_COMPONENT
+                    payload: delComponent,
+                    type: DELETE_COMPONENT
                 }
             ];
-            reduxStore.dispatch(createComponent(addComponentResult));
+            reduxStore.dispatch(deleteComponent(delComponentResult));
 
             expect(reduxStore.getActions()).toEqual(expectedActions);
         });

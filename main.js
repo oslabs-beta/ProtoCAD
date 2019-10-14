@@ -5,8 +5,61 @@ const os = require('os');
 
 const config = require('./config');
 
+const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 
-const {app, BrowserWindow, ipcMain} = electron;
+const isMac = process.platform === 'darwin';
+
+
+const setMenu = main => {
+  // set menu
+  const template = [
+    ...(isMac ? [{
+      label: 'ProtoCAD',
+      submenu: [
+        {
+          role: 'about'
+        },{
+          type: 'separator'
+        },{
+          role: 'quit'
+        }
+      ]
+    }] : []),
+    {
+      label: 'File',
+      submenu: [
+        isMac ? { role: 'close'} : {role: 'quit'},
+        { type: 'separator' },
+        {
+          label: 'New Project',
+          click() {
+            dialog.showOpenDialog(null, {
+              properties: ['openFile', 'openDirectory']
+            }, filePaths => {
+              console.log(filePaths);
+            });
+          },
+          accelerator: 'Cmd+n'
+        },
+        {
+          label: 'Open Project',
+          click() {
+            dialog.showOpenDialog(null, {
+              properties: ['openFile', 'openDirectory']
+            }, filePaths => {
+              console.log(filePaths);
+            });
+          },
+          accelerator: 'Cmd+o'
+        }
+      ]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+};
+
 
 let mainWindow;
 
@@ -33,6 +86,9 @@ app.on('ready', function(){
       experimentalFeatures: true // to enable grid on browserwindow electron
     }
   });
+
+  setMenu(mainWindow);
+
   //Load html into window
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -79,7 +135,7 @@ ipcMain.on('schema', function(e, data){
     schema += `type ${node.name} {\n
       ${props}${children}\n
     };\n\n`;
-  }
+  };
 
 
   //run helper function for every root node

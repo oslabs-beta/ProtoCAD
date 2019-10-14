@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ComponentPanel from "./ComponentPanel";
+import Panel from './Panel';
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,8 +15,8 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   button: {
-    marginLeft: '5px';
-  }
+    marginLeft: '5px'
+  },
   input: {
      margin: theme.spacing(1),
     '&:after': {
@@ -29,7 +30,7 @@ export default props => {
     const [value, setValue] = React.useState('');
     const dispatch = useDispatch();
 
-    const classes = useStyles();
+    const classes = useStyles({});
 
     // useSelector grabs redux state and selects components.data value and returns
     const components = useSelector(state => state.components.data);
@@ -65,6 +66,7 @@ export default props => {
             <AddIcon />
           </IconButton>
         </div>
-        <ComponentPanel />
+        <Panel />
+        {/*<ComponentPanel />*/}
     </div>
 };

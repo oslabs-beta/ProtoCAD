@@ -4,3 +4,7 @@ package-lock.json
 yarn.lock
 dummyTest.js
 dist/
+coverage
+*.icloud
+ProtoCAD-darwin-x64
+release-builds

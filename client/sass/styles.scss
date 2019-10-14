@@ -1,9 +1,11 @@
+@import "./variables.scss";
 @import "./propsList.scss";
 @import "./misc.scss";
 @import "./componentPanel.scss";
 @import "./schemaBoard.scss";
 @import "./library.scss";
 @import "./tree.scss";
+@import "./panel.scss";
 
 *, *::before, *::after {
   margin: 0;
@@ -77,4 +79,44 @@
   fill: #4242ea;
   stroke: #4242ea;
   stroke-width: 2;
+}
+
+.button {
+  margin-right: 8px;
+  border: 1px solid #4242ea;
+  color: #4242ea;
+  background-color: white;
+  &.red {
+    border: 1px solid red;
+    color: red;
+    background-color: white;
+    transform: translateY(1.1);
+    transition: 0.3s;
+    &:hover {
+      background-color: white;
+      transform: translateY(1.1);
+    }
+  }
+}
+
+.inline {
+  display: flex;
+  &.between {
+    justify-content: space-between;
+  }
+}
+
+.space {
+  &.up {
+    margin-top: 10px;
+  }
+  &.down {
+
+  }
+  &.left {
+
+  }
+  &.right {
+
+  }
 }

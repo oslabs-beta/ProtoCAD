@@ -30,7 +30,9 @@ export default props => {
         variant="contained"
         size="small"
         id="importButton"
-        onClick={}>
+        onClick={() => {
+            console.log("Hello, Button");
+        }}>
           Import
       </Button>
    </div>;

@@ -1,12 +1,18 @@
+@import "./variables.scss";
+@import "./propsList.scss";
+@import "./misc.scss";
 @import "./componentPanel.scss";
 @import "./schemaBoard.scss";
+@import "./library.scss";
 @import "./tree.scss";
+@import "./panel.scss";
 
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 #root {
   height: 100vh;
   width: 100vw;
@@ -17,36 +23,40 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 4fr 1fr;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 9fr 1fr;
+  grid-template-columns: 2fr 5fr 3fr;
+  font-family: 'Work Sans', sans-serif;
 }
+
 #library {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  background: darkcyan;
+  background: white;
   padding: 10px;
   overflow: scroll;
+  border-right: solid 1px #e4e0e0;
 }
 
 #misc {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
-  background: aqua;
-  padding: 10px;
+  background: white;
+  padding: 16px 10px 10px 10px;
   overflow: scroll;
+  border-right: solid 1px #e4e0e0;
 }
 
 #dashboard {
   grid-column: 2 / 3;
   grid-row: 1 / 3;
-  background: aliceblue;
+  background: white;
   overflow: scroll;
 }
 
 #schemaBoard {
   grid-column: 3 / 4;
   grid-row: 1 / 3;
-  background: aquamarine;
+  background: white;
   overflow: scroll;
   height: 100%;
 }
@@ -54,4 +64,59 @@
 #componentList {
   margin-top: 10px;
   margin-bottom: 20px;
+}
+
+// Nodes on tree graph
+.nodeBase {
+  cursor: pointer;
+  fill: #4242ea;
+  stroke: #4242ea;
+  stroke-width: 2;
+}
+
+.leafNodeBase {
+  cursor: pointer;
+  fill: #4242ea;
+  stroke: #4242ea;
+  stroke-width: 2;
+}
+
+.button {
+  margin-right: 8px;
+  border: 1px solid #4242ea;
+  color: #4242ea;
+  background-color: white;
+  &.red {
+    border: 1px solid red;
+    color: red;
+    background-color: white;
+    transform: translateY(1.1);
+    transition: 0.3s;
+    &:hover {
+      background-color: white;
+      transform: translateY(1.1);
+    }
+  }
+}
+
+.inline {
+  display: flex;
+  &.between {
+    justify-content: space-between;
+  }
+}
+
+.space {
+  &.up {
+    margin-top: 10px;
+  }
+  &.down {
+
+  }
+  &.left {
+
+  }
+  &.right {
+
+  }
 }

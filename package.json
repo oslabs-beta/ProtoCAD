@@ -63,6 +63,7 @@
     "@material-ui/core": "^4.5.0",
     "@types/jest": "^24.0.18",
     "@types/mocha": "^5.2.7",
+    "@material-ui/icons": "^4.5.1",
     "codemirror": "^5.49.0",
     "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",

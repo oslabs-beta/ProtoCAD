@@ -1,0 +1,19 @@
+.eachPanel {
+  border-radius: 15px;
+  overflow: hidden;
+  .eachPanelDetail {
+    //background: rgba(0,0,0, 0.1);
+    display: flex;
+    flex-direction: column;
+    .panel_typography {
+      display: inline-block;
+    }
+  }
+  .currentOpen {
+    background-color: $primary-color-lighter;
+    color: white;
+    & svg {
+      fill: white !important;
+    }
+  }
+}

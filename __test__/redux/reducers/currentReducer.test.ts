@@ -16,4 +16,5 @@ describe('Current Component Reducer', function () {
         // expect(updatedState.data).toHaveProperty('children', 'C1');
         // expect(updatedState.data).toHaveProperty('attributes', 'C1');
     });
+
 });

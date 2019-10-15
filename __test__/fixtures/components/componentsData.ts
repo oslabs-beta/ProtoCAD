@@ -59,12 +59,13 @@ export const addchildResult = {
             children: []
          }
 };
+
 export const addAttributesComponent = {
     selectedComponent:{
     name: 'C2',
-    attributes: 
+    attributes:
     { id: 'ID' },
-    children: [] 
+    children: []
     },
     attributes : {
         name: 'S1'
@@ -74,14 +75,27 @@ export const addAttributesComponent = {
 export const addAttributesResult = {
     selectedComponent:{
         name: 'C2',
-        attributes: 
+        attributes:
         { id: 'ID' },
-        children: [] 
+        children: []
         },
         attributes : {
             name: 'S1'
         }
 };
+
+export const removeAttributesComponent = {
+    selectedComponent:{
+    name: 'C2',
+    attributes:
+    { id: 'ID', name: 'S2' },
+    children: []
+    },
+    attributes : {
+        name: 'S2'
+    }
+};
+
 export const editcurrentComponent = {
     name: 'C2',
     attributes: { id: 'ID' },

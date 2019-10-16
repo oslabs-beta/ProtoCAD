@@ -1,5 +1,6 @@
 .panel {
-  padding: 5px 10px;
+  color: black;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   border-radius: 7px;
@@ -13,7 +14,29 @@
   &:not(:last-child) {
     margin-bottom: 8px;
   }
+  button {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+    &:focus {
+      background-color: transparent;
+      border-color: transparent;
+      outline: none;
+    }
+  }
 }
 .currentPanel {
-  background: darkslateblue;
+  background: $primary-color;
+  color: white;
+  &:hover {
+    background: gray;
+    cursor: pointer;
+    color: black;
+    button {
+        color: black;
+    }
+  }
+  button {
+    color: white;
+  }
 }

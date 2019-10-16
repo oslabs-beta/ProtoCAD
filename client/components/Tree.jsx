@@ -72,7 +72,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSelectedComponent: data => dispatch(setSelectedComponent(data))
+  setSelectedComponent: data => dispatch(setSelectedComponent(data)),
+  setCurrentComponent: data => dispatch(setCurrentComponent(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTree);

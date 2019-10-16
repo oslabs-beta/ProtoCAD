@@ -6,10 +6,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { addAttribute, setCurrentComponent } from "../actions/componentsAction";
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
+const useStyles = makeStyles(theme => ({
+  input: {
+     margin: theme.spacing(1),
+    '&:after': {
+     borderBottom: '2px solid #55b5e6',
+   },
+  },
+}));
+
 
 export default props => {
 
     const dispatch = useDispatch();
+    const classes = useStyles({});
 
     const [attribute, setAttributes] = React.useState({
         name: '',
@@ -34,8 +49,9 @@ export default props => {
     };
 
     return (
-        <div>
+        <div className="attribute-form">
             <Input
+                className={classes.input}
                 value={attribute.name}
                 onChange={handleChange}
                 placeholder="Name of Prop"
@@ -43,6 +59,7 @@ export default props => {
             >
             </Input>
             <Select
+                className={classes.input}
                 value={attribute.type}
                 onChange={handleChange}
                 inputProps={{
@@ -56,11 +73,11 @@ export default props => {
                 <MenuItem value={'Int'}>Int</MenuItem>
                 <MenuItem value={'Float'}>Float</MenuItem>
             </Select>
-            <IconButton
-                size="small"
+            <Button
+                className="attribute-form-field button"
                 onClick={onButtonClick}>
-                <AddIcon />
-            </IconButton>
+                Add Prop
+            </Button>
         </div>
     )
 };

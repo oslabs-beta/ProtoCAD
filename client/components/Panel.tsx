@@ -85,7 +85,7 @@ const EachPanel = props => {
                 })
             }
             <Button
-                className={'button red space up'}
+                className={'button alert space up'}
                 variant="contained"
                 size="small"
                 id="exportButton"

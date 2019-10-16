@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { createComponent } from '../actions/componentsAction';
 import { useSelector, useDispatch } from 'react-redux';
+import Logo from '../logo.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   input: {
      margin: theme.spacing(1),
     '&:after': {
-     borderBottom: '2px solid #8700ff',
+     borderBottom: '2px solid #55b5e6',
    },
   },
 }));
@@ -49,6 +50,7 @@ export default props => {
     };
     return <div id={'library'}>
         <div id="appName">
+          <Logo />
           <h3>ProtoCAD</h3>
         </div>
         <div id="addComponent">

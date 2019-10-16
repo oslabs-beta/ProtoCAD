@@ -22,5 +22,6 @@ module.exports = {
   testMatch: [
     "**/__test__/**/*.test.(ts|tsx|js)"
   ],
+
   collectCoverage: true
 };

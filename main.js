@@ -34,9 +34,9 @@ const setMenu = main => {
           label: 'New Project',
           click() {
             dialog.showOpenDialog(null, {
-              properties: ['openFile', 'openDirectory']
+              properties: ['openDirectory']
             }, filePaths => {
-              console.log(filePaths);
+              main.webContents.send('rootDir', filePaths);
             });
           },
           accelerator: 'Cmd+n'
@@ -52,6 +52,20 @@ const setMenu = main => {
           },
           accelerator: 'Cmd+o'
         }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload' },
+        { role: 'forcereload' },
+        { role: 'toggledevtools' },
+        { type: 'separator' },
+        { role: 'resetzoom' },
+        { role: 'zoomin' },
+        { role: 'zoomout' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' }
       ]
     }
   ];
@@ -82,6 +96,9 @@ app.on('ready', function(){
     height: 600,
     webPreferences: {
       nodeIntegration: false,
+      // All built-in modules of Node.js are supported in Web Workers, and asar archives can still be read with Node.js
+      // APIs. However none of Electron's built-in modules can be used in a multi-threaded environment.
+      nodeIntegrationInWorker: true,
       preload: __dirname + '/preload.js',
       experimentalFeatures: true // to enable grid on browserwindow electron
     }

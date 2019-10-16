@@ -12,3 +12,4 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 window.ipcRenderer = require('electron').ipcRenderer;
+window.fileSys = require('fs');

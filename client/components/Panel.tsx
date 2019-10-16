@@ -59,7 +59,7 @@ const EachPanel = props => {
             {
                 Object.keys(props.attributes).map((key, i) => {
                     return (
-                        <div className={'inline between'}>
+                        <div className={'inline between'} key={i}>
                             <Typography key={i} className={'panel_typography'}>
                                 {
                                     `${key}: ${props.attributes[key]}`

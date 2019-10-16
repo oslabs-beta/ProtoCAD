@@ -5,7 +5,8 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "lib": ["es6"]
   },
   "exclude": [
     "node_modules"

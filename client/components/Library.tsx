@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   input: {
      margin: theme.spacing(1),
     '&:after': {
-     borderBottom: '2px solid #4242ea',
+     borderBottom: '2px solid #8700ff',
    },
   },
 }));

@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteComponent, setCurrentComponent} from "../actions/componentsAction";
+import {deleteComponent, deleteAttribute, setCurrentComponent} from "../actions/componentsAction";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -33,8 +33,8 @@ const EachPanel = props => {
 
     const dispatch = useDispatch();
 
-    const handleClick = e => {
-
+    const handleClick = (myItem, key) => {
+        dispatch(deleteAttribute(myItem, key));
     };
     const handleDelete = e => {
         dispatch(deleteComponent(props.item));
@@ -59,18 +59,27 @@ const EachPanel = props => {
             {
                 Object.keys(props.attributes).map((key, i) => {
                     return (
-                        <div className={'inline between'}>
+                        <div className={'inline between'} key={i}>
                             <Typography key={i} className={'panel_typography'}>
                                 {
                                     `${key}: ${props.attributes[key]}`
                                 }
                             </Typography>
-                            <IconButton
-                                size="small"
-                                onClick={handleClick}
-                                className={classes.button}>
-                                <RemoveIcon/>
-                            </IconButton>
+                            {
+                              key !== 'id' ? (
+                                <IconButton
+                                  size="small"
+                                  onClick={() => handleClick(props.item, key)}
+                                  className={classes.button}>
+                                  <RemoveIcon/>
+                                </IconButton>
+                            ) : <IconButton
+                              size="small"
+                              disabled
+                              onClick={() => handleClick(props.item, key)}
+                              className={classes.button}>
+                              <RemoveIcon/>
+                            </IconButton>}
                         </div>
                     );
                 })

@@ -69,22 +69,22 @@
 // Nodes on tree graph
 .nodeBase {
   cursor: pointer;
-  fill: #4242ea;
-  stroke: #4242ea;
+  fill: $primary-color;
+  stroke: $primary-color;
   stroke-width: 2;
 }
 
 .leafNodeBase {
   cursor: pointer;
-  fill: #4242ea;
-  stroke: #4242ea;
+  fill: $primary-color;
+  stroke: $primary-color;
   stroke-width: 2;
 }
 
 .button {
   margin-right: 8px;
-  border: 1px solid #4242ea;
-  color: #4242ea;
+  border: 1px solid $primary-color;
+  color: $primary-color;
   background-color: white;
   &.red {
     border: 1px solid red;

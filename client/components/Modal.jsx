@@ -40,8 +40,6 @@ export default props => {
                   </div>
                 }
               <div id="propsContainer">
-                <h4 id="simple-modal-title">Add Prop</h4>
-                <hr />
                 <AttributePanel modal={true} handleClose={props.handleClose} />
               </div>
           </div>

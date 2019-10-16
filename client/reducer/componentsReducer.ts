@@ -1,4 +1,4 @@
-import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE, DELETE_ATTRIBUTE} from '../actions/types';
+import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE, DELETE_ATTRIBUTE, DELETE_ONE_COMPONENT} from '../actions/types';
 // import {cloneDeep} from 'lodash';
 
 const defaultState = {
@@ -35,6 +35,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         data: addChildComponent(state.data, action.payload)
+      };
+    case DELETE_ONE_COMPONENT:
+      return {
+        ...state,
+        data: deleteOneComponent(state.data, action.payload)
       };
     case ADD_ATTRIBUTE:
       return {
@@ -79,7 +84,7 @@ const deleteOneComponent = (components, { parentComponent, data }) => {
   return components.map(item => {
     if (item.name === parentComponent.name) return {
       ...parentComponent,
-      children: parentComponent.children.filter(childItem => childItem.name === data.name)
+      children: parentComponent.children.filter(childItem => childItem.name !== data.name)
     };
     else return {
       ...item,

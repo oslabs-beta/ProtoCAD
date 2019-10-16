@@ -91,9 +91,7 @@ export const removeAttributesComponent = {
     { id: 'ID', name: 'S2' },
     children: []
     },
-    attributes : {
-        name: 'S2'
-    }
+    attributeKey: 'id'
 };
 
 export const editcurrentComponent = {

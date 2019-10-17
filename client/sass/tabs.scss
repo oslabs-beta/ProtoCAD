@@ -1,0 +1,12 @@
+#tabs {
+  .MuiAppBar-colorPrimary {
+    background-color: $white;
+    color: $dark;
+  }
+  .MuiAppBar-colorPrimary {
+    box-shadow: none;
+  }
+}
+#tabs > header > div > div > span {
+  background-color: #ff6c6c;
+}

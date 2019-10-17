@@ -8,7 +8,9 @@ import {
     SET_CURRENT_COMPONENT,
     DELETE_ATTRIBUTE,
     SET_SELECTED_COMPONENT,
-    DELETE_ONE_COMPONENT
+    DELETE_ONE_COMPONENT,
+    SET_DIRECTORY,
+    SET_CURRENT_FILE
 } from './types';
 
 export const createComponent = data => ({
@@ -56,7 +58,7 @@ export const deleteAttribute = (selectedComponent, attributeKey) => ({
       selectedComponent,
       attributeKey
   }
-})
+});
 
 export const editCurrentComponent = data => ({
     type: EDIT_CURRENT_COMPONENT,
@@ -71,5 +73,15 @@ export const setCurrentComponent = data => ({
 // Selected Component Actions
 export const setSelectedComponent = data => ({
     type: SET_SELECTED_COMPONENT,
+    payload: data
+});
+
+export const setDirectory = data => ({
+    type: SET_DIRECTORY,
+    payload: data
+});
+
+export const setCurrentFile = data => ({
+    type: SET_CURRENT_FILE,
     payload: data
 });

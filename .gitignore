@@ -8,3 +8,4 @@ coverage
 *.icloud
 ProtoCAD-darwin-x64
 release-builds
+npm-debug*

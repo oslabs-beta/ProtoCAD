@@ -14,7 +14,7 @@ let mainWindow;
 app.on('ready', function(){
 
   // Add React and Redux extension to Electron browser; And call this when browser is ready
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' && process.platform === 'darwin') {
     BrowserWindow.addDevToolsExtension(
       path.join(os.homedir(), `/Library/Application Support/Google/Chrome/Default/Extensions/${config('development').reactExtensionHash}`)
     );
@@ -46,14 +46,8 @@ app.on('ready', function(){
   })
 });
 
-ipcMain.on('test', (e, data) => {
-  console.log(data);
-});
-
 // Catch item
-ipcMain.on('schema', function(e, data){
-  //data will come as json so we parse
-  let item = data;
+ipcMain.on('schema', function(e, item){
   let schema = '';
   let query = 'type Query {\n';
   //let resolver = 'Query: {\n';
@@ -61,6 +55,7 @@ ipcMain.on('schema', function(e, data){
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
+    query += `  ${node.name.toLowerCase()}(id: ID!): ${node.name},\n`
 
     let props = '';
     for(let x in node.attributes) {
@@ -68,17 +63,15 @@ ipcMain.on('schema', function(e, data){
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
-      children+= `${node.children[i].name.toLowerCase()}: `;
-      //node.children[i].arr ? children+= `[${node.children[i].name}],\n` : children+= `${node.children[i].name},\n`
-      children+= `[${node.children[i].name}],\n`
-      query += `${node.children[i].name.toLowerCase()}(id: ID!): ${node.children[i].name},\n`
+      children+= `${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
     }
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
-    schema += `type ${node.name} {\n
-      ${props}${children}\n
-    };\n\n`;
+    schema += 
+`type ${node.name} {
+  ${props}${children}
+};\n\n`;
   }
 
 

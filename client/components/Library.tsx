@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { createComponent } from '../actions/componentsAction';
 import { useSelector, useDispatch } from 'react-redux';
+import Tabs from './Tabs';
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   input: {
      margin: theme.spacing(1),
     '&:after': {
-     borderBottom: '2px solid #4242ea',
+     borderBottom: '2px solid #8700ff',
    },
   },
 }));
@@ -66,7 +67,8 @@ export default props => {
             <AddIcon />
           </IconButton>
         </div>
-        <Panel />
+        {/*<Panel />*/}
+        <Tabs />
         {/*<ComponentPanel />*/}
     </div>
 };

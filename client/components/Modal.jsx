@@ -32,7 +32,7 @@ export default props => {
               top: `${props.y}px`,
               left: `${props.x}px`
           }} className={classes.paper}>
-                {components.length > 0 &&
+                {components.length > 1 &&
                   <div id="componentList">
                     <h4 id="simple-modal-title">Your Library</h4>
                     <hr />

@@ -5,9 +5,14 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "types": ["react", "react-dom", "enzyme", "jest", "mocha"]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "coverage",
+    "ProtoCAD-darwin-x64",
+    "release-builds"
   ]
 }

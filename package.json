@@ -2,7 +2,7 @@
   "name": "ProtoCAD",
   "version": "1.0.0",
   "description": "React Prototyping Tool for Component as a Data",
-  "main": "main.js",
+  "main": "main.ts",
   "scripts": {
     "start": "electron .",
     "build": "webpack -w",

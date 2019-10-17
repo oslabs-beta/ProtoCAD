@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   button: {
-    marginLeft: '5px'
+    marginLeft: '5px',
   },
   input: {
      margin: theme.spacing(1),
@@ -61,12 +61,22 @@ export default props => {
             className={classes.input}
             onChange={e => setValue(e.target.value)}
           />
+          {
+            value === '' ? (
           <IconButton
-            size="small"
+            size="medium"
+            onClick={onClick}
+            disabled
+            className={classes.button}>
+            <AddIcon />
+          </IconButton>) :
+          <IconButton
+            size="medium"
             onClick={onClick}
             className={classes.button}>
             <AddIcon />
           </IconButton>
+        }
         </div>
         <Panel />
         {/*<ComponentPanel />*/}

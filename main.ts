@@ -1,14 +1,17 @@
 const electron = require('electron');
 const url = require('url');
+// @ts-ignore
 const path = require('path');
 const os = require('os');
+// @ts-ignore
+const fs = require('fs');
+const getDirectory = require('./utils/getDirectory.ts');
 
 const config = require('./config');
 
 const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 
 const isMac = process.platform === 'darwin';
-
 
 const setMenu = main => {
   // set menu
@@ -36,7 +39,14 @@ const setMenu = main => {
             dialog.showOpenDialog(null, {
               properties: ['openDirectory']
             }, filePaths => {
-              main.webContents.send('rootDir', filePaths);
+              if (filePaths.length === 0) return;
+              getDirectory.readFile(filePaths[0]).then(result => {
+                main.webContents.send('newProject', result);
+              }).catch(err => {
+                console.log('error');
+                console.log(err);
+                main.webContents.send('newProject', err);
+              });
             });
           },
           accelerator: 'Cmd+n'
@@ -47,10 +57,17 @@ const setMenu = main => {
             dialog.showOpenDialog(null, {
               properties: ['openFile', 'openDirectory']
             }, filePaths => {
-              console.log(filePaths);
+              main.webContents.send('openProject', filePaths);
             });
           },
           accelerator: 'Cmd+o'
+        },
+        {
+          label: 'Save Project',
+          click() {
+
+          },
+          accelerator: 'Cmd+s'
         }
       ]
     },
@@ -148,7 +165,7 @@ ipcMain.on('schema', function(e, item){
     schema += `type ${node.name} {\n
       ${props}${children}\n
     };\n\n`;
-  }
+  };
 
   //run helper function for every root node
   for(let i = 0; i < item.length; i++) {
@@ -162,4 +179,23 @@ ipcMain.on('schema', function(e, item){
   schema += query;
 
   mainWindow.webContents.send('schema', schema);
+});
+
+ipcMain.on('openDirectory', (e, { name, path }) => {
+  getDirectory.readFile(path).then(result => {
+    mainWindow.webContents.send('readDirectory', result);
+  }).catch(error => {
+    throw error;
+  });
+});
+
+ipcMain.on('editor', (e, data) => {
+
+});
+
+ipcMain.on('readFile', (e, path) => {
+  fs.readFile(path, (err, data) => { // buffer data
+    if (err) throw err;
+    mainWindow.webContents.send('editor', data.toString());
+  });
 });

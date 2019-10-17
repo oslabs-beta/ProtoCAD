@@ -7,6 +7,7 @@
 @import "./library.scss";
 @import "./tree.scss";
 @import "./panel.scss";
+@import "./tabs.scss";
 
 *, *::before, *::after {
   margin: 0;
@@ -60,15 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #schemaBoard {
   grid-column: 3 / 4;
-  grid-row: 1 / 2;
-  background: white;
-  overflow: scroll;
-  height: 100%;
-}
-
-#fileTree {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
+  grid-row: 1 / 3;
   background: white;
   overflow: scroll;
   height: 100%;

@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "allowJs": true,
-    "types": ["react", "react-dom", "enzyme", "jest", "mocha"],
+    "types": ["react", "react-dom", "enzyme", "jest", "mocha", "electron", "node"],
     "lib": ["es6", "dom"]
   },
   "exclude": [

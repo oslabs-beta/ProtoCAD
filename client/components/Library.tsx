@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
      margin: theme.spacing(1),
     '&:after': {
      borderBottom: '2px solid #55b5e6',
+     fontSize: '14',
    },
   },
 }));
@@ -57,6 +58,7 @@ export default props => {
           <Input
             value={value}
             name={'nameInput'}
+            inputStyle={{ fontSize: "10px" }}
             placeholder={'Component Name'}
             className={classes.input}
             onChange={e => setValue(e.target.value)}

@@ -27,12 +27,16 @@ app.on('ready', function(){
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    minWidth: 1080,
     webPreferences: {
       nodeIntegration: false,
       preload: __dirname + '/preload.js',
       experimentalFeatures: true // to enable grid on browserwindow electron
     }
   });
+
+  mainWindow.maximize();
+
   //Load html into window
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),

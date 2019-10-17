@@ -42,7 +42,7 @@ const defaultState = {
     }
 };
 
-export default (state = defaultState, action) => {
+export default (state: any = defaultState, action) => {
     switch (action.type) {
         case SET_CURRENT_COMPONENT:
             return {

@@ -20,11 +20,9 @@ const useStyles = makeStyles(theme => ({
     marginLeft: '5px',
   },
   input: {
-     margin: theme.spacing(1),
-    '&:after': {
-     borderBottom: '2px solid #55b5e6',
-     fontSize: '14',
-   },
+    margin: theme.spacing(1),
+    borderBottom: '2px solid #55b5e6',
+    fontSize: '14',
   },
 }));
 
@@ -50,20 +48,23 @@ export default props => {
         }
         setValue('');
     };
+    // @ts-ignore
     return <div id={'library'}>
         <div id="appName">
           <Logo />
           <h3>ProtoCAD</h3>
         </div>
         <div id="addComponent">
-          <Input
-            value={value}
-            name={'nameInput'}
-            inputStyle={{ fontSize: "10px" }}
-            placeholder={'Component Name'}
-            className={classes.input}
-            onChange={e => setValue(e.target.value)}
-          />
+            <Input
+                value={value}
+                name={'nameInput'}
+                placeholder="Component Name"
+                className={classes.input}
+                inputProps={{
+                    'aria-label': 'description',
+                }}
+                onChange={e => setValue(e.target.value)}
+            />
           {
             value === '' ? (
           <IconButton

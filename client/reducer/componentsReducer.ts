@@ -24,6 +24,26 @@ const defaultState = {
     {
       name: 'Fellow',
       attributes: {
+      'id': 'ID',
+      'name': 'String',
+      'cohort': 'Int',
+    },
+      parent: {},
+      children: []
+    },
+    {
+      name: 'Instructor',
+      attributes: {
+        id: 'ID',
+        name: 'String',
+      },
+      parent: {},
+      children: []
+    }],
+  },
+    {
+      name: 'Fellow',
+      attributes: {
         'id': 'ID',
         'name': 'String',
         'cohort': 'Int',
@@ -39,40 +59,17 @@ const defaultState = {
       },
       parent: {},
       children: []
-    }]
-  },
-  {
-    name: 'Student',
-    attributes: {
-      'id': 'ID',
-      'name': 'String',
-      'cohort': 'Int',
-    },
-    parent: {},
-    children: []
-  },
-  {
-    name: 'Fellow',
-    attributes: {
-      'id': 'ID',
-      'name': 'String',
-      'cohort': 'Int',
-    },
-    parent: {},
-    children: []
-  },
-  {
-    name: 'Instructor',
-    attributes: {
-      'id': 'ID',
-      'name': 'String',
-    },
-    parent: {},
-    children: []
-  },
+    }
+  ]
 };
 
-export default (state = defaultState, action) => {
+interface stateObj {
+  error: any
+  loading: boolean
+  data: [object],
+}
+
+export default (state: any = defaultState, action) => {
   switch(action.type) {
     case CREATE_COMPONENT:
       return {

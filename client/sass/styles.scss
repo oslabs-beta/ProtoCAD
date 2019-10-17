@@ -55,7 +55,15 @@
 
 #schemaBoard {
   grid-column: 3 / 4;
-  grid-row: 1 / 3;
+  grid-row: 1 / 2;
+  background: white;
+  overflow: scroll;
+  height: 100%;
+}
+
+#fileTree {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
   background: white;
   overflow: scroll;
   height: 100%;

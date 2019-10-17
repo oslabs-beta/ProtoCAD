@@ -5,13 +5,71 @@ const defaultState = {
   error: null,
   loading: false,
   data: [{
-    name: 'Root',
+    name: 'School',
     attributes: {
       'id': 'ID',
+      'name': 'String',
+    },
+    parent: {},
+    children: [{
+      name: 'Student',
+      attributes: {
+        'id': 'ID',
+        'name': 'String',
+        'cohort': 'Int',
+      },
+      parent: {},
+      children: []
+    },
+    {
+      name: 'Fellow',
+      attributes: {
+        'id': 'ID',
+        'name': 'String',
+        'cohort': 'Int',
+      },
+      parent: {},
+      children: []
+    },
+    {
+      name: 'Instructor',
+      attributes: {
+        'id': 'ID',
+        'name': 'String',
+      },
+      parent: {},
+      children: []
+    }]
+  },
+  {
+    name: 'Student',
+    attributes: {
+      'id': 'ID',
+      'name': 'String',
+      'cohort': 'Int',
     },
     parent: {},
     children: []
-  }]
+  },
+  {
+    name: 'Fellow',
+    attributes: {
+      'id': 'ID',
+      'name': 'String',
+      'cohort': 'Int',
+    },
+    parent: {},
+    children: []
+  },
+  {
+    name: 'Instructor',
+    attributes: {
+      'id': 'ID',
+      'name': 'String',
+    },
+    parent: {},
+    children: []
+  },
 };
 
 export default (state = defaultState, action) => {

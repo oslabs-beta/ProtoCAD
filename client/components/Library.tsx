@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createComponent } from '../actions/componentsAction';
 import { useSelector, useDispatch } from 'react-redux';
 import Tabs from './Tabs';
+import Logo from '../logo.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -16,12 +17,13 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   button: {
-    marginLeft: '5px'
+    marginLeft: '5px',
   },
   input: {
      margin: theme.spacing(1),
     '&:after': {
-     borderBottom: '2px solid #8700ff',
+     borderBottom: '2px solid #55b5e6',
+     fontSize: '14',
    },
   },
 }));
@@ -50,22 +52,34 @@ export default props => {
     };
     return <div id={'library'}>
         <div id="appName">
+          <Logo />
           <h3>ProtoCAD</h3>
         </div>
         <div id="addComponent">
           <Input
             value={value}
             name={'nameInput'}
+            inputStyle={{ fontSize: "10px" }}
             placeholder={'Component Name'}
             className={classes.input}
             onChange={e => setValue(e.target.value)}
           />
+          {
+            value === '' ? (
           <IconButton
-            size="small"
+            size="medium"
+            onClick={onClick}
+            disabled
+            className={classes.button}>
+            <AddIcon />
+          </IconButton>) :
+          <IconButton
+            size="medium"
             onClick={onClick}
             className={classes.button}>
             <AddIcon />
           </IconButton>
+        }
         </div>
         {/*<Panel />*/}
         <Tabs />

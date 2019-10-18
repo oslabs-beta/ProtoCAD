@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   display: grid;
   grid-template-rows: 9fr 1fr;
-  grid-template-columns: 2fr 5fr 3fr;
+  grid-template-columns: 3fr 6fr 3fr;
   font-family: 'Work Sans', sans-serif;
 }
 
@@ -126,4 +126,12 @@ h1, h2, h3, h4, h5, h6 {
   &.right {
 
   }
+}
+
+.MuiTab-root {
+  min-width: 125px !important;
+}
+
+.MuiTabs-flexContainer {
+  margin: 0px 41px !important;
 }

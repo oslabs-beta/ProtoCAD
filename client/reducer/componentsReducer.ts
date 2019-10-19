@@ -42,6 +42,16 @@ const defaultState = {
     }],
   },
     {
+      name: 'Student',
+      attributes: {
+        'id': 'ID',
+        'name': 'String',
+        'cohort': 'Int',
+      },
+      parent: {},
+      children: []
+    },
+    {
       name: 'Fellow',
       attributes: {
         'id': 'ID',

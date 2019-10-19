@@ -24,16 +24,7 @@ export default props => {
         size="small"
         id="exportButton"
         onClick={onClick}>
-          Export
-      </Button>
-      <Button
-        variant="contained"
-        size="small"
-        id="importButton"
-        onClick={() => {
-            console.log("Hello, Button");
-        }}>
-          Import
+          Convert to GraphQL
       </Button>
    </div>;
 };

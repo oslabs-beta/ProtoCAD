@@ -15,11 +15,14 @@ describe('addchild component redux', function () {
         it('should dispatch the create component action', () => {
             const expectedActions = [
                 {
-                    payload: addchildComponent,
-                    type: ADD_CHILD_COMPONENT
+                  payload: addchildComponent,
+                  type: ADD_CHILD_COMPONENT
                 }
             ];
-            reduxStore.dispatch(addChildComponent(addchildResult.parentComponent, addchildResult.data));
+            reduxStore.dispatch(addChildComponent(
+              addchildResult.parentComponent,
+              addchildResult.data
+            ));
 
             expect(reduxStore.getActions()).toEqual(expectedActions);
         });

@@ -145,40 +145,40 @@ const deleteComponent = (components, payload) => {
 };
 
 // recursively delete one specific component by parent and child components with same name as payload
-const deleteOneComponent = (components, { parentComponent, data }) => {
+const deleteOneComponent = (components, { parentComponent, child }) => {
   return components.map(item => {
     if (item.name === parentComponent.name) return {
       ...parentComponent,
-      children: parentComponent.children.filter(childItem => childItem.name !== data.name)
+      children: parentComponent.children.filter(childItem => childItem.name !== child.name)
     };
     else return {
       ...item,
-      children: deleteOneComponent(item.children, {parentComponent, data})
+      children: deleteOneComponent(item.children, {parentComponent, child})
     };
   });
 };
 
 // recursively add child component of specific parent
-const addChildComponent = (components, { parentComponent, data }) => {
+const addChildComponent = (components, { parentComponent, child }) => {
   return components.map(item => {
     if (item.name === parentComponent.name) return {
       ...parentComponent,
       children: [...item.children, {
-        ...data,
+        ...child,
         parent: parentComponent
       }]
     };
     else return {
       ...item,
-      children: addChildComponent(item.children, {parentComponent, data})
+      children: addChildComponent(item.children, { parentComponent, child })
     };
   });
 };
 
 // recursively add attributes to child components
-const addAttribute = (components, { selectedComponent, attributes }) => {
+const addAttribute = (components, { component, attributes }) => {
   return components.map(item => {
-    if (item.name === selectedComponent.name) return {
+    if (item.name === component.name) return {
       ...item,
       attributes: {
         ...item.attributes,
@@ -187,19 +187,19 @@ const addAttribute = (components, { selectedComponent, attributes }) => {
     };
     else return {
       ...item,
-      children: addAttribute(item.children, { selectedComponent, attributes })
+      children: addAttribute(item.children, { component, attributes })
     };
   });
 };
 
 // recursively removes attributes to child components
-const deleteAttribute = (components, { selectedComponent, attributeKey }) => {
+const deleteAttribute = (components, { component, attributeKey }) => {
   return components.map(item => {
 
     let newData = Object.assign({}, item.attributes);
     delete newData[attributeKey];
 
-    if (item.name === selectedComponent.name) return {
+    if (item.name === component.name) return {
       ...item,
       attributes: {
         ...newData
@@ -207,7 +207,7 @@ const deleteAttribute = (components, { selectedComponent, attributeKey }) => {
     };
     else return {
       ...item,
-      children: deleteAttribute(item.children, { selectedComponent, attributeKey })
+      children: deleteAttribute(item.children, { component, attributeKey })
     };
   });
 };

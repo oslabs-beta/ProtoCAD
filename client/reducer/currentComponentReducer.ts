@@ -1,6 +1,10 @@
-import { SET_CURRENT_COMPONENT, EDIT_CURRENT_COMPONENT } from '../actions/types';
+import * as types from '../actions/types';
+import {
+  CurrentComponentStateInt
+} from '../utils/InterfaceDefinitions';
 
-const defaultState = {
+
+const defaultState: CurrentComponentStateInt = {
     error: null,
     loading: null,
     data: {
@@ -42,14 +46,14 @@ const defaultState = {
     }
 };
 
-export default (state: any = defaultState, action) => {
+export default (state: any = defaultState, action: any) => {
     switch (action.type) {
-        case SET_CURRENT_COMPONENT:
+        case types.SET_CURRENT_COMPONENT:
             return {
                 ...state,
                 data: action.payload
             };
-        case EDIT_CURRENT_COMPONENT:
+        case types.EDIT_CURRENT_COMPONENT:
             return {
                 ...state,
                 data: action.payload

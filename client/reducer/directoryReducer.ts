@@ -1,8 +1,7 @@
-import {
-    SET_DIRECTORY,
-    SET_CURRENT_FILE
-} from '../actions/types';
-const defaultState = {
+import * as types from '../actions/types';
+import { DirectoryStateInt } from '../utils/InterfaceDefinitions';
+
+const defaultState: DirectoryStateInt = {
     loading: false,
     error: null,
     data: {
@@ -13,7 +12,7 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case SET_DIRECTORY:
+        case types.SET_DIRECTORY:
             return {
                 ...state,
                 data: {
@@ -21,7 +20,7 @@ export default (state = defaultState, action) => {
                     root: action.payload
                 }
             };
-        case SET_CURRENT_FILE:
+        case types.SET_CURRENT_FILE:
             return {
                 ...state,
                 data: {

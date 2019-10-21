@@ -148,6 +148,7 @@ app.on('ready', function(){
 
 // Catch item
 ipcMain.on('schema', function(e, item){
+  console.log('catched on ipcMain schema');
   let schema = '';
   let query = 'type Query {\n';
   //let resolver = 'Query: {\n';

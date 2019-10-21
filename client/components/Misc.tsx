@@ -12,6 +12,7 @@ export default props => {
   const components = useSelector(state => state.components.data);
 
   const onClick = () => {
+      console.log(components);
       ipcRenderer.send('schema', components);
   };
 

@@ -156,16 +156,14 @@ ipcMain.on('schema', function(e, item){
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
-      children+= `${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
+      children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
     }
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
+    schema += `type ${node.name} {\n  ${props}${children}}\n\n`;
+  }
 
-    schema += `type ${node.name} {\n
-      ${props}${children}\n
-    };\n\n`;
-  };
 
   //run helper function for every root node
   for(let i = 0; i < item.length; i++) {

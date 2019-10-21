@@ -18,7 +18,8 @@ export default props => {
       dispatch(setCurrentComponent({}));
     }
   }, [components]);
+  
   return <div id={'dashboard'}>
-    <Tree />
+    <Tree components={components} current={current} />
   </div>
 };

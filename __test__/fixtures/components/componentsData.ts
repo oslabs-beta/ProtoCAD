@@ -1,3 +1,10 @@
+export const staticComponent = {
+    name: 'C1',
+    parent: {},
+    attributes: { id: 'ID' },
+    children: []
+};
+
 export const addComponent = {
     name: 'C1',
     parent: {},

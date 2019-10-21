@@ -3,7 +3,6 @@ import Logo from '../logo.jsx';
 import Tabs from './Tabs';
 
 export default props => {
-    // input value
     return <div id={'library'}>
         <div id="appName">
           <Logo />

@@ -1,14 +1,15 @@
-import { SET_SELECTED_COMPONENT } from '../actions/types';
-const defaultState = {
+import * as types from '../actions/types';
+import { SelectedComponentStateInt } from '../utils/InterfaceDefinitions';
+
+const defaultState: SelectedComponentStateInt = {
    loading: false,
    error: null,
-   data: {
-   }
+   data: {}
 };
 
 export default (state = defaultState, action) => {
    switch (action.type) {
-      case SET_SELECTED_COMPONENT:
+      case types.SET_SELECTED_COMPONENT:
          return {
             ...state,
             data: action.payload

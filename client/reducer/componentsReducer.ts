@@ -1,7 +1,13 @@
-import {ADD_CHILD_COMPONENT, CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE, DELETE_ATTRIBUTE, DELETE_ONE_COMPONENT} from '../actions/types';
-// import {cloneDeep} from 'lodash';
+import * as types from '../actions/types';
+import {
+  ComponentInt,
+  ParentInt,
+  ChildInt,
+  ComponentStateInt
+} from '../utils/InterfaceDefinitions';
 
-const defaultState = {
+
+const initialState: ComponentStateInt = {
   error: null,
   loading: false,
   data: [{
@@ -73,45 +79,39 @@ const defaultState = {
   ]
 };
 
-interface stateObj {
-  error: any
-  loading: boolean
-  data: [object],
-}
-
-export default (state: any = defaultState, action) => {
+export default (state = initialState, action: any) => {
   switch(action.type) {
-    case CREATE_COMPONENT:
+    case types.CREATE_COMPONENT:
       return {
         ...state,
         data: [...state.data, action.payload]
       };
-    case UPDATE_COMPONENT:
+    case types.UPDATE_COMPONENT:
       return {
         ...state,
         data: updateComponent(state.data, action.payload)
       };
-    case DELETE_COMPONENT:
+    case types.DELETE_COMPONENT:
       return {
         ...state,
         data: deleteComponent(state.data, action.payload)
       };
-    case ADD_CHILD_COMPONENT:
+    case types.ADD_CHILD_COMPONENT:
       return {
         ...state,
         data: addChildComponent(state.data, action.payload)
       };
-    case DELETE_ONE_COMPONENT:
+    case types.DELETE_ONE_COMPONENT:
       return {
         ...state,
         data: deleteOneComponent(state.data, action.payload)
       };
-    case ADD_ATTRIBUTE:
+    case types.ADD_ATTRIBUTE:
       return {
         ...state,
         data: addAttribute(state.data, action.payload)
       };
-    case DELETE_ATTRIBUTE:
+    case types.DELETE_ATTRIBUTE:
       return {
         ...state,
         data: deleteAttribute(state.data, action.payload)
@@ -122,7 +122,7 @@ export default (state: any = defaultState, action) => {
 };
 
 // recursively update components and child components with same name as payload
-const updateComponent = (components, payload) => {
+const updateComponent = (components: any[], payload: ComponentInt) => {
   return components.map(item => {
     if (item.name === payload.name) return payload;
     else return {
@@ -133,7 +133,7 @@ const updateComponent = (components, payload) => {
 };
 
 // recursively delete components and child components with same name as payload
-const deleteComponent = (components, payload) => {
+const deleteComponent = (components: any[], payload: ComponentInt) => {
   const newComponents = components.map(item => {
     if (item.name === payload.name) return false;
     else return {
@@ -145,7 +145,16 @@ const deleteComponent = (components, payload) => {
 };
 
 // recursively delete one specific component by parent and child components with same name as payload
-const deleteOneComponent = (components, { parentComponent, child }) => {
+const deleteOneComponent = (
+  components: any[],
+  {
+    parentComponent,
+    child
+  }: {
+  parentComponent: ParentInt,
+  child: ChildInt
+  }
+) => {
   return components.map(item => {
     if (item.name === parentComponent.name) return {
       ...parentComponent,
@@ -159,7 +168,16 @@ const deleteOneComponent = (components, { parentComponent, child }) => {
 };
 
 // recursively add child component of specific parent
-const addChildComponent = (components, { parentComponent, child }) => {
+const addChildComponent = (
+    components: any[],
+    {
+      parentComponent,
+      child
+    }: {
+    parentComponent: ParentInt,
+    child: ChildInt
+    },
+) => {
   return components.map(item => {
     if (item.name === parentComponent.name) return {
       ...parentComponent,
@@ -176,7 +194,16 @@ const addChildComponent = (components, { parentComponent, child }) => {
 };
 
 // recursively add attributes to child components
-const addAttribute = (components, { component, attributes }) => {
+const addAttribute = (
+  components: any[],
+  {
+    component,
+    attributes
+  }: {
+  component: ComponentInt,
+  attributes: object
+  },
+) => {
   return components.map(item => {
     if (item.name === component.name) return {
       ...item,
@@ -193,7 +220,16 @@ const addAttribute = (components, { component, attributes }) => {
 };
 
 // recursively removes attributes to child components
-const deleteAttribute = (components, { component, attributeKey }) => {
+const deleteAttribute = (
+  components: any[],
+  {
+    component,
+    attributeKey
+  }: {
+  component: ComponentInt,
+  attributeKey: string,
+  },
+) => {
   return components.map(item => {
 
     let newData = Object.assign({}, item.attributes);

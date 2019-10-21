@@ -10,7 +10,6 @@ export default props => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log('helllooooo')
     const newComponent = components.filter(item => item.name === current.name);
     if (newComponent.length > 0) dispatch(setCurrentComponent(newComponent[0]));
     else if (components.length > 0) {

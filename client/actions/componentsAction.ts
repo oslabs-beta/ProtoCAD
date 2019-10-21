@@ -77,7 +77,7 @@ export const setCurrentComponent = (component: ComponentInt | {}) => ({
     payload: component
 });
 
-export const setSelectedComponent = (component: ComponentInt) => ({
+export const setSelectedComponent = (component: ComponentInt | {}) => ({
     type: SET_SELECTED_COMPONENT,
     payload: component
 });

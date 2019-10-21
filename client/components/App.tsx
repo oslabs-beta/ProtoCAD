@@ -3,8 +3,11 @@ import Dashboard from './Dashboard';
 import Library from "./Library";
 import Misc from "./Misc";
 import SchemaBoard from "./SchemaBoard.jsx";
-import { setDirectory, setCurrentFile } from '../actions/componentsAction';
+import {setDirectory, setCurrentFile, setCode} from '../actions/componentsAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { remote } from 'electron';
+
+const { Menu, MenuItem } = remote;
 
 // @ts-ignore
 const ipcRenderer = window.ipcRenderer;
@@ -39,10 +42,12 @@ export default props => {
         dispatch(setDirectory(deepClone));
     });
     ipcRenderer.on('schema', (error, data) => {
-
+        dispatch(setCode(data));
     });
-    ipcRenderer.on('editor', (err, data) => {
 
+    ipcRenderer.on('editor', (err, data) => {
+        console.log(data);
+        dispatch(setCode(data));
     });
 
     return (<div id={'appContainer'}>

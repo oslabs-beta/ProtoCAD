@@ -1,9 +1,17 @@
 import * as React from 'react';
-import {Controlled as CodeMirror} from 'react-codemirror2'
-
-const ipcRenderer = window.ipcRenderer;
+import { Controlled as CodeMirror } from 'react-codemirror2'
+// import {setCode} from "../actions/componentsAction";
+import {useDispatch, useSelector} from "react-redux";
 
 const Editor = props => {
+  const externalCode = useSelector(state => state.code.data);
+  const [code, setCode] = React.useState(useSelector(state => state.code.data));
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setCode(externalCode);
+  }, [ externalCode ]);
+
   const [option, setOptions] = React.useState({
     lineNumbers: true,
     lineWrapping: true
@@ -12,18 +20,16 @@ const Editor = props => {
   const onChange = (editor, data, value) => {
 
   };
+
   const onBeforeChange = (editor, data, value) => {
-    props.setCode(value);
+    setCode(value);
   };
 
-  return <CodeMirror value={props.code} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />
+  return <CodeMirror value={code} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />
 };
 
 export default props => {
-
-  const [code, setCode] = React.useState('');
-
   return <div id={'schemaBoard'}>
-    <Editor code={code} setCode={setCode} />
+    <Editor/>
   </div>
 };

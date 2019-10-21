@@ -10,6 +10,8 @@ const ipcRenderer = window.ipcRenderer;
 export default props => {
 
   const components = useSelector(state => state.components.data);
+  const directory = useSelector(state => state.directory.data);
+  const code = useSelector(state => state.code.data);
 
   const onClick = () => {
       console.log(components);
@@ -19,6 +21,13 @@ export default props => {
   React.useEffect(() => {
   },[]);
 
+  const onConvert = () => {
+      ipcRenderer.send('editor', {
+          path: directory.root.path,
+          data: code
+      });
+  };
+
    return <div id={'misc'}>
       <Button
         variant="contained"
@@ -27,5 +36,12 @@ export default props => {
         onClick={onClick}>
           Convert to GraphQL
       </Button>
+       <Button
+           variant="contained"
+           size="small"
+           id="apollo"
+           onClick={onConvert}>
+           Convert to Apollo
+       </Button>
    </div>;
 };

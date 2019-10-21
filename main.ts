@@ -6,6 +6,7 @@ const os = require('os');
 // @ts-ignore
 const fs = require('fs');
 const getDirectory = require('./utils/getDirectory.ts');
+const genApolloTypedef = require('./utils/genApolloTypedef.ts');
 
 const config = require('./config');
 
@@ -70,6 +71,7 @@ const setMenu = main => {
           accelerator: 'Cmd+o'
         },
         {
+          id: '1',
           label: 'Save Project',
           click() {
 
@@ -121,7 +123,7 @@ app.on('ready', function(){
     height: 600,
     minWidth: 1080,
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       // All built-in modules of Node.js are supported in Web Workers, and asar archives can still be read with Node.js
       // APIs. However none of Electron's built-in modules can be used in a multi-threaded environment.
       nodeIntegrationInWorker: true,
@@ -148,44 +150,35 @@ app.on('ready', function(){
 
 // Catch item
 ipcMain.on('schema', function(e, item){
-  console.log('catched on ipcMain schema');
   let schema = '';
   let query = 'type Query {\n';
   //let resolver = 'Query: {\n';
-
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
     query += `  ${node.name.toLowerCase()}(id: ID!): ${node.name},\n`
-
     let props = '';
     for(let x in node.attributes) {
       props += `${x}: ${node.attributes[x]},\n`
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
-      children+= `${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
+      children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
     }
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
-
-    schema += `type ${node.name} {\n
-      ${props}${children}\n
-    };\n\n`;
+    schema += `type ${node.name} {\n  ${props}${children}}\n\n`;
   };
 
-  //run helper function for every root node
+//run helper function for every root node
   for(let i = 0; i < item.length; i++) {
     renderType(item[i]);
   }
-
-  //end query after its finished filling
+//end query after its finished filling
   query += `}`;
-
-  //add type query to schema after all the other types
+//add type query to schema after all the other types
   schema += query;
-
   mainWindow.webContents.send('schema', schema);
 });
 
@@ -197,8 +190,14 @@ ipcMain.on('openDirectory', (e, { name, path }) => {
   });
 });
 
-ipcMain.on('editor', (e, data) => {
-
+ipcMain.on('editor', (e, { path, data}) => {
+  console.log(path);
+  console.log(data);
+  const typedef = genApolloTypedef(data);
+  fs.writeFile(path + '/' + 'typedef.js', typedef, err => {
+    if (err) throw err;
+    console.log("successfully wrote!");
+  });
 });
 
 ipcMain.on('readFile', (e, path) => {

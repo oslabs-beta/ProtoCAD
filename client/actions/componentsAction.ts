@@ -5,6 +5,7 @@ import {
 } from '../utils/InterfaceDefinitions';
 
 import {
+    SET_CODE,
     CREATE_COMPONENT,
     DELETE_COMPONENT,
     UPDATE_COMPONENT,
@@ -90,5 +91,10 @@ export const setDirectory = (data: any) => ({
 
 export const setCurrentFile = (data: any) => ({
     type: SET_CURRENT_FILE,
+    payload: data
+});
+
+export const setCode = (data: any) => ({
+    type: SET_CODE,
     payload: data
 });

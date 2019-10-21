@@ -3,10 +3,10 @@ const url = require('url');
 // @ts-ignore
 const path = require('path');
 const os = require('os');
+const { fork } = require('child_process');
 // @ts-ignore
 const fs = require('fs');
 const getDirectory = require('./utils/getDirectory.ts');
-
 const config = require('./config');
 
 const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
@@ -94,6 +94,7 @@ const setMenu = main => {
 
 
 let mainWindow;
+const server = fork('./server/server.js')
 
 //Listen for app to be ready
 app.on('ready', function(){
@@ -148,11 +149,11 @@ ipcMain.on('schema', function(e, item){
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
-    query += `  ${node.name.toLowerCase()}(id: ID!): ${node.name},\n`
+    query += `  ${node.name.toLowerCase()}: ${node.name},\n`
 
     let props = '';
     for(let x in node.attributes) {
-      props += `${x}: ${node.attributes[x]},\n`
+      props += `  ${x}: ${node.attributes[x]},\n`
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
@@ -161,7 +162,7 @@ ipcMain.on('schema', function(e, item){
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
-    schema += `type ${node.name} {\n  ${props}${children}}\n\n`;
+    schema += `type ${node.name} {\n${props}${children}}\n\n`;
   }
 
 
@@ -176,6 +177,7 @@ ipcMain.on('schema', function(e, item){
   //add type query to schema after all the other types
   schema += query;
 
+  server.send(schema);
   mainWindow.webContents.send('schema', schema);
 });
 

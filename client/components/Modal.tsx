@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 export default props => {
 
     const components = useSelector(state => state.components.data);
-    const classes = useStyles();
+    const classes = useStyles({});
 
     return (
       <Modal

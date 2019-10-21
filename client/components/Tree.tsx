@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tree from 'react-d3-tree';
 import { ComponentInt } from '../utils/InterfaceDefinitions'
 import { setCurrentComponent, setSelectedComponent } from '../actions/componentsAction';
-import MyModal from './Modal.jsx';
+import MyModal from './Modal';
 
 
 interface PropsInt {

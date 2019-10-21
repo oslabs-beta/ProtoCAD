@@ -17,26 +17,21 @@ const useStyles = makeStyles({
 });
 
 
-
 export default function FileSystemNavigator() {
     const [files, setFiles] = React.useState({children: []});
     const classes = useStyles({});
 
     ipcRenderer.on('newProject', (error, data) => {
-        console.log('new project!');
         if (data.hasOwnProperty('path')) setFiles(data);
     });
 
     ipcRenderer.on('readDirectory', (error, data) => {
-        console.log('why console three times?');
-        // console.log(data); // { name: 'dir', path: '/Users/sasdfasdf/dir/, children: ['file.js', 'b.js'] }
         const queue = [];
         const deepClone = {...files};
         queue.push(deepClone);
         while (queue.length > 0) {
             const currentNode = queue[0];
             if (currentNode.path === data.path) { // matches the path
-                console.log('matched!');
                 currentNode.children = data.children;
                 break;
             }
@@ -50,7 +45,6 @@ export default function FileSystemNavigator() {
     });
 
     React.useEffect(() => {
-        console.log('changed!');
         console.log(files);
     }, [files]);
 

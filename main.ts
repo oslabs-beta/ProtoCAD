@@ -149,11 +149,11 @@ ipcMain.on('schema', function(e, item){
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
-    query += `  ${node.name.toLowerCase()}(id: ID!): ${node.name},\n`
+    query += `  ${node.name.toLowerCase()}: ${node.name},\n`
 
     let props = '';
     for(let x in node.attributes) {
-      props += `${x}: ${node.attributes[x]},\n`
+      props += `  ${x}: ${node.attributes[x]},\n`
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
@@ -162,7 +162,7 @@ ipcMain.on('schema', function(e, item){
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
-    schema += `type ${node.name} {\n  ${props}${children}}\n\n`;
+    schema += `type ${node.name} {\n${props}${children}}\n\n`;
   }
 
 

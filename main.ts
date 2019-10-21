@@ -1,8 +1,10 @@
 const electron = require('electron');
 const url = require('url');
+// @ts-ignore
 const path = require('path');
 const os = require('os');
 const { fork } = require('child_process');
+// @ts-ignore
 const fs = require('fs');
 const getDirectory = require('./utils/getDirectory.ts');
 const config = require('./config');

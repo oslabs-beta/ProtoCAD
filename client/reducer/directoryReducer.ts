@@ -2,11 +2,14 @@ import {
     SET_DIRECTORY,
     SET_CURRENT_FILE
 } from '../actions/types';
+
 const defaultState = {
     loading: false,
     error: null,
     data: {
-        root: '',
+        root: {
+            children: []
+        },
         file: ''
     }
 };

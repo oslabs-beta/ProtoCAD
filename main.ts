@@ -33,8 +33,26 @@ const setMenu = main => {
       submenu: [
         isMac ? { role: 'close'} : {role: 'quit'},
         { type: 'separator' },
+        // {
+        //   label: 'New Project',
+        //   click() {
+        //     dialog.showOpenDialog(null, {
+        //       properties: ['openDirectory']
+        //     }, filePaths => {
+        //       if (filePaths.length === 0) return;
+        //       getDirectory.readFile(filePaths[0]).then(result => {
+        //         main.webContents.send('newProject', result);
+        //       }).catch(err => {
+        //         console.log('error');
+        //         console.log(err);
+        //         main.webContents.send('newProject', err);
+        //       });
+        //     });
+        //   },
+        //   accelerator: 'Cmd+n'
+        // },
         {
-          label: 'New Project',
+          label: 'Open Project',
           click() {
             dialog.showOpenDialog(null, {
               properties: ['openDirectory']
@@ -47,17 +65,6 @@ const setMenu = main => {
                 console.log(err);
                 main.webContents.send('newProject', err);
               });
-            });
-          },
-          accelerator: 'Cmd+n'
-        },
-        {
-          label: 'Open Project',
-          click() {
-            dialog.showOpenDialog(null, {
-              properties: ['openFile', 'openDirectory']
-            }, filePaths => {
-              main.webContents.send('openProject', filePaths);
             });
           },
           accelerator: 'Cmd+o'

@@ -342,13 +342,19 @@ describe('Components Reducer', function () {
         };
         const updatedState = componentsReducer(updatedRoot, deleteChildAction);
         expect(updatedState.data).toHaveLength(1);
-        expect(updatedState.data[0].children[0].children).toBeNull;
+        expect(updatedState.data[0].children[0].children).toBeNull();
     });
 
 
     it('expected default state', () => {
 
-      const defaultState = {
+        interface stateObj {
+            error: any
+            loading: boolean
+            data: [object],
+        }
+
+      const defaultState: stateObj = {
         error: null,
         loading: false,
         data: [{

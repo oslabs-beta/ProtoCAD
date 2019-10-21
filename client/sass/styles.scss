@@ -1,11 +1,13 @@
 @import "./variables.scss";
 @import "./propsList.scss";
 @import "./misc.scss";
+@import "./modal.scss";
 @import "./componentPanel.scss";
 @import "./schemaBoard.scss";
 @import "./library.scss";
 @import "./tree.scss";
 @import "./panel.scss";
+@import "./tabs.scss";
 
 *, *::before, *::after {
   margin: 0;
@@ -18,13 +20,17 @@
   width: 100vw;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Work Sans', sans-serif;
+}
+
 /* Default Layout of App */
 #appContainer {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: 9fr 1fr;
-  grid-template-columns: 2fr 5fr 3fr;
+  grid-template-columns: 3fr 6fr 3fr;
   font-family: 'Work Sans', sans-serif;
 }
 
@@ -41,7 +47,7 @@
   grid-column: 1 / 2;
   grid-row: 2 / 3;
   background: white;
-  padding: 15px 15px 10px 15px;
+  padding: 25px 38px;
   overflow: scroll;
   border-right: solid 1px #e4e0e0;
 }
@@ -67,6 +73,7 @@
 }
 
 // Nodes on tree graph
+// fill: #ff6c6c;
 .nodeBase {
   cursor: pointer;
   fill: $primary-color;
@@ -86,9 +93,9 @@
   border: 1px solid $primary-color;
   color: $primary-color;
   background-color: white;
-  &.red {
-    border: 1px solid red;
-    color: red;
+  &.alert {
+    border: 1px solid #ff6c6c;
+    color: #ff6c6c;
     background-color: white;
     transform: translateY(1.1);
     transition: 0.3s;
@@ -119,4 +126,12 @@
   &.right {
 
   }
+}
+
+.MuiTab-root {
+  min-width: 125px !important;
+}
+
+.MuiTabs-flexContainer {
+  margin: 0px 41px !important;
 }

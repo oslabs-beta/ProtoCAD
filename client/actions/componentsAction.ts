@@ -1,4 +1,10 @@
 import {
+  ComponentInt,
+  ParentInt,
+  ChildInt,
+} from '../utils/InterfaceDefinitions';
+
+import {
     CREATE_COMPONENT,
     DELETE_COMPONENT,
     UPDATE_COMPONENT,
@@ -8,68 +14,81 @@ import {
     SET_CURRENT_COMPONENT,
     DELETE_ATTRIBUTE,
     SET_SELECTED_COMPONENT,
-    DELETE_ONE_COMPONENT
+    DELETE_ONE_COMPONENT,
+    SET_DIRECTORY,
+    SET_CURRENT_FILE
 } from './types';
 
-export const createComponent = data => ({
+
+export const createComponent = (component: ComponentInt) => ({
     type: CREATE_COMPONENT,
-    payload: data
+    payload: component
 });
 
-export const deleteComponent = (node) => ({
+export const deleteComponent = (component: ComponentInt) => ({
     type: DELETE_COMPONENT,
-    payload: node
+    payload: component
 });
 
-export const deleteOneComponent = (parentComponent, data) => ({
+export const deleteOneComponent = (parentComponent: ComponentInt, child: ChildInt) => ({
     type: DELETE_ONE_COMPONENT,
     payload: {
         parentComponent,
-        data
+        child
     }
 });
 
-export const updateComponent = data => ({
+export const updateComponent = (component: ComponentInt) => ({
     type: UPDATE_COMPONENT,
-    payload: data
+    payload: component
 });
 
-export const addChildComponent = (parentComponent, data) => ({
+export const addChildComponent = (parentComponent: ComponentInt, child: ChildInt) => ({
     type: ADD_CHILD_COMPONENT,
     payload: {
         parentComponent,
-        data
+        child
     }
 });
 
-export const addAttribute = (selectedComponent, attributes) => ({
+export const addAttribute = (component: ComponentInt, attributes: any) => ({
     type: ADD_ATTRIBUTE,
     payload: {
-        selectedComponent,
+        component,
         attributes
     }
 });
 
-export const deleteAttribute = (selectedComponent, attributeKey) => ({
+export const deleteAttribute = (component: ComponentInt, attributeKey: string) => ({
   type: DELETE_ATTRIBUTE,
   payload: {
-      selectedComponent,
+      component,
       attributeKey
   }
-})
+});
 
-export const editCurrentComponent = data => ({
+export const editCurrentComponent = (component: ComponentInt) => ({
     type: EDIT_CURRENT_COMPONENT,
-    payload: data
+    payload: component
 });
 
-export const setCurrentComponent = data => ({
+export const setCurrentComponent = (component: ComponentInt | {}) => ({
     type: SET_CURRENT_COMPONENT,
+    payload: component
+});
+
+export const setSelectedComponent = (component: ComponentInt | {}) => ({
+    type: SET_SELECTED_COMPONENT,
+    payload: component
+});
+
+
+export const setDirectory = (data: any) => ({
+    type: SET_DIRECTORY,
     payload: data
 });
 
-// Selected Component Actions
-export const setSelectedComponent = data => ({
-    type: SET_SELECTED_COMPONENT,
+export const setCurrentFile = (data: any) => ({
+    type: SET_CURRENT_FILE,
     payload: data
 });

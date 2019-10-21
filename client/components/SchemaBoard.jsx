@@ -5,7 +5,8 @@ const ipcRenderer = window.ipcRenderer;
 
 const Editor = props => {
   const [option, setOptions] = React.useState({
-    lineNumbers: true
+    lineNumbers: true,
+    lineWrapping: true
   });
 
 
@@ -24,6 +25,11 @@ export default props => {
   ipcRenderer.on('schema', (e, data) => {
     setCode(data);
   });
+
+  ipcRenderer.on('editor', (err, data) => {
+    setCode(data);
+  });
+
   return <div id={'schemaBoard'}>
     <Editor code={code} setCode={setCode} />
   </div>

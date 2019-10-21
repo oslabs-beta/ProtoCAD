@@ -2,13 +2,14 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 const os = require('os');
+const { fork } = require('child_process');
 
 const config = require('./config');
-
 
 const {app, BrowserWindow, ipcMain} = electron;
 
 let mainWindow;
+const server = fork('./server/server.js')
 
 //Listen for app to be ready
 app.on('ready', function(){
@@ -63,15 +64,12 @@ ipcMain.on('schema', function(e, item){
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
-      children+= `${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
+      children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
     }
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
-    schema += 
-`type ${node.name} {
-  ${props}${children}
-};\n\n`;
+    schema += `type ${node.name} {\n  ${props}${children}}\n\n`;
   }
 
 
@@ -86,5 +84,6 @@ ipcMain.on('schema', function(e, item){
   //add type query to schema after all the other types
   schema += query;
 
+  server.send(schema);
   mainWindow.webContents.send('schema', schema);
 });

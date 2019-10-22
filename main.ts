@@ -3,6 +3,7 @@ const url = require('url');
 // @ts-ignore
 const path = require('path');
 const os = require('os');
+const { fork } = require('child_process');
 // @ts-ignore
 const fs = require('fs');
 const getDirectory = require('./utils/getDirectory.ts');
@@ -34,24 +35,6 @@ const setMenu = main => {
       submenu: [
         isMac ? { role: 'close'} : {role: 'quit'},
         { type: 'separator' },
-        // {
-        //   label: 'New Project',
-        //   click() {
-        //     dialog.showOpenDialog(null, {
-        //       properties: ['openDirectory']
-        //     }, filePaths => {
-        //       if (filePaths.length === 0) return;
-        //       getDirectory.readFile(filePaths[0]).then(result => {
-        //         main.webContents.send('newProject', result);
-        //       }).catch(err => {
-        //         console.log('error');
-        //         console.log(err);
-        //         main.webContents.send('newProject', err);
-        //       });
-        //     });
-        //   },
-        //   accelerator: 'Cmd+n'
-        // },
         {
           label: 'Open Project',
           click() {
@@ -101,8 +84,8 @@ const setMenu = main => {
   Menu.setApplicationMenu(menu);
 };
 
-
 let mainWindow;
+const server = fork('./server/server.js')
 
 //Listen for app to be ready
 app.on('ready', function(){
@@ -156,10 +139,12 @@ ipcMain.on('schema', function(e, item){
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
-    query += `  ${node.name.toLowerCase()}(id: ID!): ${node.name},\n`
+
+    query += `  ${node.name.toLowerCase()}: ${node.name},\n`
+
     let props = '';
     for(let x in node.attributes) {
-      props += `${x}: ${node.attributes[x]},\n`
+      props += `  ${x}: ${node.attributes[x]},\n`
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
@@ -168,7 +153,7 @@ ipcMain.on('schema', function(e, item){
 
     //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
 
-    schema += `type ${node.name} {\n  ${props}${children}}\n\n`;
+    schema += `type ${node.name} {\n${props}${children}}\n\n`;
   };
 
 //run helper function for every root node
@@ -179,6 +164,7 @@ ipcMain.on('schema', function(e, item){
   query += `}`;
 //add type query to schema after all the other types
   schema += query;
+  server.send(schema);
   mainWindow.webContents.send('schema', schema);
 });
 

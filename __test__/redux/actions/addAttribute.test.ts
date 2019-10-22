@@ -1,6 +1,6 @@
 import configureStore from 'redux-mock-store';
 import { addAttribute } from "../../../client/actions/componentsAction";
-import { ADD_ATTRIBUTE} from '../../../client/actions/types';
+import { ADD_ATTRIBUTE } from '../../../client/actions/types';
 import { addAttributesComponent, addAttributesResult } from "../../fixtures/components/componentsData";
 
 describe('addchild component redux', function () {
@@ -19,7 +19,10 @@ describe('addchild component redux', function () {
                     type: ADD_ATTRIBUTE
                 }
             ];
-            reduxStore.dispatch(addAttribute(addAttributesResult.selectedComponent, addAttributesResult.attributes));
+            reduxStore.dispatch(addAttribute(
+              addAttributesResult.component,
+              addAttributesResult.attributes
+            ));
 
             expect(reduxStore.getActions()).toEqual(expectedActions);
         });

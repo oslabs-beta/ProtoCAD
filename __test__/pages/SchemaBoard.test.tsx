@@ -11,7 +11,9 @@ const mockDispatchFn = jest.fn();
 describe('<SchemaBoard />', function () {
     let wrapper: any;
     it('defines schema board component', () => {
-        wrapper = shallow(<Provider store={mockStore({})}><SchemaBoard dispatch={mockDispatchFn} /></Provider>);
+        wrapper = shallow(<Provider store={mockStore({})}>
+            <SchemaBoard dispatch={mockDispatchFn} />
+        </Provider>);
         expect(wrapper).toBeDefined();
     });
 });

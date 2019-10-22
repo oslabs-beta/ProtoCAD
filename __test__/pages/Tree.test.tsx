@@ -1,6 +1,6 @@
 import * as React from 'react';
 import configureStore from 'redux-mock-store';
-import {shallow} from '../setup/test-setup';
+import { shallow } from '../setup/test-setup';
 import Tree from '../../client/components/Tree';
 import { Provider } from 'react-redux';
 
@@ -14,7 +14,6 @@ describe('<Tree />', function () {
         wrapper = shallow(<Provider store={mockStore({})}>
             <Tree dispatch={mockDispatchFn} />
         </Provider>);
-
         expect(wrapper).toBeDefined();
     });
 });

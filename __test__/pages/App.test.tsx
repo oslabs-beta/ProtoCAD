@@ -1,6 +1,6 @@
 import * as React from 'react';
 import configureStore from 'redux-mock-store';
-import {shallow} from '../setup/test-setup';
+import { shallow } from '../setup/test-setup';
 import App from '../../client/components/App';
 import { Provider } from 'react-redux';
 
@@ -14,7 +14,6 @@ describe('<App />', function () {
         wrapper = shallow(<Provider store={mockStore({})}>
             <App dispatch={mockDispatchFn} />
         </Provider>);
-
         expect(wrapper).toBeDefined();
     });
 });

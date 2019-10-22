@@ -7,10 +7,15 @@ import {
 } from '../utils/InterfaceDefinitions';
 
 
-const initialState: ComponentStateInt = {
+export const initialState: ComponentStateInt = {
   error: null,
   loading: false,
-  data: []
+  data: [{
+    name: 'Root',
+    parent: {},
+    attributes: { id: 'ID', name: 'String'},
+    children: []
+  }]
 };
 
 export default (state = initialState, action: any) => {

@@ -1,5 +1,6 @@
 import componentsReducer from "../../../client/reducer/componentsReducer";
-import { addComponent, delComponent, addAttributesComponent, removeAttributesComponent } from '../../fixtures/components/componentsData';
+import { initialState } from "../../../client/reducer/componentsReducer";
+import { addRootComponent, addComponent, delComponent, addAttributesComponent, removeAttributesComponent } from '../../fixtures/components/componentsData';
 import { CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE, DELETE_ATTRIBUTE, ADD_CHILD_COMPONENT, DELETE_ONE_COMPONENT } from '../../../client/actions/types';
 
 describe('Components Reducer', function () {
@@ -12,20 +13,12 @@ describe('Components Reducer', function () {
             payload: addComponent,
             type: CREATE_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, action);
-
+        const updatedState = componentsReducer(initialState, action);
         expect(updatedState.data).toHaveLength(2);
-        expect(updatedState.data[0]).toEqual({
-            name: 'Root',
-            attributes: { id: 'ID' },
-            parent: {},
-            children: []
-        });
         expect(updatedState.data[1]).toEqual(addComponent);
     });
 
     it('expected state for DELETE_COMPONENT', () => {
-
         const addAction = {
             payload: addComponent,
             type: CREATE_COMPONENT
@@ -37,16 +30,8 @@ describe('Components Reducer', function () {
             type: DELETE_COMPONENT
         };
         const updatedState = componentsReducer(undefined, removeAction);
-
         expect(updatedState.data).toHaveLength(1);
-        expect(updatedState.data[0]).toEqual({
-            name: 'Root',
-            attributes: { id: 'ID' },
-            parent: {},
-            children: []
-        });
     });
-
 
     it('expected state for DELETE_COMPONENT for main component', () => {
 
@@ -59,7 +44,7 @@ describe('Components Reducer', function () {
             },
             type: DELETE_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, removeAction);
+        const updatedState = componentsReducer(initialState, removeAction);
 
         expect(updatedState.data).toHaveLength(0);
     });
@@ -110,29 +95,23 @@ describe('Components Reducer', function () {
 
     it('expected state for ADD_ATTRIBUTE', () => {
 
-        const addCompAction = {
-            payload: addComponent,
-            type: CREATE_COMPONENT
-        };
-        componentsReducer(undefined, addCompAction);
-
         const addAction = {
-            payload: { selectedComponent: {
+            payload: { component: {
                         name: 'Root',
                         attributes:
-                        { id: 'ID' },
+                        { id: 'ID', name: 'String' },
                         children: []
                       },
                       attributes : {
-                          name: 'S1'
+                        description: 'S1'
                       }
                     },
             type: ADD_ATTRIBUTE
         };
-        const updatedState = componentsReducer(undefined, addAction);
+        const updatedState = componentsReducer(initialState, addAction);
 
         expect(updatedState.data).toHaveLength(1);
-        expect(updatedState.data[0].attributes.name).toEqual('S1');
+        expect(updatedState.data[0].attributes.description).toEqual('S1');
     });
 
     it('expected state for ADD_ATTRIBUTE - child component', () => {
@@ -149,17 +128,17 @@ describe('Components Reducer', function () {
             },
             type: CREATE_COMPONENT
         };
-        const addedComponent = componentsReducer(undefined, addAction);
+        const addedComponent = componentsReducer(initialState, addAction);
 
         const addAttributeAction = {
             payload: {
-              selectedComponent: {
+              component: {
                 name: 'C2',
                 attributes: { id: 'ID' },
                 children: []
               },
               attributes : {
-                  name: 'S1'
+                 name: 'S1'
               }
             },
             type: ADD_ATTRIBUTE
@@ -185,7 +164,7 @@ describe('Components Reducer', function () {
 
         const removeAction = {
             payload: {
-              selectedComponent: {
+              component: {
                 name: 'C1',
                 attributes: { id: 'ID', name: 'S9' },
                 children: []
@@ -208,11 +187,11 @@ describe('Components Reducer', function () {
                     attributes: { id: 'ID' },
                     children: []
                 },
-                 data: {
+                child: {
                     name: 'C10',
                     attributes: { id: 'ID' },
                     children: []
-                 }
+                }
             },
             type: ADD_CHILD_COMPONENT
         };
@@ -244,11 +223,11 @@ describe('Components Reducer', function () {
                     attributes: { id: 'ID' },
                     children: []
                 },
-                 data: {
+                child: {
                     name: 'C12',
                     attributes: { id: 'ID' },
                     children: []
-                 }
+                }
             },
             type: ADD_CHILD_COMPONENT
         };
@@ -286,7 +265,7 @@ describe('Components Reducer', function () {
                     children: []
                   }]
                 },
-                data: {
+                child: {
                   name: 'C1',
                   attributes: { id: 'ID' },
                   children: []
@@ -298,7 +277,6 @@ describe('Components Reducer', function () {
         expect(updatedState.data).toHaveLength(1);
         expect(updatedState.data[0].children).toHaveLength(0);
     });
-
 
     it('expected state for DELETE_ONE_COMPONENT - other child components', () => {
 
@@ -332,7 +310,7 @@ describe('Components Reducer', function () {
                     children: []
                   }]
                 },
-                data: {
+                child: {
                   name: 'C2',
                   attributes: { id: 'ID', name: 'S7' },
                   children: []

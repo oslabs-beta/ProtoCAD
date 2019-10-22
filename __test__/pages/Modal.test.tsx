@@ -11,7 +11,9 @@ const mockDispatchFn = jest.fn();
 describe('<Modal />', function () {
     let wrapper: any;
     it('defines modal component', () => {
-        wrapper = shallow(<Provider store={mockStore({})}><MyModal dispatch={mockDispatchFn} /></Provider>);
+        wrapper = shallow(<Provider store={mockStore({})}>
+            <MyModal dispatch={mockDispatchFn} />
+        </Provider>);
         expect(wrapper).toBeDefined();
     });
 });

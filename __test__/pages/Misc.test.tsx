@@ -11,7 +11,9 @@ const mockDispatchFn = jest.fn();
 describe('<Misc />', function () {
     let wrapper: any;
     it('defines misc component', () => {
-        wrapper = shallow(<Provider store={mockStore({})}><Misc dispatch={mockDispatchFn} /></Provider>);
+        wrapper = shallow(<Provider store={mockStore({})}>
+            <Misc dispatch={mockDispatchFn} />
+        </Provider>);
         expect(wrapper).toBeDefined();
     });
 });

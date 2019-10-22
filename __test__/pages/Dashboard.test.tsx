@@ -11,7 +11,9 @@ const mockDispatchFn = jest.fn();
 describe('<Dashboard />', function () {
     let wrapper: any;
     it('defines dashboard component', () => {
-        wrapper = shallow(<Provider store={mockStore({})}><Dashboard dispatch={mockDispatchFn} /></Provider>)
+        wrapper = shallow(<Provider store={mockStore({})}>
+            <Dashboard dispatch={mockDispatchFn} />
+        </Provider>)
         expect(wrapper).toBeDefined();
     });
 });

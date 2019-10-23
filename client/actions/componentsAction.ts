@@ -17,7 +17,7 @@ import {
     SET_SELECTED_COMPONENT,
     DELETE_ONE_COMPONENT,
     SET_DIRECTORY,
-    SET_CURRENT_FILE
+    SET_CURRENT_FILE, SET_RESOLVER_CODE
 } from './types';
 
 
@@ -96,5 +96,10 @@ export const setCurrentFile = (data: any) => ({
 
 export const setCode = (data: any) => ({
     type: SET_CODE,
+    payload: data
+});
+
+export const setResolverCode = (data: any) => ({
+    type: SET_RESOLVER_CODE,
     payload: data
 });

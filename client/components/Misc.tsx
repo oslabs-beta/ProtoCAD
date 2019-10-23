@@ -8,10 +8,10 @@ const ipcRenderer = window.ipcRenderer;
 
 
 export default props => {
-
   const components = useSelector(state => state.components.data);
   const directory = useSelector(state => state.directory.data);
   const code = useSelector(state => state.code.data);
+  const resolverCode = useSelector(state => state.resolver.data);
 
   const onClick = () => {
       console.log(components);
@@ -25,6 +25,13 @@ export default props => {
       ipcRenderer.send('editor', {
           path: directory.root.path,
           data: code
+      });
+  };
+
+  const onResolver = () => {
+      ipcRenderer.send('resolver', {
+          path: directory.root.path,
+          data: resolverCode
       });
   };
 
@@ -42,6 +49,13 @@ export default props => {
            id="apollo"
            onClick={onConvert}>
            Convert to Apollo
+       </Button>
+       <Button
+           variant="contained"
+           size="small"
+           id="resolver"
+           onClick={onResolver}>
+           Save code
        </Button>
    </div>;
 };

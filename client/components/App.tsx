@@ -2,12 +2,10 @@ import * as React from 'react';
 import Dashboard from './Dashboard';
 import Library from "./Library";
 import Misc from "./Misc";
-import SchemaBoard from "./SchemaBoard.jsx";
-import {setDirectory, setCurrentFile, setCode} from '../actions/componentsAction';
+// import SchemaBoard from "./SchemaBoard.jsx";
+import Editor from './Editor';
+import {setDirectory, setCode} from '../actions/componentsAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { remote } from 'electron';
-
-const { Menu, MenuItem } = remote;
 
 // @ts-ignore
 const ipcRenderer = window.ipcRenderer;
@@ -54,6 +52,6 @@ export default props => {
         <Library/>
         <Misc/>
         <Dashboard/>
-        <SchemaBoard/>
+        <Editor />
     </div>);
 }

@@ -180,7 +180,7 @@ ipcMain.on('editor', (e, { path, data}) => {
   console.log(path);
   console.log(data);
   const typedef = genApolloTypedef(data);
-  fs.writeFile(path + '/' + 'typedef.js', typedef, err => {
+  fs.writeFile(path + '/' + 'typdef.js', typedef, err => {
     if (err) throw err;
     console.log("successfully wrote!");
   });
@@ -190,5 +190,12 @@ ipcMain.on('readFile', (e, path) => {
   fs.readFile(path, (err, data) => { // buffer data
     if (err) throw err;
     mainWindow.webContents.send('editor', data.toString());
+  });
+});
+
+ipcMain.on('resolver', (e, { path, data }) => {
+  fs.writeFile(path + '/' + 'resolver.js', data, err => {
+    if (err) throw err;
+    console.log('successfully wrote resolver.js');
   });
 });

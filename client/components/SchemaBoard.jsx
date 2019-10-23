@@ -28,6 +28,19 @@ const Editor = props => {
   return <CodeMirror value={code} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />
 };
 
+const Resolver = props => {
+
+  const onChange = (editor, data, value) => {
+
+  };
+  
+  const onBeforeChange = (editor, data, value) => {
+
+  };
+
+  return <CodeMirror value={code} onBeforeChange={onBeforeChange} onChange={onChange} options={{ lineNumbers: true, lineWrapping: true }} />
+};
+
 export default props => {
   return <div id={'schemaBoard'}>
     <Editor/>

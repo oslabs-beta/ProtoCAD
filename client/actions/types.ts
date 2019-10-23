@@ -11,3 +11,4 @@ export const SET_SELECTED_COMPONENT: string = 'SET_SELECTED_COMPONENT';
 export const SET_DIRECTORY: string ='SET_CURRENT_DIRECTORY';
 export const SET_CURRENT_FILE: string = 'SET_CURRENT_FILE';
 export const SET_CODE: string = 'SET_CODE';
+export const SET_RESOLVER_CODE: string = 'SET_RESOLVER_CODE';

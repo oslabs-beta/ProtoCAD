@@ -7,6 +7,7 @@ module.exports = {
   entry: [
     './client/index.tsx',
   ],
+  target: "electron-renderer",
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',

@@ -1,11 +1,17 @@
 import * as types from '../actions/types';
 import { DirectoryStateInt } from '../utils/InterfaceDefinitions';
+import {
+    SET_DIRECTORY,
+    SET_CURRENT_FILE
+} from '../actions/types';
 
 const defaultState: DirectoryStateInt = {
     loading: false,
     error: null,
     data: {
-        root: '',
+        root: {
+            children: []
+        },
         file: ''
     }
 };

@@ -7,6 +7,8 @@ const { fork } = require('child_process');
 // @ts-ignore
 const fs = require('fs');
 const getDirectory = require('./utils/getDirectory.ts');
+const genApolloTypedef = require('./utils/genApolloTypedef.ts');
+
 const config = require('./config');
 
 const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
@@ -36,7 +38,7 @@ const setMenu = main => {
         isMac ? { role: 'close'} : {role: 'quit'},
         { type: 'separator' },
         {
-          label: 'New Project',
+          label: 'Open Project',
           click() {
             dialog.showOpenDialog(null, {
               properties: ['openDirectory']
@@ -51,20 +53,10 @@ const setMenu = main => {
               });
             });
           },
-          accelerator: 'Cmd+n'
-        },
-        {
-          label: 'Open Project',
-          click() {
-            dialog.showOpenDialog(null, {
-              properties: ['openFile', 'openDirectory']
-            }, filePaths => {
-              main.webContents.send('openProject', filePaths);
-            });
-          },
           accelerator: 'Cmd+o'
         },
         {
+          id: '1',
           label: 'Save Project',
           click() {
 
@@ -94,7 +86,6 @@ const setMenu = main => {
   Menu.setApplicationMenu(menu);
 };
 
-
 let mainWindow;
 const server = fork('./server/server.js')
 
@@ -117,7 +108,7 @@ app.on('ready', function(){
     height: 600,
     minWidth: 1080,
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       // All built-in modules of Node.js are supported in Web Workers, and asar archives can still be read with Node.js
       // APIs. However none of Electron's built-in modules can be used in a multi-threaded environment.
       nodeIntegrationInWorker: true,
@@ -146,10 +137,10 @@ app.on('ready', function(){
 ipcMain.on('schema', function(e, item){
   let schema = '';
   let query = 'type Query {\n';
-
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
+
     query += `  ${node.name.toLowerCase()}: ${node.name},\n`
 
     let props = '';
@@ -162,18 +153,15 @@ ipcMain.on('schema', function(e, item){
     }
 
     schema += `type ${node.name} {\n${props}${children}}\n\n`;
-  }
+  };
 
-
-  //run helper function for every root node
+//run helper function for every root node
   for(let i = 0; i < item.length; i++) {
     renderType(item[i]);
   }
-
-  //end query after its finished filling
+//end query after its finished filling
   query += `}`;
-
-  //add type query to schema after all the other types
+//add type query to schema after all the other types
   schema += query;
 
   //server.send(schema);
@@ -196,13 +184,26 @@ ipcMain.on('openDirectory', (e, { name, path }) => {
   });
 });
 
-ipcMain.on('editor', (e, data) => {
-
+ipcMain.on('editor', (e, { path, data}) => {
+  console.log(path);
+  console.log(data);
+  const typedef = genApolloTypedef(data);
+  fs.writeFile(path + '/' + 'typdef.js', typedef, err => {
+    if (err) throw err;
+    console.log("successfully wrote!");
+  });
 });
 
 ipcMain.on('readFile', (e, path) => {
   fs.readFile(path, (err, data) => { // buffer data
     if (err) throw err;
     mainWindow.webContents.send('editor', data.toString());
+  });
+});
+
+ipcMain.on('resolver', (e, { path, data }) => {
+  fs.writeFile(path + '/' + 'resolver.js', data, err => {
+    if (err) throw err;
+    console.log('successfully wrote resolver.js');
   });
 });

@@ -33,8 +33,8 @@ describe('Components Reducer', function () {
     }]
   }
 
-    beforeEach(() => {
-    });
+  beforeEach(() => {
+  });
 
     it('expected state for CREATE_COMPONENT', () => {
         const action = {

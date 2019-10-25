@@ -24,9 +24,9 @@ export default props => {
   };
 
   const onBeforeChange = (editor, data, value) => {
+    props.setQuery(value);
     // dispatch(setResolverCode(value));
-    props.setResolver(value);
   };
 
-  return <CodeMirror value={props.resolver} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />
+  return <CodeMirror value={props.query} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />
 };

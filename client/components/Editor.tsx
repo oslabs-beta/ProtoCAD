@@ -10,6 +10,7 @@ import ResolverBoard from './ResolverBoard.jsx';
 import QueryBoard from "./QueryBoard";
 import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
+import { GlobalState } from '../utils/InterfaceDefinitions';
 
 declare const window: any;
 const ipcRenderer = window.ipcRenderer;
@@ -59,7 +60,7 @@ export default props => {
         setValue(newValue);
     };
 
-    const directory = useSelector(state => state.directory.data);
+    const directory = useSelector((state: GlobalState) => state.directory.data);
     const [schema, setSchema] = React.useState('');
     const [resolver, setResolver] = React.useState('const resolver = () => {\n\n}');
     const [query, setQuery] = React.useState('');

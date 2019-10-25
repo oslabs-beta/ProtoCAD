@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { useSelector, useDispatch } from 'react-redux';
+import { GlobalState } from '../utils/InterfaceDefinitions';
 
 // @ts-ignore
 const ipcRenderer = window.ipcRenderer;
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
 
 export default function FileSystemNavigator() {
     // const [files, setFiles] = React.useState({children: []});
-    const directory = useSelector(state => state.directory.data);
+    const directory = useSelector((state: GlobalState) => state.directory.data);
     const classes = useStyles({});
 
     // ipcRenderer.on('readDirectory', (error, data) => {

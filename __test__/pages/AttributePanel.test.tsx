@@ -2,6 +2,7 @@ import * as React from 'react';
 import configureStore from 'redux-mock-store';
 import {shallow, mount} from '../setup/test-setup';
 import AttributePanel from '../../client/components/AttributePanel';
+import { ComponentPanelInt } from '../../client/utils/InterfaceDefinitions';
 import { Provider } from 'react-redux';
 declare const expect: jest.Expect
 
@@ -11,14 +12,14 @@ const mockDispatchFn = jest.fn();
 
 describe('<AttributePanel />', function () {
 
-    const props = {
+    const props: ComponentPanelInt = {
       modal: true,
       handleClose: jest.fn()
     }
     let wrapper: any;
 
     wrapper = shallow(<Provider store={mockStore({})}>
-      <AttributePanel {...props} dispatch={mockDispatchFn} />
+      <AttributePanel {...props} />
       </Provider>).dive();
 
     it('defines component panel component', () => {

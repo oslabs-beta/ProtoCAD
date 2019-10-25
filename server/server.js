@@ -1,8 +1,11 @@
 const axios = require('axios');
 const { graphql, buildSchema } = require('graphql');
+let resolverPath = '';
+
 
 process.on('message', (msg) => {
 
+  //resolverPath = require(`${msg.path}`)
   //const schema =  buildSchema(`${msg}`);
   const schema = buildSchema(`
     type Launch {

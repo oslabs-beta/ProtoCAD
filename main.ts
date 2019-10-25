@@ -16,6 +16,7 @@ const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 const isMac = process.platform === 'darwin';
 
 let stateSchema = '';
+let resolverPath = '';
 
 const setMenu = main => {
   // set menu
@@ -169,10 +170,6 @@ ipcMain.on('schema', function(e, item){
   mainWindow.webContents.send('schema', schema);
 });
 
-// ipcMain.on('resolvers', (e, item) => {
-  
-// })
-
 server.on('message', (msg) => {
 });
 
@@ -202,6 +199,7 @@ ipcMain.on('readFile', (e, path) => {
 });
 
 ipcMain.on('resolver', (e, { path, data }) => {
+  resolverPath = path;
   fs.writeFile(path + '/' + 'resolver.js', data, err => {
     if (err) throw err;
     console.log('successfully wrote resolver.js');

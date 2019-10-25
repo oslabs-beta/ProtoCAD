@@ -61,7 +61,7 @@ export default props => {
 
     const directory = useSelector(state => state.directory.data);
     const [schema, setSchema] = React.useState('');
-    const [resolver, setResolver] = React.useState('');
+    const [resolver, setResolver] = React.useState('const resolver = () => {\n\n}');
     const [query, setQuery] = React.useState('');
 
     const handleSchema = () => {

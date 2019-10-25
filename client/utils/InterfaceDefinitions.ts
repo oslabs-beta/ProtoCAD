@@ -44,3 +44,33 @@ export interface SelectedComponentStateInt {
   error: null,
   data: object
 }
+
+export interface GlobalState {
+  components: {
+    data: {
+
+    }
+  }
+  current: {
+    data: {
+      name: string
+    }
+  }
+  directory: {
+    data: {
+      root: {
+        path: string
+      }
+    }
+  }
+  code: {
+    data: {
+
+    }
+  }
+  resolver: {
+    data: {
+
+    }
+  }
+}

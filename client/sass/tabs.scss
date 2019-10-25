@@ -1,3 +1,13 @@
+#editor {
+  .MuiAppBar-colorPrimary {
+    background-color: $white;
+    color: $dark;
+  }
+  .MuiAppBar-colorPrimary {
+    box-shadow: none;
+  }
+}
+
 #tabs {
   .MuiAppBar-colorPrimary {
     background-color: $white;

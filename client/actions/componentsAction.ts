@@ -5,6 +5,7 @@ import {
 } from '../utils/InterfaceDefinitions';
 
 import {
+    SET_CODE,
     CREATE_COMPONENT,
     DELETE_COMPONENT,
     UPDATE_COMPONENT,
@@ -16,7 +17,7 @@ import {
     SET_SELECTED_COMPONENT,
     DELETE_ONE_COMPONENT,
     SET_DIRECTORY,
-    SET_CURRENT_FILE
+    SET_CURRENT_FILE, SET_RESOLVER_CODE
 } from './types';
 
 
@@ -90,5 +91,15 @@ export const setDirectory = (data: any) => ({
 
 export const setCurrentFile = (data: any) => ({
     type: SET_CURRENT_FILE,
+    payload: data
+});
+
+export const setCode = (data: any) => ({
+    type: SET_CODE,
+    payload: data
+});
+
+export const setResolverCode = (data: any) => ({
+    type: SET_RESOLVER_CODE,
     payload: data
 });

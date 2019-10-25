@@ -17,11 +17,7 @@ export default (state: any = defaultState, action: any) => {
                 ...state,
                 data: action.payload
             };
-        case types.EDIT_CURRENT_COMPONENT:
-            return {
-                ...state,
-                data: action.payload
-            };
+
         default:
             return state;
     }

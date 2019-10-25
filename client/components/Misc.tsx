@@ -33,6 +33,7 @@ export default props => {
           path: directory.root.path,
           data: resolverCode
       });
+      props.sendQueries();
   };
 
    return <div id={'misc'}>

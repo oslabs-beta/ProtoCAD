@@ -7,6 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import SchemaBoard from './SchemaBoard.jsx';
 import ResolverBoard from './ResolverBoard.jsx';
+import QueryBoard from "./QueryBoard";
+import Button from '@material-ui/core/Button';
+import { useSelector } from 'react-redux';
+
+declare const window: any;
+const ipcRenderer = window.ipcRenderer;
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -53,20 +59,69 @@ export default props => {
         setValue(newValue);
     };
 
+    const directory = useSelector(state => state.directory.data);
+    const [schema, setSchema] = React.useState('');
+    const [resolver, setResolver] = React.useState('');
+    const [query, setQuery] = React.useState('');
+
+    const handleSchema = () => {
+        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.path, data: schema });
+    };
+
+    const handleResolver = () => {
+        if (resolver.length > 0) ipcRenderer.send('resolver', { path: directory.path, data: resolver });
+    };
+
+    const handleQuery = () => {
+        if (query.length > 0) ipcRenderer.send('query', { path: directory.path, data: query });
+    };
+
     return (
-        <div className={classes.root} id={'editor'}>
-            <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="Schema" {...a11yProps(0)} />
-                    <Tab label="Resolver" {...a11yProps(1)} />
-                </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-                <SchemaBoard />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <ResolverBoard />
-            </TabPanel>
+      <div id={'editor'}>
+          <div className={classes.root}>
+              <AppBar position="static">
+                  <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                      <Tab label="Schema" {...a11yProps(0)} />
+                      <Tab label="Resolver" {...a11yProps(1)} />
+                      <Tab label="Queries" {...a11yProps(2)} />
+                  </Tabs>
+              </AppBar>
+              <TabPanel value={value} index={0}>
+                  <SchemaBoard schema={schema} setSchema={setSchema} />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                  <ResolverBoard resolver={resolver} setResolver={setResolver} />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                  <QueryBoard query={query} setQuery={setQuery} />
+              </TabPanel>
+          </div>
+        <div>
+            <Button
+                variant="contained"
+                size="small"
+                id="exportButton"
+                onClick={handleSchema}
+            >
+                Send Schema
+            </Button>
+            <Button
+                variant="contained"
+                size="small"
+                id="apollo"
+                onClick={handleResolver}
+            >
+                Send Resolver
+            </Button>
+            <Button
+                variant="contained"
+                size="small"
+                id="resolver"
+                onClick={handleQuery}
+            >
+                Send Query
+            </Button>
         </div>
+      </div>
     );
 }

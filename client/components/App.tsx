@@ -6,16 +6,15 @@ import Misc from "./Misc";
 import Editor from './Editor';
 import {setDirectory, setCode} from '../actions/componentsAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { GlobalState } from '../utils/InterfaceDefinitions';
+
 
 // @ts-ignore
 const ipcRenderer = window.ipcRenderer;
 
-export default props => {
+export default () => {
     const dispatch = useDispatch();
-    const components = useSelector(state => state.components.data);
-    const current = useSelector(state => state.current.data);
-    const selected = useSelector(state => state.selected.data);
-    const directory = useSelector(state => state.directory.data);
+    const directory = useSelector((state: GlobalState) => state.directory.data);
 
     // event listeners from main process (electron)
     ipcRenderer.on('newProject', (error, data) => {

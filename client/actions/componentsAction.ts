@@ -1,7 +1,6 @@
 import {
   ComponentInt,
-  ParentInt,
-  ChildInt,
+  ChildInt
 } from '../utils/InterfaceDefinitions';
 
 import {

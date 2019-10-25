@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { createComponent } from '../actions/componentsAction';
 import { useSelector, useDispatch } from 'react-redux';
+import { ComponentInt, GlobalState } from '../utils/InterfaceDefinitions';
 
 
 const useStyles = makeStyles(theme => ({
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default props => {
+export default () => {
     // input value
     const [value, setValue] = React.useState('');
     const dispatch = useDispatch();
@@ -37,10 +38,10 @@ export default props => {
     const classes = useStyles({});
 
     // useSelector grabs redux state and selects components.data value and returns
-    const components = useSelector(state => state.components.data);
+    const components = useSelector((state: GlobalState) => state.components.data);
 
     const onClick = () => {
-        if (components.every(data => data.name !== value)) {
+        if (components.every((data: ComponentInt) => data.name !== value)) {
             const obj = {
                 name: value,
                 attributes: {'id': 'ID'},

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
-
+import { GlobalState } from '../utils/InterfaceDefinitions';
 
 declare const window: any;
 const ipcRenderer = window.ipcRenderer;
 
 
 export default props => {
-  const components = useSelector(state => state.components.data);
-  const directory = useSelector(state => state.directory.data);
-  const code = useSelector(state => state.code.data);
-  const resolverCode = useSelector(state => state.resolver.data);
+  const components = useSelector((state: GlobalState) => state.components.data);
+  const directory = useSelector((state: GlobalState) => state.directory.data);
+  const code = useSelector((state: GlobalState) => state.code.data);
+  const resolverCode = useSelector((state: GlobalState) => state.resolver.data);
 
   const onClick = () => {
       console.log(components);

@@ -19,6 +19,17 @@ export interface ChildInt {
   children: ChildInt[]
 }
 
+export interface AddPanelInt {
+  data: ComponentInt,
+  name: string,
+  handleClose: () => void
+}
+
+export interface ComponentPanelInt {
+  modal: boolean,
+  handleClose: () => void
+}
+
 export interface ComponentStateInt {
   error: null,
   loading: boolean,
@@ -43,4 +54,40 @@ export interface SelectedComponentStateInt {
   loading: boolean,
   error: null,
   data: object
+}
+
+export interface GlobalState {
+  components: {
+    data: ComponentInt[]
+  }
+  current: {
+    data: {
+      name: string,
+      attributes: {id: string},
+      parent?: ParentInt,
+      children: ChildInt[]
+    }
+  }
+  directory: {
+    data: {
+      path: any,
+      root: {
+        path: string,
+        children: any
+      }
+    }
+  }
+  code: {
+    data: {
+
+    }
+  }
+  resolver: {
+    data: {
+
+    }
+  }
+  selected: {
+    data: ComponentInt
+  }
 }

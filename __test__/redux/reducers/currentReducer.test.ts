@@ -2,8 +2,23 @@ import currentComponentReducer from "../../../client/reducer/currentComponentRed
 import { SET_CURRENT_COMPONENT, EDIT_CURRENT_COMPONENT } from '../../../client/actions/types';
 
 describe('Current Component Reducer', function () {
-    beforeEach(() => {
-    });
+
+  const initialData = {
+    error: null,
+    loading: null,
+    data: {
+      name: 'Root',
+      attributes: {
+        'id': 'ID',
+        'age': 'Int'
+      },
+      parent: {},
+      children: []
+    }
+  }
+
+  beforeEach(() => {
+  });
 
     it('expected state when setting current component', () => {
         const action = {
@@ -18,7 +33,7 @@ describe('Current Component Reducer', function () {
                 children: []
             }
         };
-        const updatedState = currentComponentReducer(undefined, action);
+        const updatedState = currentComponentReducer(initialData, action);
         expect(true).toBeTruthy();
         expect(updatedState.data).toHaveProperty('name', 'C1');
         expect(updatedState.data.attributes).toHaveProperty('name', 'String');
@@ -28,7 +43,7 @@ describe('Current Component Reducer', function () {
         const action = {
             type: EDIT_CURRENT_COMPONENT,
             payload: {
-              name: 'Root',
+              name: 'C2',
               attributes: {
                 'id': 'ID',
                 'age': 'Int'
@@ -37,26 +52,14 @@ describe('Current Component Reducer', function () {
               children: []
             }
         };
-        const updatedState = currentComponentReducer(undefined, action);
+        const updatedState = currentComponentReducer(initialData, action);
         expect(true).toBeTruthy();
-        expect(updatedState.data).toHaveProperty('name', 'Root');
+        expect(updatedState.data).toHaveProperty('name', 'C2');
         expect(updatedState.data.attributes).toHaveProperty('age', 'Int');
     });
 
     it('expected default state', () => {
-      const defaultState = {
-          error: null,
-          loading: null,
-          data: {
-              name: 'Root',
-              attributes: {
-                'id': 'ID'
-              },
-              parent: {},
-              children: []
-          }
-      };
-        const updatedState = currentComponentReducer(defaultState, {});
+        const updatedState = currentComponentReducer(initialData, {});
         expect(updatedState.data).toHaveProperty('name', 'Root');
     });
 

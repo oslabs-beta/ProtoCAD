@@ -8,6 +8,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import RemoveIcon from '@material-ui/icons/Remove';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import { GlobalState } from '../utils/InterfaceDefinitions';
+
 
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteComponent, deleteAttribute, setCurrentComponent} from "../actions/componentsAction";
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const EachPanel = props => {
     const classes = useStyles({});
-    const current = useSelector(state => state.current.data);
+    const current = useSelector((state: GlobalState) => state.current.data);
 
     const dispatch = useDispatch();
 
@@ -100,7 +102,7 @@ export default function SimpleExpansionPanel() {
     const classes = useStyles({});
 
     // components list
-    const components = useSelector(state => state.components.data);
+    const components = useSelector((state: GlobalState) => state.components.data);
 
     return (
         <div className={classes.root}>

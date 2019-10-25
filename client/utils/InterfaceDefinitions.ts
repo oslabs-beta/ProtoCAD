@@ -34,7 +34,9 @@ export interface CurrentComponentStateInt {
 export interface DirectoryStateInt {
   loading: boolean,
   error: null,
-  data: { root: string, file: string }
+  data: { root: {
+
+    }, file: string }
 }
 
 export interface SelectedComponentStateInt {

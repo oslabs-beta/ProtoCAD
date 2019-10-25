@@ -44,7 +44,6 @@ export default props => {
     });
 
     ipcRenderer.on('editor', (err, data) => {
-        console.log(data);
         dispatch(setCode(data));
     });
 

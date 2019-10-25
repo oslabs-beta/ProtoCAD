@@ -205,3 +205,7 @@ ipcMain.on('resolver', (e, { path, data }) => {
     console.log('successfully wrote resolver.js');
   });
 });
+
+ipcMain.on('query', (e, { path, data }) => {
+  console.log('received data');
+});

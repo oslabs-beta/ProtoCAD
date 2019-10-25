@@ -66,6 +66,22 @@ h1, h2, h3, h4, h5, h6 {
   overflow: scroll;
   height: 100%;
 }
+#editor {
+  grid-column: 3/ 4;
+  grid-row: 1 / 3;
+  background: white;
+  overflow: scroll;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  & > div:nth-child(1) {
+    flex-grow: 4;
+  }
+  & > div:nth-child(2) {
+    flex-grow: 1;
+  }
+}
+
 
 #componentList {
   margin-top: 10px;

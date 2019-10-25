@@ -297,7 +297,7 @@ describe('Components Reducer', function () {
             type: UPDATE_COMPONENT
         };
 
-        const updatedRoot = componentsReducer(undefined, updateAction);
+        const updatedRoot = componentsReducer(initialState, updateAction);
 
         const deleteChildAction = {
             payload: {
@@ -320,7 +320,7 @@ describe('Components Reducer', function () {
         };
         const updatedState = componentsReducer(updatedRoot, deleteChildAction);
         expect(updatedState.data).toHaveLength(1);
-        expect(updatedState.data[0].children[0].children).toBeNull();
+        expect(updatedState.data[0].children[0].children).toHaveLength(0);
     });
 
 

@@ -16,7 +16,6 @@ const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 const isMac = process.platform === 'darwin';
 
 let stateSchema = '';
-let resolverPath = '';
 
 const setMenu = main => {
   // set menu
@@ -164,13 +163,13 @@ ipcMain.on('schema', function(e, item){
   query += `}`;
 //add type query to schema after all the other types
   schema += query;
-
-  //server.send(schema);
   stateSchema = schema;
   mainWindow.webContents.send('schema', schema);
 });
 
 server.on('message', (msg) => {
+  console.log('message received:', msg);
+  mainWindow.webContents.send('queryResult', msg);
 });
 
 ipcMain.on('openDirectory', (e, { name, path }) => {
@@ -199,7 +198,6 @@ ipcMain.on('readFile', (e, path) => {
 });
 
 ipcMain.on('resolver', (e, { path, data }) => {
-  resolverPath = path;
   fs.writeFile(path + '/' + 'resolver.js', data, err => {
     if (err) throw err;
     console.log('successfully wrote resolver.js');
@@ -207,5 +205,5 @@ ipcMain.on('resolver', (e, { path, data }) => {
 });
 
 ipcMain.on('query', (e, { path, data }) => {
-  console.log('received data');
-});
+  server.send([stateSchema, data, path]);
+}); 

@@ -61,19 +61,19 @@ export default props => {
 
     const directory = useSelector(state => state.directory.data);
     const [schema, setSchema] = React.useState('');
-    const [resolver, setResolver] = React.useState('const resolver = () => {\n\n}');
+    const [resolver, setResolver] = React.useState('const resolver = {\n\n}\n\nmodule.exports = resolver;');
     const [query, setQuery] = React.useState('');
 
     const handleSchema = () => {
-        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.path, data: schema });
+        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.root.path, data: schema });
     };
 
     const handleResolver = () => {
-        if (resolver.length > 0) ipcRenderer.send('resolver', { path: directory.path, data: resolver });
+        if (resolver.length > 0) ipcRenderer.send('resolver', { path: directory.root.path, data: resolver });
     };
 
     const handleQuery = () => {
-        if (query.length > 0) ipcRenderer.send('query', { path: directory.path, data: query });
+        if (query.length > 0) ipcRenderer.send('query', { path: directory.root.path, data: query });
     };
 
     return (

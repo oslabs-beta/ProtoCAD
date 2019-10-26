@@ -73,7 +73,7 @@ export default (props) => {
         className="attribute-form-field button"
         onClick={onButtonClick}
       >
-                Add Prop
+        Add Prop
       </Button>
     </div>
   );

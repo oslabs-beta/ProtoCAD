@@ -2,7 +2,7 @@ import * as React from 'react';
 import Tree from 'react-d3-tree';
 import { connect } from 'react-redux';
 import { setCurrentComponent, setSelectedComponent } from '../actions/componentsAction';
-import MyModal from './Modal.jsx';
+import MyModal from './Modal';
 
 class MyTree extends React.PureComponent {
   constructor(props) {
@@ -24,6 +24,19 @@ class MyTree extends React.PureComponent {
     this.handleClose = this.handleClose.bind(this);
   }
 
+  componentDidMount() {
+    const dimensions = this.treeContainer.getBoundingClientRect();
+    this.setState((prevState) => ({
+      ...prevState,
+      translate: {
+        x: dimensions.width / 2,
+        y: 50,
+      },
+    }));
+
+    document.querySelector('#tree').addEventListener('click', this.onMouseClick);
+  }
+
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -39,19 +52,6 @@ class MyTree extends React.PureComponent {
     },
   });
 
-  componentDidMount() {
-    const dimensions = this.treeContainer.getBoundingClientRect();
-    this.setState((prevState) => ({
-      ...prevState,
-      translate: {
-        x: dimensions.width / 2,
-        y: 50,
-      },
-    }));
-
-    document.querySelector('#tree').addEventListener('click', this.onMouseClick);
-  }
-
   onClick = (node) => {
     this.handleOpen();
     const selected = this.props.components.filter((item) => item.name === node.name);
@@ -59,10 +59,26 @@ class MyTree extends React.PureComponent {
   };
 
   render() {
+    const { current } = this.props;
+    const { clickPosition, open, translate } = this.state;
+
     return (
       <div id="tree" style={{ width: '100%', height: '100%' }} ref={(tc) => (this.treeContainer = tc)}>
-        <Tree className="myTree" styles={{ width: '100%', height: '100%' }} translate={this.state.translate} data={this.props.current} collapsible={false} onClick={this.onClick} orientation="vertical" />
-        <MyModal handleClose={this.handleClose} open={this.state.open} x={this.state.clickPosition.x} y={this.state.clickPosition.y} />
+        <Tree
+          className="myTree"
+          styles={{ width: '100%', height: '100%' }}
+          translate={translate}
+          data={current}
+          collapsible={false}
+          onClick={this.onClick}
+          orientation="vertical"
+        />
+        <MyModal
+          handleClose={this.handleClose}
+          open={open}
+          x={clickPosition.x}
+          y={clickPosition.y}
+        />
       </div>
     );
   }

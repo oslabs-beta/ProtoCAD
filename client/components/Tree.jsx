@@ -2,9 +2,10 @@ import * as React from 'react';
 import Tree from 'react-d3-tree';
 import { connect } from 'react-redux';
 import { setCurrentComponent, setSelectedComponent } from '../actions/componentsAction';
-import MyModal from './Modal';
+import MyModal from './Modal.jsx';
 
 class MyTree extends React.PureComponent {
+
   constructor(props) {
     super(props);
     this.state = {

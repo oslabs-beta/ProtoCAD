@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 
 import App from './components/App';
 
-import "./sass/styles.scss";
+import "../sass/styles.scss";
 
 // Enabling redux extension on browser
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

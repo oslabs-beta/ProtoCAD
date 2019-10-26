@@ -10,13 +10,13 @@ class MyTree extends React.PureComponent {
     this.state = {
       clickPosition: {
         x: 0,
-        y: 0
+        y: 0,
       },
       open: false,
       translate: {
         x: 0,
-        y: 0
-      }
+        y: 0,
+      },
     };
     this.onClick = this.onClick.bind(this);
     this.onMouseClick = this.onMouseClick.bind(this);
@@ -27,53 +27,55 @@ class MyTree extends React.PureComponent {
   handleOpen = () => {
     this.setState({ open: true });
   };
+
   handleClose = () => {
     this.setState({ open: false });
   };
 
-  onMouseClick = e => this.setState({
+  onMouseClick = (e) => this.setState({
     clickPosition: {
       x: e.clientX,
-      y: e.clientY
-    }
+      y: e.clientY,
+    },
   });
 
   componentDidMount() {
     const dimensions = this.treeContainer.getBoundingClientRect();
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...prevState,
       translate: {
         x: dimensions.width / 2,
-        y: 50
-      }
+        y: 50,
+      },
     }));
 
     document.querySelector('#tree').addEventListener('click', this.onMouseClick);
   }
 
-  onClick = node => {
+  onClick = (node) => {
     this.handleOpen();
-    const selected = this.props.components.filter(item => item.name === node.name);
+    const selected = this.props.components.filter((item) => item.name === node.name);
     if (selected.length > 0) this.props.setSelectedComponent(selected[0]);
   };
 
   render() {
-    return <div id={'tree'} style={{width: '100%', height: '100%'}} ref={tc => (this.treeContainer = tc)}>
-      <Tree className={'myTree'} styles={{width: '100%', height: '100%'}} translate={this.state.translate} data={this.props.current} collapsible={false} onClick={this.onClick} orientation={'vertical'} />
-      <MyModal handleClose={this.handleClose} open={this.state.open} x={this.state.clickPosition.x} y={this.state.clickPosition.y} />
-    </div>;
+    return (
+      <div id="tree" style={{ width: '100%', height: '100%' }} ref={(tc) => (this.treeContainer = tc)}>
+        <Tree className="myTree" styles={{ width: '100%', height: '100%' }} translate={this.state.translate} data={this.props.current} collapsible={false} onClick={this.onClick} orientation="vertical" />
+        <MyModal handleClose={this.handleClose} open={this.state.open} x={this.state.clickPosition.x} y={this.state.clickPosition.y} />
+      </div>
+    );
   }
-
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   components: state.components.data,
-  current: state.current.data
+  current: state.current.data,
 });
 
-const mapDispatchToProps = dispatch => ({
-  setSelectedComponent: data => dispatch(setSelectedComponent(data)),
-  setCurrentComponent: data => dispatch(setCurrentComponent(data))
+const mapDispatchToProps = (dispatch) => ({
+  setSelectedComponent: (data) => dispatch(setSelectedComponent(data)),
+  setCurrentComponent: (data) => dispatch(setCurrentComponent(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTree);

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { setCurrentComponent } from '../actions/componentsAction';
 import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentComponent } from '../actions/componentsAction';
 import { ComponentInt, GlobalState } from '../utils/InterfaceDefinitions';
 import Tree from './Tree';
 
@@ -11,7 +11,6 @@ import Tree from './Tree';
  * specific component.
  */
 export default () => {
-
   // collects all existing components data from d3 tree
   const components = useSelector((state: GlobalState) => state.components.data);
   // collects current component data from d3 tree
@@ -31,7 +30,9 @@ export default () => {
   }, [components]);
 
 
-  return <div id={'dashboard'}>
-    <Tree />
-  </div>
+  return (
+    <div id="dashboard">
+      <Tree />
+    </div>
+  );
 };

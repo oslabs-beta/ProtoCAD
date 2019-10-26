@@ -10,7 +10,7 @@ export default props => {
 
   const [option, setOptions] = React.useState({
     lineNumbers: true,
-    lineWrapping: true
+    lineWrapping: true,
   });
 
   const onChange = (editor, data, value) => {
@@ -22,5 +22,5 @@ export default props => {
     props.setResolver(value);
   };
 
-  return <CodeMirror value={props.resolver} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />
+  return <CodeMirror value={props.resolver} onBeforeChange={onBeforeChange} onChange={onChange} options={option} />;
 };

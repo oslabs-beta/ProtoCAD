@@ -1,5 +1,5 @@
 import {
-    SET_RESOLVER_CODE
+  SET_RESOLVER_CODE,
 } from '../actions/types';
 
 export default (state = {
@@ -7,13 +7,13 @@ export default (state = {
     loading: false,
     data: 'const resolver = {\n\n}\n\nmodule.exports = resolver;'
 }, action) => {
-    switch (action.type) {
-        case SET_RESOLVER_CODE:
-            return {
-                ...state,
-                data: action.payload
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SET_RESOLVER_CODE:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    default:
+      return state;
+  }
 };

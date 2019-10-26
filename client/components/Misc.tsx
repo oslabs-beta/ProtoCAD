@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
-
+import { GlobalState } from '../utils/InterfaceDefinitions';
 
 declare const window: any;
-const ipcRenderer = window.ipcRenderer;
+const { ipcRenderer } = window;
 
 
 export default props => {
@@ -14,18 +14,18 @@ export default props => {
   // const resolverCode = useSelector(state => state.resolver.data);
 
   const onClick = () => {
-      console.log(components);
-      ipcRenderer.send('schema', components);
+    console.log(components);
+    ipcRenderer.send('schema', components);
   };
 
   React.useEffect(() => {
-  },[]);
+  }, []);
 
   const onConvert = () => {
-      ipcRenderer.send('editor', {
-          path: directory.root.path,
-          data: code
-      });
+    ipcRenderer.send('editor', {
+      path: directory.root.path,
+      data: code,
+    });
   };
 
    return <div id={'misc'}>
@@ -33,14 +33,16 @@ export default props => {
         variant="contained"
         size="small"
         id="exportButton"
-        onClick={onClick}>
+        onClick={onClick}
+      >
           Convert to GraphQL
       </Button>
-       <Button
-           variant="contained"
-           size="small"
-           id="apollo"
-           onClick={onConvert}>
+      <Button
+        variant="contained"
+        size="small"
+        id="apollo"
+        onClick={onConvert}
+      >
            Convert to Apollo
        </Button>
    </div>;

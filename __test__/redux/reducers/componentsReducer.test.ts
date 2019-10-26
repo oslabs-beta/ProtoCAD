@@ -1,26 +1,48 @@
 import componentsReducer from "../../../client/reducer/componentsReducer";
-import { addComponent, delComponent, addAttributesComponent, removeAttributesComponent } from '../../fixtures/components/componentsData';
-import { CREATE_COMPONENT, DELETE_COMPONENT, UPDATE_COMPONENT, ADD_ATTRIBUTE, DELETE_ATTRIBUTE, ADD_CHILD_COMPONENT, DELETE_ONE_COMPONENT } from '../../../client/actions/types';
+
+import {
+  addComponent,
+  delComponent,
+  addAttributesComponent,
+  removeAttributesComponent
+} from '../../fixtures/components/componentsData';
+
+import {
+  CREATE_COMPONENT,
+  DELETE_COMPONENT,
+  UPDATE_COMPONENT,
+  ADD_ATTRIBUTE,
+  DELETE_ATTRIBUTE,
+  ADD_CHILD_COMPONENT,
+  DELETE_ONE_COMPONENT
+} from '../../../client/actions/types';
 
 describe('Components Reducer', function () {
 
-    beforeEach(() => {
-    });
+  const initialData = {
+    error: null,
+    loading: false,
+    data: [{
+      name: 'Root',
+      attributes: {
+        'id': 'ID',
+        'name': 'String',
+      },
+      parent: {},
+      children: [],
+    }]
+  }
+
+  beforeEach(() => {
+  });
 
     it('expected state for CREATE_COMPONENT', () => {
         const action = {
             payload: addComponent,
             type: CREATE_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, action);
-
+        const updatedState = componentsReducer(initialData, action);
         expect(updatedState.data).toHaveLength(2);
-        expect(updatedState.data[0]).toEqual({
-            name: 'Root',
-            attributes: { id: 'ID' },
-            parent: {},
-            children: []
-        });
         expect(updatedState.data[1]).toEqual(addComponent);
     });
 
@@ -36,15 +58,10 @@ describe('Components Reducer', function () {
             payload: delComponent,
             type: DELETE_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, removeAction);
+        const updatedState = componentsReducer(initialData, removeAction);
 
         expect(updatedState.data).toHaveLength(1);
-        expect(updatedState.data[0]).toEqual({
-            name: 'Root',
-            attributes: { id: 'ID' },
-            parent: {},
-            children: []
-        });
+        expect(updatedState.data[0]).toEqual(initialData.data[0]);
     });
 
 
@@ -53,14 +70,13 @@ describe('Components Reducer', function () {
         const removeAction = {
             payload: {
               name: 'Root',
-              attributes: { id: 'ID' },
+              attributes: { id: 'ID', name: 'String' },
               parent: {},
               children: []
             },
             type: DELETE_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, removeAction);
-
+        const updatedState = componentsReducer(initialData, removeAction);
         expect(updatedState.data).toHaveLength(0);
     });
 
@@ -74,7 +90,7 @@ describe('Components Reducer', function () {
             },
             type: UPDATE_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, updateAction);
+        const updatedState = componentsReducer(initialData, updateAction);
         expect(updatedState.data).toHaveLength(1);
         expect(updatedState.data[0].attributes.name).toEqual('S0');
     });
@@ -93,7 +109,7 @@ describe('Components Reducer', function () {
             },
             type: CREATE_COMPONENT
         };
-        const addedComponent = componentsReducer(undefined, addAction);
+        const addedComponent = componentsReducer(initialData, addAction);
 
         const updateAction = {
             payload: {
@@ -117,19 +133,20 @@ describe('Components Reducer', function () {
         componentsReducer(undefined, addCompAction);
 
         const addAction = {
-            payload: { selectedComponent: {
-                        name: 'Root',
-                        attributes:
-                        { id: 'ID' },
-                        children: []
-                      },
-                      attributes : {
-                          name: 'S1'
-                      }
-                    },
+            payload: {
+              component: {
+                name: 'Root',
+                attributes:
+                { id: 'ID' },
+                children: []
+              },
+              attributes : {
+                  name: 'S1'
+              }
+            },
             type: ADD_ATTRIBUTE
         };
-        const updatedState = componentsReducer(undefined, addAction);
+        const updatedState = componentsReducer(initialData, addAction);
 
         expect(updatedState.data).toHaveLength(1);
         expect(updatedState.data[0].attributes.name).toEqual('S1');
@@ -139,21 +156,21 @@ describe('Components Reducer', function () {
 
         const addAction = {
             payload: {
-                name: 'C1',
+              name: 'C1',
+              attributes: { id: 'ID' },
+              children: [{
+                name: 'C2',
                 attributes: { id: 'ID' },
-                children: [{
-                  name: 'C2',
-                  attributes: { id: 'ID' },
-                  children: []
-                }]
+                children: []
+              }]
             },
             type: CREATE_COMPONENT
         };
-        const addedComponent = componentsReducer(undefined, addAction);
+        const addedComponent = componentsReducer(initialData, addAction);
 
         const addAttributeAction = {
             payload: {
-              selectedComponent: {
+              component: {
                 name: 'C2',
                 attributes: { id: 'ID' },
                 children: []
@@ -181,11 +198,11 @@ describe('Components Reducer', function () {
           },
           type: CREATE_COMPONENT
       };
-      const addedComponent = componentsReducer(undefined, addAction);
+      const addedComponent = componentsReducer(initialData, addAction);
 
         const removeAction = {
             payload: {
-              selectedComponent: {
+              component: {
                 name: 'C1',
                 attributes: { id: 'ID', name: 'S9' },
                 children: []
@@ -208,7 +225,7 @@ describe('Components Reducer', function () {
                     attributes: { id: 'ID' },
                     children: []
                 },
-                 data: {
+                 child: {
                     name: 'C10',
                     attributes: { id: 'ID' },
                     children: []
@@ -216,7 +233,7 @@ describe('Components Reducer', function () {
             },
             type: ADD_CHILD_COMPONENT
         };
-        const updatedState = componentsReducer(undefined, addChildAction);
+        const updatedState = componentsReducer(initialData, addChildAction);
         expect(updatedState.data).toHaveLength(1);
         expect(updatedState.data[0].children[0].name).toEqual('C10');
     });
@@ -235,7 +252,7 @@ describe('Components Reducer', function () {
             },
             type: CREATE_COMPONENT
         };
-        const addedComponent = componentsReducer(undefined, addAction);
+        const addedComponent = componentsReducer(initialData, addAction);
 
         const addChildAction = {
             payload: {
@@ -244,7 +261,7 @@ describe('Components Reducer', function () {
                     attributes: { id: 'ID' },
                     children: []
                 },
-                 data: {
+                 child: {
                     name: 'C12',
                     attributes: { id: 'ID' },
                     children: []
@@ -273,7 +290,7 @@ describe('Components Reducer', function () {
             type: UPDATE_COMPONENT
         };
 
-        const updatedRoot = componentsReducer(undefined, updateAction);
+        const updatedRoot = componentsReducer(initialData, updateAction);
 
         const deleteChildAction = {
             payload: {
@@ -286,7 +303,7 @@ describe('Components Reducer', function () {
                     children: []
                   }]
                 },
-                data: {
+                child: {
                   name: 'C1',
                   attributes: { id: 'ID' },
                   children: []
@@ -319,7 +336,7 @@ describe('Components Reducer', function () {
             type: UPDATE_COMPONENT
         };
 
-        const updatedRoot = componentsReducer(undefined, updateAction);
+        const updatedRoot = componentsReducer(initialData, updateAction);
 
         const deleteChildAction = {
             payload: {
@@ -332,7 +349,7 @@ describe('Components Reducer', function () {
                     children: []
                   }]
                 },
-                data: {
+                child: {
                   name: 'C2',
                   attributes: { id: 'ID', name: 'S7' },
                   children: []
@@ -342,7 +359,7 @@ describe('Components Reducer', function () {
         };
         const updatedState = componentsReducer(updatedRoot, deleteChildAction);
         expect(updatedState.data).toHaveLength(1);
-        expect(updatedState.data[0].children[0].children).toBeNull();
+        expect(updatedState.data[0].children[0].children).toHaveLength(0);
     });
 
 

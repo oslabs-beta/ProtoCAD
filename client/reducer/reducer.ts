@@ -1,9 +1,9 @@
-import componentsReducer from "./componentsReducer";
-import currentComponentReducer from "./currentComponentReducer";
-import selectedComponentReducer from "./selectedComponentReducer";
-import directoryReducer from "./directoryReducer";
-import codeReducer from "./codeReducer";
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
+import componentsReducer from './componentsReducer';
+import currentComponentReducer from './currentComponentReducer';
+import selectedComponentReducer from './selectedComponentReducer';
+import directoryReducer from './directoryReducer';
+import codeReducer from './codeReducer';
 // import resolverReducer from "./resolverReducer";
 
 export default combineReducers({
@@ -13,4 +13,3 @@ export default combineReducers({
   directory: directoryReducer,
   code: codeReducer,
 });
-

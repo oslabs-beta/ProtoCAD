@@ -65,15 +65,15 @@ export default props => {
     const [query, setQuery] = React.useState('');
 
     const handleSchema = () => {
-        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.path, data: schema });
+        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.root.path, data: schema });
     };
 
     const handleResolver = () => {
-        if (resolver.length > 0) ipcRenderer.send('resolver', { path: directory.path, data: resolver });
+        if (resolver.length > 0) ipcRenderer.send('resolver', { path: directory.root.path, data: resolver });
     };
 
     const handleQuery = () => {
-        if (query.length > 0) ipcRenderer.send('query', { path: directory.path, data: query });
+        if (query.length > 0) ipcRenderer.send('query', { path: directory.root.path, data: query });
     };
 
     return (

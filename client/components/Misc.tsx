@@ -7,11 +7,11 @@ declare const window: any;
 const { ipcRenderer } = window;
 
 
-export default (props) => {
-  const components = useSelector((state: GlobalState) => state.components.data);
-  const directory = useSelector((state: GlobalState) => state.directory.data);
-  const code = useSelector((state: GlobalState) => state.code.data);
-  const resolverCode = useSelector((state: GlobalState) => state.resolver.data);
+export default props => {
+  const components = useSelector(state => state.components.data);
+  const directory = useSelector(state => state.directory.data);
+  const code = useSelector(state => state.code.data);
+  // const resolverCode = useSelector(state => state.resolver.data);
 
   const onClick = () => {
     console.log(components);
@@ -28,16 +28,7 @@ export default (props) => {
     });
   };
 
-  const onResolver = () => {
-    ipcRenderer.send('resolver', {
-      path: directory.root.path,
-      data: resolverCode,
-    });
-    props.sendQueries();
-  };
-
-  return (
-    <div id="misc">
+   return <div id={'misc'}>
       <Button
         variant="contained"
         size="small"
@@ -53,15 +44,6 @@ export default (props) => {
         onClick={onConvert}
       >
            Convert to Apollo
-      </Button>
-      <Button
-        variant="contained"
-        size="small"
-        id="resolver"
-        onClick={onResolver}
-      >
-           Save code
-      </Button>
-    </div>
-  );
+       </Button>
+   </div>;
 };

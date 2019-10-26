@@ -1,18 +1,12 @@
 import * as React from 'react';
-import { Controlled as CodeMirror } from 'react-codemirror2';
-import { useDispatch, useSelector } from 'react-redux';
-import { setResolverCode } from '../actions/componentsAction';
+import { Controlled as CodeMirror } from 'react-codemirror2'
+import {useDispatch, useSelector } from "react-redux";
 
-export default (props) => {
-  const externalCode = useSelector((state) => state.resolver.data);
-  const [resolverCode, setCode] = React.useState(useSelector((state) => state.resolver.data));
+export default props => {
+  // const [resolverCode, setCode] = React.useState(useSelector(state => state.resolver.data));
   const dispatch = useDispatch();
 
   // const {resolver, setResolver} = React.useContext(ResolveContext);
-
-  React.useEffect(() => {
-    setCode(externalCode);
-  }, [externalCode]);
 
   const [option, setOptions] = React.useState({
     lineNumbers: true,

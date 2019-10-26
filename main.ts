@@ -15,6 +15,8 @@ const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 
 const isMac = process.platform === 'darwin';
 
+let stateSchema = '';
+
 const setMenu = main => {
   // set menu
   const template = [
@@ -135,7 +137,6 @@ app.on('ready', function(){
 ipcMain.on('schema', function(e, item){
   let schema = '';
   let query = 'type Query {\n';
-  //let resolver = 'Query: {\n';
   //translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
@@ -151,8 +152,6 @@ ipcMain.on('schema', function(e, item){
       children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
     }
 
-    //resolver += `${node.name.toLowerCase()}(obj, args, context, info) {\n}`
-
     schema += `type ${node.name} {\n${props}${children}}\n\n`;
   };
 
@@ -164,8 +163,13 @@ ipcMain.on('schema', function(e, item){
   query += `}`;
 //add type query to schema after all the other types
   schema += query;
-  server.send(schema);
+  stateSchema = schema;
   mainWindow.webContents.send('schema', schema);
+});
+
+server.on('message', (msg) => {
+  console.log('message received:', msg);
+  mainWindow.webContents.send('queryResult', msg);
 });
 
 ipcMain.on('openDirectory', (e, { name, path }) => {
@@ -201,5 +205,5 @@ ipcMain.on('resolver', (e, { path, data }) => {
 });
 
 ipcMain.on('query', (e, { path, data }) => {
-  console.log('received data');
-});
+  server.send([stateSchema, data, path]);
+}); 

@@ -3,9 +3,9 @@ import {
 } from '../actions/types';
 
 export default (state = {
-  error: null,
-  loading: false,
-  data: 'const resolver = () => {\n\n}',
+    error: null,
+    loading: false,
+    data: 'const resolver = {\n\n}\n\nmodule.exports = resolver;'
 }, action) => {
   switch (action.type) {
     case SET_RESOLVER_CODE:

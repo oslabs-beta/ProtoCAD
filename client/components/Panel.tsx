@@ -9,7 +9,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { GlobalState } from '../utils/InterfaceDefinitions';
+import { GlobalState, ComponentInt } from '../utils/InterfaceDefinitions';
 
 
 import { deleteComponent, deleteAttribute, setCurrentComponent } from '../actions/componentsAction';
@@ -27,23 +27,37 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const EachPanel = (props) => {
+interface Props {
+  item: ComponentInt,
+  name: string,
+  attributes: {id: string}
+}
+
+/**
+ * ************************************
+ *
+ * @module  EachPanel
+ * @description
+ *
+ * ************************************
+ */
+const EachPanel = (props: Props) => {
+  const { item, name, attributes } = props;
   const classes = useStyles({});
   const current = useSelector((state: GlobalState) => state.current.data);
 
   const dispatch = useDispatch();
 
-  const handleClick = (myItem, key) => {
+  const handleClick = (myItem: ComponentInt, key: string) => {
     dispatch(deleteAttribute(myItem, key));
   };
-  const handleDelete = (e) => {
-    dispatch(deleteComponent(props.item));
+  const handleDelete = () => {
+    dispatch(deleteComponent(item));
   };
   const openComponent = () => {
-    console.log('open component method called!');
-    dispatch(setCurrentComponent(props.item));
+    dispatch(setCurrentComponent(item));
   };
-  const customClass = () => (current.name === props.name ? 'currentOpen' : '');
+  const customClass = () => (current.name === name ? 'currentOpen' : '');
   return (
     <ExpansionPanel className="eachPanel">
       <ExpansionPanelSummary
@@ -53,40 +67,40 @@ const EachPanel = (props) => {
         className={customClass()}
         onClick={openComponent}
       >
-        <Typography className={classes.heading}>{props.name}</Typography>
+        <Typography className={classes.heading}>{name}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className="eachPanelDetail">
         {
-                Object.keys(props.attributes).map((key, i) => (
-                  <div className="inline between" key={i}>
-                    <Typography key={i} className="panel_typography">
-                      {
-                                    `${key}: ${props.attributes[key]}`
-                                }
-                    </Typography>
-                    {
-                              key !== 'id' ? (
-                                <IconButton
-                                  size="small"
-                                  onClick={() => handleClick(props.item, key)}
-                                  className={classes.button}
-                                >
-                                  <RemoveIcon />
-                                </IconButton>
-                              ) : (
-                                <IconButton
-                                  size="small"
-                                  disabled
-                                  onClick={() => handleClick(props.item, key)}
-                                  className={classes.button}
-                                >
-                                  <RemoveIcon />
-                                </IconButton>
-                              )
-}
-                  </div>
-                ))
-            }
+          Object.keys(attributes).map((key) => (
+            <div className="inline between" key={key}>
+              <Typography key={key} className="panel_typography">
+                {
+                  `${key}: ${props.attributes[key]}`
+                }
+              </Typography>
+              {
+                key !== 'id' ? (
+                  <IconButton
+                    size="small"
+                    onClick={() => handleClick(item, key)}
+                    className={classes.button}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    size="small"
+                    disabled
+                    onClick={() => handleClick(item, key)}
+                    className={classes.button}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                )
+               }
+            </div>
+          ))
+         }
         <Button
           className="button alert space up"
           variant="contained"
@@ -94,13 +108,22 @@ const EachPanel = (props) => {
           id="exportButton"
           onClick={handleDelete}
         >
-                Delete
+         Delete
         </Button>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
 };
 
+
+/**
+ * ************************************
+ *
+ * @module  SimpleExpansionPanel
+ * @description
+ *
+ * ************************************
+ */
 export default function SimpleExpansionPanel() {
   const classes = useStyles({});
 
@@ -110,8 +133,8 @@ export default function SimpleExpansionPanel() {
   return (
     <div className={classes.root}>
       {
-                components.map((item, i) => <EachPanel key={i} {...item} item={item} />)
-            }
+      components.map((item) => <EachPanel key={item.name} {...item} item={item} />)
+    }
     </div>
   );
 }

@@ -11,8 +11,16 @@ import {
   ComponentInt, GlobalState, AddPanelInt, ComponentPanelInt,
 } from '../utils/InterfaceDefinitions';
 
-
+/**
+ * ************************************
+ *
+ * @module  Panel
+ * @description Functional component that renders a single component
+ *
+ * ************************************
+ */
 const Panel = (props: ComponentInt) => {
+  const { name } = props;
   const current = useSelector((state: GlobalState) => state.current.data);
   const dispatch = useDispatch();
 
@@ -28,35 +36,52 @@ const Panel = (props: ComponentInt) => {
 
   // displays single component block on component list
   return (
-    <div className={`panel ${current.name === props.name ? 'currentPanel' : ''}`} onClick={onClick}>
-      <h4>{props.name}</h4>
+    <div className={`panel ${current.name === name ? 'currentPanel' : ''}`} onClick={onClick}>
+      <h4>{name}</h4>
       <button onClick={onButtonClick}>X</button>
     </div>
   );
 };
 
-
+/**
+ * ************************************
+ *
+ * @module  AddPanel
+ * @description Functional component that displays all available components
+ * that a parent component can select
+ *
+ * ************************************
+ */
 const AddPanel = (props: AddPanelInt) => {
+  const { name, handleClose, data } = props;
   const dispatch = useDispatch();
   const selected = useSelector((state: GlobalState) => state.selected.data);
 
   // adds a child component to a selected component
   const onClick = () => {
-    dispatch(addChildComponent(selected, props.data));
-    props.handleClose();
+    dispatch(addChildComponent(selected, data));
+    handleClose();
   };
 
   return (
     <div className="panel" onClick={onClick}>
-      <h4>{props.name}</h4>
+      <h4>{name}</h4>
       <div>+</div>
     </div>
   );
 };
 
-
+/**
+ * ************************************
+ *
+ * @module  ComponentPanel
+ * @description Functional component that will either display a AddPanel or Panel component
+ *
+ * ************************************
+ */
 export default (props: ComponentPanelInt) => {
   // useSelector grabs redux state and selects components.data value and returns
+  const { handleClose, modal } = props;
   const current = useSelector((state: GlobalState) => state.current.data);
   const components = useSelector((state: GlobalState) => state.components.data);
   const selected = useSelector((state: GlobalState) => state.selected.data);
@@ -103,10 +128,12 @@ export default (props: ComponentPanelInt) => {
     find(current);
   }, [current]);
 
+
+/// ATTN: BEN - Explain this below, should we separate into other files
   return (
     <div id="componentPanel">
-      { props.modal
-        ? filtered.map((info) => <AddPanel key={info.name} data={info} {...info} handleClose={props.handleClose} />) : components.map((info) => <Panel key={info.name} {...info} />)}
+      { modal
+        ? filtered.map((info) => <AddPanel key={info.name} data={info} {...info} handleClose={handleClose} />) : components.map((info) => <Panel key={info.name} {...info} />)}
     </div>
   );
 };

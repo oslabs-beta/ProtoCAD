@@ -173,9 +173,6 @@ server.on('message', (msg) => {
       launch: {
         launch_year: '2019',
         mission_name: 'Amos-17',
-        rocket: {
-          rocket_id: 'falcon1'
-        }
       }
     }
   };

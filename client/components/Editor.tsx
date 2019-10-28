@@ -62,9 +62,10 @@ export default (props) => {
     setValue(newValue);
   };
 
-    const directory = useSelector(state => state.directory.data);
+    // @ts-ignore
+  const directory = useSelector(state => state.directory.data);
     const [schema, setSchema] = React.useState('');
-    const [resolver, setResolver] = React.useState('const resolver = {\n\n}\n\nmodule.exports = resolver;');
+    const [resolver, setResolver] = React.useState('const axios = require(\'axios\');\n\nconst resolver = {\nlaunch: () => axios.get(\'https://api.spacexdata.com/v3/launches/latest\').then(res => res.data)\n}\n\nmodule.exports = resolver;');
     const [query, setQuery] = React.useState('');
 
     const handleSchema = () => {

@@ -32,7 +32,7 @@ export default () => {
 
   return (
     <div id="dashboard">
-      <Tree />
+      <Tree test={current} />
     </div>
   );
 };

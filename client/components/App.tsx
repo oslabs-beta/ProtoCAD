@@ -49,6 +49,7 @@ export default () => {
   });
 
   ipcRenderer.on('queryResult', (err, data) => {
+    console.log(data);
     dispatch(updateAttribute(data));
   });
 

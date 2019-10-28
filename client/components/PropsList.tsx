@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteAttribute } from '../actions/componentsAction';
 
 export default (props) => {
+  // @ts-ignore
   const selected = useSelector((state) => state.selected.data);
   const dispatch = useDispatch();
   const { attributes } = selected;

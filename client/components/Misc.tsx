@@ -8,8 +8,11 @@ const { ipcRenderer } = window;
 
 
 export default props => {
+  // @ts-ignore
   const components = useSelector(state => state.components.data);
+  // @ts-ignore
   const directory = useSelector(state => state.directory.data);
+  // @ts-ignore
   const code = useSelector(state => state.code.data);
   // const resolverCode = useSelector(state => state.resolver.data);
 

@@ -33,6 +33,14 @@ interface Props {
   attributes: {id: string}
 }
 
+/**
+ * ************************************
+ *
+ * @module  EachPanel
+ * @description
+ *
+ * ************************************
+ */
 const EachPanel = (props: Props) => {
   const { item, name, attributes } = props;
   const classes = useStyles({});
@@ -107,6 +115,15 @@ const EachPanel = (props: Props) => {
   );
 };
 
+
+/**
+ * ************************************
+ *
+ * @module  SimpleExpansionPanel
+ * @description
+ *
+ * ************************************
+ */
 export default function SimpleExpansionPanel() {
   const classes = useStyles({});
 

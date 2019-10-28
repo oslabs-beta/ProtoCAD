@@ -21,6 +21,14 @@ interface TabPanelProps {
     value: any;
 }
 
+/**
+ * ************************************
+ *
+ * @module  TabsPanel
+ * @description
+ *
+ * ************************************
+ */
 function TabPanel(props: TabPanelProps) {
   const {
     children, value, index, ...other
@@ -54,7 +62,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default (props) => {
+
+/**
+ * ************************************
+ *
+ * @module  Library
+ * @description
+ *
+ * ************************************
+ */
+export default () => {
   const classes = useStyles({});
   const [value, setValue] = React.useState(0);
 
@@ -62,7 +79,7 @@ export default (props) => {
     setValue(newValue);
   };
 
-    const directory = useSelector(state => state.directory.data);
+    const directory = useSelector((state: GlobalState) => state.directory.data);
     const [schema, setSchema] = React.useState('');
     const [resolver, setResolver] = React.useState('const resolver = {\n\n}\n\nmodule.exports = resolver;');
     const [query, setQuery] = React.useState('');
@@ -106,7 +123,7 @@ export default (props) => {
           id="exportButton"
           onClick={handleSchema}
         >
-                Send Schema
+          Send Schema
         </Button>
         <Button
           variant="contained"
@@ -114,7 +131,7 @@ export default (props) => {
           id="apollo"
           onClick={handleResolver}
         >
-                Send Resolver
+          Send Resolver
         </Button>
         <Button
           variant="contained"
@@ -122,7 +139,7 @@ export default (props) => {
           id="resolver"
           onClick={handleQuery}
         >
-                Send Query
+          Send Query
         </Button>
       </div>
     </div>

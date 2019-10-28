@@ -11,7 +11,14 @@ import {
   ComponentInt, GlobalState, AddPanelInt, ComponentPanelInt,
 } from '../utils/InterfaceDefinitions';
 
-
+/**
+ * ************************************
+ *
+ * @module  Panel
+ * @description Functional component that renders a single component
+ *
+ * ************************************
+ */
 const Panel = (props: ComponentInt) => {
   const { name } = props;
   const current = useSelector((state: GlobalState) => state.current.data);
@@ -36,7 +43,15 @@ const Panel = (props: ComponentInt) => {
   );
 };
 
-
+/**
+ * ************************************
+ *
+ * @module  AddPanel
+ * @description Functional component that displays all available components
+ * that a parent component can select
+ *
+ * ************************************
+ */
 const AddPanel = (props: AddPanelInt) => {
   const { name, handleClose, data } = props;
   const dispatch = useDispatch();
@@ -56,7 +71,14 @@ const AddPanel = (props: AddPanelInt) => {
   );
 };
 
-
+/**
+ * ************************************
+ *
+ * @module  ComponentPanel
+ * @description Functional component that will either display a AddPanel or Panel component
+ *
+ * ************************************
+ */
 export default (props: ComponentPanelInt) => {
   // useSelector grabs redux state and selects components.data value and returns
   const { handleClose, modal } = props;
@@ -106,6 +128,8 @@ export default (props: ComponentPanelInt) => {
     find(current);
   }, [current]);
 
+
+/// ATTN: BEN - Explain this below, should we separate into other files
   return (
     <div id="componentPanel">
       { modal

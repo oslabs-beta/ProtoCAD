@@ -21,7 +21,7 @@ describe('addchild component redux', function () {
             ];
             reduxStore.dispatch(addChildComponent(
               addchildResult.parentComponent,
-              addchildResult.data
+              addchildResult.child
             ));
 
             expect(reduxStore.getActions()).toEqual(expectedActions);

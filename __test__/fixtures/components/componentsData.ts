@@ -41,14 +41,14 @@ export const updatesResult = {
 };
 
 export const addchildComponent = {
-    parentComponent : {
-      name: 'C2',
+    parentComponent: {
+      name: 'Root',
       parent: {},
       attributes: { id: 'ID' },
       children: []
     },
-    data :{
-      name: 'C10',
+    child : {
+      name: 'C1',
       parent: {},
       attributes: { id: 'ID' },
       children: []
@@ -56,14 +56,14 @@ export const addchildComponent = {
 };
 
 export const addchildResult = {
-    parentComponent : {
-      name: 'C2',
+    parentComponent: {
+      name: 'Root',
       parent: {},
       attributes: { id: 'ID' },
       children: []
     },
-    data :{
-      name: 'C10',
+    child: {
+      name: 'C1',
       parent: {},
       attributes: { id: 'ID' },
       children: []
@@ -71,7 +71,7 @@ export const addchildResult = {
 };
 
 export const addAttributesComponent = {
-    selectedComponent: {
+    component: {
       name: 'C2',
       parent: {},
       attributes:
@@ -84,25 +84,25 @@ export const addAttributesComponent = {
 };
 
 export const addAttributesResult = {
-    selectedComponent:{
+      component:{
         name: 'C2',
         parent: {},
         attributes:
         { id: 'ID' },
         children: []
-        },
-        attributes : {
-            name: 'S1'
-        }
+      },
+      attributes : {
+          name: 'S1'
+      }
 };
 
 export const removeAttributesComponent = {
-    selectedComponent:{
-    name: 'C2',
-    parent: {},
-    attributes:
-    { id: 'ID', name: 'S2' },
-    children: []
+    component:{
+      name: 'C2',
+      parent: {},
+      attributes:
+      { id: 'ID', name: 'S2' },
+      children: []
     },
     attributeKey: 'id'
 };

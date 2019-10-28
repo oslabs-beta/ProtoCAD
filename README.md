@@ -1,6 +1,6 @@
 # ProtoCAD
 
-ProtoCAD is a prototyping tool that empowers developers to build and visualize their components as data. 
+ProtoCAD is a prototyping tool that empowers developers to build and visualize their component as GraphQL schemas and queries. 
 
 ProtoCAD is in beta. Please post any issues to our GitHub - we are actively looking for opportunities to improve this tool and we welcome your feedback.
 

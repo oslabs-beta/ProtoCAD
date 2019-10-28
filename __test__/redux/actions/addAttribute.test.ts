@@ -19,7 +19,7 @@ describe('addchild component redux', function () {
                     type: ADD_ATTRIBUTE
                 }
             ];
-            reduxStore.dispatch(addAttribute(addAttributesResult.selectedComponent, addAttributesResult.attributes));
+            reduxStore.dispatch(addAttribute(addAttributesResult.component, addAttributesResult.attributes));
 
             expect(reduxStore.getActions()).toEqual(expectedActions);
         });

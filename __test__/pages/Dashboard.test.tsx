@@ -5,13 +5,12 @@ import Dashboard from '../../client/components/Dashboard';
 import { Provider } from 'react-redux';
 
 const mockStore = configureStore();
-
 const mockDispatchFn = jest.fn();
 
 describe('<Dashboard />', function () {
     let wrapper: any;
     it('defines dashboard component', () => {
-        wrapper = shallow(<Provider store={mockStore({})}><Dashboard dispatch={mockDispatchFn} /></Provider>)
+        wrapper = shallow(<Provider store={mockStore({})}><Dashboard /></Provider>)
         expect(wrapper).toBeDefined();
     });
 });

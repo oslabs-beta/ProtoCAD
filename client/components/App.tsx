@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dashboard from './Dashboard';
 import Library from './Library';
 import Misc from './Misc';
-// import SchemaBoard from "./SchemaBoard.jsx";
 import Editor from './Editor';
 import { setDirectory, setCode } from '../actions/componentsAction';
 import { GlobalState } from '../utils/InterfaceDefinitions';
@@ -11,6 +10,15 @@ import { GlobalState } from '../utils/InterfaceDefinitions';
 
 // @ts-ignore
 const { ipcRenderer } = window;
+
+/**
+ * ************************************
+ *
+ * @module  App
+ * @description Component that holds all dashboard components
+ *
+ * ************************************
+ */
 
 export default () => {
   const dispatch = useDispatch();
@@ -38,6 +46,7 @@ export default () => {
     }
     dispatch(setDirectory(deepClone));
   });
+  
   ipcRenderer.on('schema', (error, data) => {
     dispatch(setCode(data));
   });

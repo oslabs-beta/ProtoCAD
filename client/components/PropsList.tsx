@@ -7,6 +7,14 @@ interface Props {
   handleClose: () => void,
 }
 
+/**
+ * ************************************
+ *
+ * @module  PropsList
+ * @description Presentational component that list and renders component attributes
+ *
+ * ************************************
+ */
 export default (props: Props) => {
   const { handleClose } = props;
   const selected = useSelector((state: GlobalState) => state.selected.data);

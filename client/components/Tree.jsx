@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 import { setCurrentComponent, setSelectedComponent } from '../actions/componentsAction';
 import MyModal from './Modal.jsx';
 
+/**
+ * ************************************
+ *
+ * @module  MyTree
+ * @description Stateful component that renders and controls the d3 tree graph and modal
+ *
+ * ************************************
+ */
 class MyTree extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {

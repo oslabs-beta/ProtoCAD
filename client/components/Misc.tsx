@@ -6,20 +6,25 @@ import { GlobalState } from '../utils/InterfaceDefinitions';
 declare const window: any;
 const { ipcRenderer } = window;
 
+/**
+ * ************************************
+ *
+ * @module  Misc
+ * @description Presentation component that displays buttons
+ *
+ * ************************************
+ */
+export default () => {
+  const components = useSelector((state: GlobalState) => state.components.data);
+  const directory = useSelector((state: GlobalState) => state.directory.data);
+  const code = useSelector((state: GlobalState) => state.code.data);
 
-export default props => {
-  const components = useSelector(state => state.components.data);
-  const directory = useSelector(state => state.directory.data);
-  const code = useSelector(state => state.code.data);
-  // const resolverCode = useSelector(state => state.resolver.data);
-
+  // Converts components data into a GraphQL schema
   const onClick = () => {
     ipcRenderer.send('schema', components);
   };
 
-  React.useEffect(() => {
-  }, []);
-
+  // Sends component data to Apollo
   const onConvert = () => {
     ipcRenderer.send('editor', {
       path: directory.root.path,
@@ -27,7 +32,8 @@ export default props => {
     });
   };
 
-   return <div id={'misc'}>
+  return (
+    <div id="misc">
       <Button
         variant="contained"
         size="small"
@@ -42,7 +48,8 @@ export default props => {
         id="apollo"
         onClick={onConvert}
       >
-           Convert to Apollo
-       </Button>
-   </div>;
+        Convert to Apollo
+      </Button>
+    </div>
+  );
 };

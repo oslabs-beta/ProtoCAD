@@ -35,13 +35,13 @@ export default (props) => {
         className={classes.paper}
       >
         {components.length > 1
-                  && (
-                  <div id="componentList">
-                    <h4 id="simple-modal-title">Your Library</h4>
-                    <hr />
-                    <ComponentPanel modal handleClose={props.handleClose} />
-                  </div>
-                  )}
+        && (
+        <div id="componentList">
+          <h4 id="simple-modal-title">Your Library</h4>
+          <hr />
+          <ComponentPanel modal handleClose={props.handleClose} />
+        </div>
+        )}
         <div id="propsContainer">
           <AttributePanel modal handleClose={props.handleClose} />
         </div>

@@ -18,8 +18,17 @@ export default (type: string, props: Props) => {
   }
 };
 
-const AddButton = (props: Props) => (<button className="btn addBtn" onClick={props.fn}>Add Component</button>);
+const AddButton = (props: Props) => {
+  const { fn } = props;
+  return (<button className="btn addBtn" onClick={fn}>Add Component</button>);
+};
 
-const RemoveButton = (props: Props) => (<button className="btn removeBtn" onClick={props.fn}>Remove Component</button>);
+const RemoveButton = (props: Props) => {
+  const { fn } = props;
+  return (<button className="btn removeBtn" onClick={fn}>Remove Component</button>);
+};
 
-const EditButton = (props: Props) => (<button className="btn editButton" onClick={props.fn}>Edit Component</button>);
+const EditButton = (props: Props) => {
+  const { fn } = props;
+  return (<button className="btn editButton" onClick={fn}>Edit Component</button>);
+};

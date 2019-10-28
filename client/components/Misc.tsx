@@ -14,7 +14,6 @@ export default props => {
   // const resolverCode = useSelector(state => state.resolver.data);
 
   const onClick = () => {
-    console.log(components);
     ipcRenderer.send('schema', components);
   };
 

@@ -168,8 +168,15 @@ ipcMain.on('schema', function(e, item){
 });
 
 server.on('message', (msg) => {
-  console.log('message received:', msg);
-  mainWindow.webContents.send('queryResult', msg);
+  const sample = {
+    data: {
+      launch: {
+        launch_year: '2019',
+        mission_name: 'Amos-17',
+      }
+    }
+  };
+  mainWindow.webContents.send('queryResult', sample);
 });
 
 ipcMain.on('openDirectory', (e, { name, path }) => {
@@ -181,12 +188,9 @@ ipcMain.on('openDirectory', (e, { name, path }) => {
 });
 
 ipcMain.on('editor', (e, { path, data}) => {
-  console.log(path);
-  console.log(data);
   const typedef = genApolloTypedef(data);
   fs.writeFile(path + '/' + 'typdef.js', typedef, err => {
     if (err) throw err;
-    console.log("successfully wrote!");
   });
 });
 
@@ -200,7 +204,6 @@ ipcMain.on('readFile', (e, path) => {
 ipcMain.on('resolver', (e, { path, data }) => {
   fs.writeFile(path + '/' + 'resolver.js', data, err => {
     if (err) throw err;
-    console.log('successfully wrote resolver.js');
   });
 });
 

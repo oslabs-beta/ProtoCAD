@@ -16,7 +16,7 @@ import {
   SET_SELECTED_COMPONENT,
   DELETE_ONE_COMPONENT,
   SET_DIRECTORY,
-  SET_CURRENT_FILE, SET_RESOLVER_CODE,
+  SET_CURRENT_FILE, SET_RESOLVER_CODE, UPDATE_ATTRIBUTE,
 } from './types';
 
 
@@ -57,6 +57,11 @@ export const addAttribute = (component: ComponentInt, attributes: any) => ({
     component,
     attributes,
   },
+});
+
+export const updateAttribute = (queryResult) => ({
+  type: UPDATE_ATTRIBUTE,
+  payload: queryResult
 });
 
 export const deleteAttribute = (component: ComponentInt, attributeKey: string) => ({

@@ -4,7 +4,7 @@ import Dashboard from './Dashboard';
 import Library from './Library';
 import Misc from './Misc';
 import Editor from './Editor';
-import { setDirectory, setCode } from '../actions/componentsAction';
+import {setDirectory, setCode, updateAttribute} from '../actions/componentsAction';
 import { GlobalState } from '../utils/InterfaceDefinitions';
 
 
@@ -28,6 +28,7 @@ export default () => {
   ipcRenderer.on('newProject', (error, data) => {
     if (data.hasOwnProperty('path')) dispatch(setDirectory(data));
   });
+
   ipcRenderer.on('readDirectory', (error, data) => {
     // console.log(data); // { name: 'dir', path: '/Users/sasdfasdf/dir/, children: ['file.js', 'b.js'] }
     const queue = [];
@@ -46,13 +47,18 @@ export default () => {
     }
     dispatch(setDirectory(deepClone));
   });
-  
+
   ipcRenderer.on('schema', (error, data) => {
     dispatch(setCode(data));
   });
 
   ipcRenderer.on('editor', (err, data) => {
     dispatch(setCode(data));
+  });
+
+  ipcRenderer.on('queryResult', (err, data) => {
+    console.log(data);
+    dispatch(updateAttribute(data));
   });
 
   return (

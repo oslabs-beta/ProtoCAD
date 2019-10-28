@@ -30,7 +30,7 @@ process.on('message', (msg) => {
   //   launch: () => 
   //     {
   //       return axios
-  //         .get('https://api.spacexdata.com/v3/launches/latest')
+  //         .get('https://api.spacexdata.com/v3/launches')
   //         .then(res => res.data)
   //     }
   // }

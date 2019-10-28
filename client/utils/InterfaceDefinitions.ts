@@ -7,14 +7,14 @@ export interface ParentInt {
 
 export interface ComponentInt {
   name: string,
-  attributes: {id: string},
+  attributes?: {id: string},
   parent?: ParentInt,
   children: ChildInt[]
 }
 
 export interface ChildInt {
   name: string,
-  attributes: {id: string},
+  attributes?: {id: string},
   parent?: ParentInt,
   children: ChildInt[]
 }

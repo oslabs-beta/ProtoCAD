@@ -45,6 +45,11 @@ export default (state = initialState, action: any) => {
         ...state,
         data: addAttribute(state.data, action.payload),
       };
+    case types.UPDATE_ATTRIBUTE:
+      return {
+        ...state,
+        data: updateAttribute(state.data, action.payload)
+      };
     case types.DELETE_ATTRIBUTE:
       return {
         ...state,
@@ -178,3 +183,20 @@ const deleteAttribute = (
     children: deleteAttribute(item.children, { component, attributeKey }),
   };
 });
+
+const updateAttribute = (components: any[], attributes) => {
+  console.dir(attributes);
+  console.log(typeof attributes);
+  let updatedComponents = components;
+  for (let [key, value] of Object.entries(attributes.data)) {
+    console.log(key);
+    console.log(value);
+    const filtered = updatedComponents.filter(component => component.name.toLowerCase() === key.toLowerCase());
+    if (filtered.length < 1) continue;
+    const selected = filtered[0];
+    console.dir(selected);
+    selected.attributes = Object.assign(selected.attributes, value);
+    updatedComponents = updateComponent(updatedComponents, selected);
+  }
+  return updatedComponents;
+};

@@ -59,6 +59,11 @@ class MyTree extends React.PureComponent {
       y: e.clientY,
     },
   });
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('updated!');
+    console.log(prevProps);
+    console.log(prevState);
+  }
 
   onClick = (node) => {
     this.handleOpen();

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteAttribute } from '../actions/componentsAction';
 import { GlobalState } from '../utils/InterfaceDefinitions';
 
+
 interface Props {
   handleClose: () => void,
 }

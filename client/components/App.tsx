@@ -7,7 +7,7 @@ import Editor from './Editor';
 import {setDirectory, setCode, updateAttribute} from '../actions/componentsAction';
 import { GlobalState } from '../utils/InterfaceDefinitions';
 
-
+// accessing ipcRenderer from electron based on preload.js
 // @ts-ignore
 const { ipcRenderer } = window;
 
@@ -25,12 +25,14 @@ export default () => {
   const directory = useSelector((state: GlobalState) => state.directory.data);
 
   // event listeners from main process (electron)
+
+  // uses electron to get path to the directory
   ipcRenderer.on('newProject', (error, data) => {
     if (data.hasOwnProperty('path')) dispatch(setDirectory(data));
   });
 
+  // uses bfs to traverse through directory
   ipcRenderer.on('readDirectory', (error, data) => {
-    // console.log(data); // { name: 'dir', path: '/Users/sasdfasdf/dir/, children: ['file.js', 'b.js'] }
     const queue = [];
     const deepClone = { ...directory.root };
     queue.push(deepClone);
@@ -48,16 +50,17 @@ export default () => {
     dispatch(setDirectory(deepClone));
   });
 
+  // updates schema/ store with incoming data 
   ipcRenderer.on('schema', (error, data) => {
     dispatch(setCode(data));
   });
 
-  ipcRenderer.on('editor', (err, data) => {
-    dispatch(setCode(data));
-  });
+  // ipcRenderer.on('editor', (err, data) => {
+  //   dispatch(setCode(data));
+  // });
 
+  // updates each node attributes with incoming GraphQL data
   ipcRenderer.on('queryResult', (err, data) => {
-    console.log(data);
     dispatch(updateAttribute(data));
   });
 

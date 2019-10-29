@@ -21,6 +21,14 @@ interface TabPanelProps {
     value: any;
 }
 
+/**
+ * ************************************
+ *
+ * @module  TabsPanel
+ * @description
+ *
+ * ************************************
+ */
 function TabPanel(props: TabPanelProps) {
   const {
     children, value, index, ...other
@@ -47,28 +55,38 @@ function a11yProps(index: any) {
   };
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    // flexGrow: 1,
-    // backgroundColor: theme.palette.background.paper,
-  },
-}));
 
-export default (props) => {
-  const classes = useStyles({});
+
+/**
+ * ************************************
+ *
+ * @module  Editor
+ * @description  Container for schema, resolver, query tabs, state and saves generated code
+ *
+ * ************************************
+ */
+export default () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
-    const directory = useSelector(state => state.directory.data);
-    const [schema, setSchema] = React.useState('');
-    const [resolver, setResolver] = React.useState('const resolver = {\n\n}\n\nmodule.exports = resolver;');
-    const [query, setQuery] = React.useState('');
+  const [schema, setSchema] = React.useState('');
+  const [resolver, setResolver] = React.useState('const axios = require(\'axios\');\n\nconst resolver = {\nlaunch: () => axios.get(\'https://api.spacexdata.com/v3/launches/latest\').then(res => res.data)\n}\n\nmodule.exports = resolver;');
+  const [query, setQuery] = React.useState('');
+
+    const directory = useSelector((state: GlobalState) => state.directory.data);
+    const externalCode = useSelector((state: GlobalState) => state.code.data);
+    const components = useSelector((state: GlobalState) => state.components.data);
+
+    React.useEffect(() => {
+      // @ts-ignore
+      setSchema(externalCode);
+    }, [externalCode]);
 
     const handleSchema = () => {
-        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.root.path, data: schema });
+        ipcRenderer.send('schema', components);
     };
 
     const handleResolver = () => {
@@ -81,7 +99,7 @@ export default (props) => {
 
   return (
     <div id="editor">
-      <div className={classes.root}>
+      <div>
         <AppBar position="static">
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Schema" {...a11yProps(0)} />
@@ -99,14 +117,14 @@ export default (props) => {
           <QueryBoard query={query} setQuery={setQuery} />
         </TabPanel>
       </div>
-      <div>
+      <div id="misc">
         <Button
           variant="contained"
           size="small"
           id="exportButton"
           onClick={handleSchema}
         >
-                Send Schema
+          Convert to Schema
         </Button>
         <Button
           variant="contained"
@@ -114,7 +132,7 @@ export default (props) => {
           id="apollo"
           onClick={handleResolver}
         >
-                Send Resolver
+          Send Resolver
         </Button>
         <Button
           variant="contained"
@@ -122,7 +140,7 @@ export default (props) => {
           id="resolver"
           onClick={handleQuery}
         >
-                Send Query
+          Send Query
         </Button>
       </div>
     </div>

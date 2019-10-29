@@ -4,6 +4,7 @@ export const DELETE_COMPONENT: string = 'DELETE_COMPONENT';
 export const DELETE_ONE_COMPONENT: string = 'DELETE_ONE_COMPONENT';
 export const ADD_CHILD_COMPONENT: string = 'ADD_CHILD_COMPONENT';
 export const ADD_ATTRIBUTE: string = 'ADD_ATTRIBUTE';
+export const UPDATE_ATTRIBUTE: string = 'UPDATE_ATTRIBUTE';
 export const DELETE_ATTRIBUTE: string = 'DELETE_ATTRIBUTE';
 export const SET_CURRENT_COMPONENT: string = 'SET_CURRENT_COMPONENT';
 export const EDIT_CURRENT_COMPONENT: string = 'EDIT_CURRENT_COMPONENT';

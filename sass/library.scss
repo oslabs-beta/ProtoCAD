@@ -8,6 +8,10 @@
   margin: 15px auto;
 }
 
+.MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom: none !important;
+}
+
 @media only screen and (max-width: 1100px) {
     .MuiInputBase-input {
     font-size: 14px !important;

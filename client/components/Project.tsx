@@ -18,7 +18,6 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function FileSystemNavigator() {
   // const [files, setFiles] = React.useState({children: []});
   const directory = useSelector((state: GlobalState) => state.directory.data);
@@ -60,7 +59,7 @@ export default function FileSystemNavigator() {
 
   const renderTreeItems = (items) => items.map((item) =>
   // @ts-ignore
-    (item.isDirectory ? <TreeItem onClick={(e) => onClick(item)} key={item.path} nodeId={item.path} label={item.name}>{renderTreeItems(item.children)}</TreeItem> : <TreeItem ref={handleReference} onDoubleClick={(e) => onDoubleClickFile(item)} key={item.path} nodeId={item.path} label={item.name} />));
+    (item.isDirectory ? <TreeItem onClick={() => onClick(item)} key={item.path} nodeId={item.path} label={item.name}>{renderTreeItems(item.children)}</TreeItem> : <TreeItem ref={handleReference} onDoubleClick={() => onDoubleClickFile(item)} key={item.path} nodeId={item.path} label={item.name} />));
   return (
     <TreeView
       className={classes.root}
@@ -68,8 +67,8 @@ export default function FileSystemNavigator() {
       defaultExpandIcon={<ChevronRightIcon />}
     >
       {
-                renderTreeItems(directory.root.children)
-            }
+      renderTreeItems(directory.root.children)
+      }
     </TreeView>
   );
 }

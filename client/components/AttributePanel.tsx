@@ -18,8 +18,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface Props {
+  handleClose: () => void
+}
 
-export default (props) => {
+/**
+ * ************************************
+ *
+ * @module  AttributePanel
+ * @description Functional component that renders attribute form
+ *
+ * ************************************
+ */
+export default (props: Props) => {
+  const { handleClose } = props;
   const dispatch = useDispatch();
   const classes = useStyles({});
 
@@ -30,6 +42,7 @@ export default (props) => {
 
   const selected = useSelector((state: GlobalState) => state.selected.data);
 
+  // Watches input value and updates state's name
   const handleChange = (e) => {
     e.persist();
     setAttributes((oldValue) => ({
@@ -38,11 +51,12 @@ export default (props) => {
     }));
   };
 
+  // Submits new attribute and closes modal
   const onButtonClick = () => {
     const obj = {};
     obj[attribute.name] = attribute.type;
     dispatch(addAttribute(selected, obj));
-    props.handleClose();
+    handleClose();
   };
 
   return (
@@ -73,7 +87,7 @@ export default (props) => {
         className="attribute-form-field button"
         onClick={onButtonClick}
       >
-                Add Prop
+        Add Prop
       </Button>
     </div>
   );

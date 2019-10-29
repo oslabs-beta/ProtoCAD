@@ -1,6 +1,8 @@
 const axios = require('axios');
 const { graphql, buildSchema } = require('graphql');
 
+// runs whenever it receives messsage from electron
+// msg {array} params includes data for query, path, schema
 process.on('message', (msg) => {
   //const schema =  buildSchema(`${msg[0]}`);
   const query = msg[1]
@@ -41,15 +43,10 @@ process.on('message', (msg) => {
           .then(res => res.data)
       }
   }
-  // const root = {
-  //   launch: () => 
-  //     ({
-  //       mission_name: 'jason1245',
-  //       launch_year: '2019'
-  //     })
-  // }
 
-  //const query = '{launch {launch_year mission_name rocket {rocket_id}}}'
+  // const query = '{launch {launch_year mission_name}}'
+
+  // makes graphql query
   try {
     graphql(schema, query, root).then((response) => {
       console.log(response.data.launches[0])

@@ -3,6 +3,7 @@ const fs = require('fs');
 // @ts-ignore
 const path = require('path');
 
+// input: directory path in str, output: array of objects containing description of files
 const recursivelyGetDirectory = directory => new Promise((resolve, reject) => {
     const read = file => new Promise((resolve, reject) => {
         fs.lstat(file, (err, stat) => {
@@ -37,6 +38,7 @@ const recursivelyGetDirectory = directory => new Promise((resolve, reject) => {
     }).catch(error => reject(error));
 });
 
+// input: path to file, output: promise with file object
 const readFile = file => new Promise((resolve, reject) => {
     const basename = path.basename(file);
     fs.lstat(file, (err, stats) => {

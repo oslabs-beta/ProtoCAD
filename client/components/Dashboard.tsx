@@ -11,16 +11,16 @@ import Tree from './Tree';
  * specific component.
  */
 export default () => {
-  // collects all existing components data from d3 tree
+  // collects all existing components data from redux store
   const components = useSelector((state: GlobalState) => state.components.data);
-  // collects current component data from d3 tree
+  // collects current component data from redux store
   const current = useSelector((state: GlobalState) => state.current.data);
   const dispatch = useDispatch();
 
-  // watches for newly created compoents
+  // watches for component updates
   React.useEffect(() => {
     const newComponent = components.filter((item: ComponentInt) => item.name === current.name);
-    // if new component exists, set it to the current component view
+    // if updated component exists, set it to the current component view
     if (newComponent.length > 0) dispatch(setCurrentComponent(newComponent[0]));
     else if (components.length > 0) {
       dispatch(setCurrentComponent(components[0]));
@@ -32,7 +32,7 @@ export default () => {
 
   return (
     <div id="dashboard">
-      <Tree />
+      <Tree test={current} />
     </div>
   );
 };

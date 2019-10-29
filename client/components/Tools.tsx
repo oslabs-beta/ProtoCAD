@@ -30,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * ************************************
+ *
+ * @module  Tools
+ * @description
+ *
+ * ************************************
+ */
 export default () => {
   // input value
   const [value, setValue] = React.useState('');
@@ -67,26 +75,26 @@ export default () => {
           onChange={(e) => setValue(e.target.value)}
         />
         {
-                value === '' ? (
-                  <IconButton
-                    size="medium"
-                    onClick={onClick}
-                    disabled
-                    className={classes.button}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                )
-                  : (
-                    <IconButton
-                      size="medium"
-                      onClick={onClick}
-                      className={classes.button}
-                    >
-                      <AddIcon />
-                    </IconButton>
-                  )
-            }
+          value === '' ? (
+            <IconButton
+              size="medium"
+              onClick={onClick}
+              disabled
+              className={classes.button}
+            >
+              <AddIcon />
+            </IconButton>
+          )
+          : (
+            <IconButton
+              size="medium"
+              onClick={onClick}
+              className={classes.button}
+            >
+              <AddIcon />
+            </IconButton>
+          )
+        }
       </div>
       <Panel />
     </div>

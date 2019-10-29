@@ -142,6 +142,7 @@ ipcMain.on('schema', function(e, item){
     if(!node) return;
 
     query += `  ${node.name.toLowerCase()}: ${node.name},\n`
+    query += `  ${node.name.toLowerCase()}s: [${node.name}],\n`
 
     let props = '';
     for(let x in node.attributes) {
@@ -168,7 +169,7 @@ ipcMain.on('schema', function(e, item){
 });
 
 server.on('message', (msg) => {
-  console.log('message received:', msg);
+  //console.log('message received:', msg);
   mainWindow.webContents.send('queryResult', msg);
 });
 

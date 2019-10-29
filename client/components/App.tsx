@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Dashboard from './Dashboard';
 import Library from './Library';
-import Misc from './Misc';
 import Editor from './Editor';
 import {setDirectory, setCode, updateAttribute} from '../actions/componentsAction';
 import { GlobalState } from '../utils/InterfaceDefinitions';
@@ -50,7 +49,7 @@ export default () => {
     dispatch(setDirectory(deepClone));
   });
 
-  // updates schema/ store with incoming data 
+  // updates schema/ store with incoming data
   ipcRenderer.on('schema', (error, data) => {
     dispatch(setCode(data));
   });

@@ -78,16 +78,15 @@ export default () => {
 
     const directory = useSelector((state: GlobalState) => state.directory.data);
     const externalCode = useSelector((state: GlobalState) => state.code.data);
-    
+    const components = useSelector((state: GlobalState) => state.components.data);
+
     React.useEffect(() => {
       // @ts-ignore
       setSchema(externalCode);
     }, [externalCode]);
 
-
-
     const handleSchema = () => {
-        if (schema.length > 0) ipcRenderer.send('schema', { path: directory.root.path, data: schema });
+        ipcRenderer.send('schema', components);
     };
 
     const handleResolver = () => {
@@ -97,7 +96,7 @@ export default () => {
     const handleQuery = () => {
         if (query.length > 0) ipcRenderer.send('query', { path: directory.root.path, data: query });
     };
-  
+
   return (
     <div id="editor">
       <div>
@@ -118,14 +117,14 @@ export default () => {
           <QueryBoard query={query} setQuery={setQuery} />
         </TabPanel>
       </div>
-      <div>
+      <div id="misc">
         <Button
           variant="contained"
           size="small"
           id="exportButton"
           onClick={handleSchema}
         >
-          Generate Schema
+          Convert to Schema
         </Button>
         <Button
           variant="contained"

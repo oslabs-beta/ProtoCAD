@@ -123,7 +123,7 @@ export default () => {
           id="exportButton"
           onClick={handleSchema}
         >
-          Send Schema
+          Generate Schema
         </Button>
         <Button
           variant="contained"

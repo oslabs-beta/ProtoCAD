@@ -64,7 +64,6 @@ export default () => {
   return (
     <div id="appContainer">
       <Library />
-      <Misc />
       <Dashboard />
       <Editor />
     </div>

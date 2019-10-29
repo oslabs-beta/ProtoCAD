@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   item: ComponentInt,
   name: string,
-  attributes: {id: string}
+  attributes?: {id: string}
 }
 
 /**
@@ -75,7 +75,7 @@ const EachPanel = (props: Props) => {
             <div className="inline between" key={key}>
               <Typography key={key} className="panel_typography">
                 {
-                  `${key}: ${props.attributes[key]}`
+                  `${key}: ${attributes[key]}`
                 }
               </Typography>
               {

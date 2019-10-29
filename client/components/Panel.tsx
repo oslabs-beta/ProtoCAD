@@ -10,8 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalState, ComponentInt } from '../utils/InterfaceDefinitions';
-
-
 import { deleteComponent, deleteAttribute, setCurrentComponent } from '../actions/componentsAction';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -30,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   item: ComponentInt,
   name: string,
-  attributes: {id: string}
+  attributes?: {id: string}
 }
 
 /**
@@ -51,12 +49,15 @@ const EachPanel = (props) => {
   const handleClick = (myItem: ComponentInt, key: string) => {
     dispatch(deleteAttribute(myItem, key));
   };
+
   const handleDelete = () => {
     dispatch(deleteComponent(item));
   };
+
   const openComponent = () => {
     dispatch(setCurrentComponent(item));
   };
+
   const customClass = () => (current.name === name ? 'currentOpen' : '');
   return (
     <ExpansionPanel className="eachPanel">
@@ -75,7 +76,7 @@ const EachPanel = (props) => {
             <div className="inline between" key={key}>
               <Typography key={key} className="panel_typography">
                 {
-                  `${key}: ${props.attributes[key]}`
+                  `${key}: ${attributes[key]}`
                 }
               </Typography>
               {

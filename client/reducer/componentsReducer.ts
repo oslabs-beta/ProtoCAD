@@ -184,17 +184,13 @@ const deleteAttribute = (
   };
 });
 
+// updates components' attributes with incoming query result
 const updateAttribute = (components: any[], attributes) => {
-  console.dir(attributes);
-  console.log(typeof attributes);
   let updatedComponents = components;
   for (let [key, value] of Object.entries(attributes.data)) {
-    console.log(key);
-    console.log(value);
     const filtered = updatedComponents.filter(component => component.name.toLowerCase() === key.toLowerCase());
     if (filtered.length < 1) continue;
     const selected = filtered[0];
-    console.dir(selected);
     selected.attributes = Object.assign(selected.attributes, value);
     updatedComponents = updateComponent(updatedComponents, selected);
   }

@@ -25,7 +25,7 @@ process.on('message', (msg) => {
 
     type Query {
       launch: Launch,
-      launches: [Launch],
+      allLaunch: [Launch],
       rocket: Rocket,
     }`
   )
@@ -36,7 +36,7 @@ process.on('message', (msg) => {
           .get('https://api.spacexdata.com/v3/launches/latest')
           .then(res => res.data)
       },
-    launches: () =>
+    allLaunch: () =>
       {
         return axios
           .get('https://api.spacexdata.com/v3/launches/')
@@ -49,7 +49,6 @@ process.on('message', (msg) => {
   // makes graphql query
   try {
     graphql(schema, query, root).then((response) => {
-      console.log(response.data.launches[0])
       process.send(response);
     })
   }

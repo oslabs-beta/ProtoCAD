@@ -15,6 +15,7 @@ const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 const isMac = process.platform === 'darwin';
 
 let stateSchema = '';
+let stateTypes = {};
 
 const setMenu = main => {
   // set menu
@@ -133,13 +134,16 @@ app.on('ready', function(){
 // catch item
 ipcMain.on('schema', function(e, item){
   let schema = '';
+  const types  = {};
   let query = 'type Query {\n';
   // translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
 
+    types[node.name] = true;
+
     query += `  ${node.name.toLowerCase()}: ${node.name},\n`
-    query += `  ${node.name.toLowerCase()}s: [${node.name}],\n`
+    query += `  all${node.name}: [${node.name}],\n`
 
     let props = '';
     for(let x in node.attributes) {
@@ -147,7 +151,10 @@ ipcMain.on('schema', function(e, item){
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
-      children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
+      //children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].component.name}],\n`
+      children+= `  ${node.children[i].component.name.toLowerCase()}: `;
+      node.children[i].array ? children+= `[${node.children[i].component.name}],\n`
+                             : children+= `${node.children[i].component.name},\n`
     }
 
     schema += `type ${node.name} {\n${props}${children}}\n\n`;
@@ -162,11 +169,13 @@ ipcMain.on('schema', function(e, item){
 // add type query to schema after all the other types
   schema += query;
   stateSchema = schema;
+  stateTypes = types;
   mainWindow.webContents.send('schema', schema);
 });
 
 // receives query result and sends to subscribers in client  
 server.on('message', (msg) => {
+  console.log('message received: ', msg)
   const sample = {
     data: {
       launch: {
@@ -175,6 +184,24 @@ server.on('message', (msg) => {
       }
     }
   };
+  const treeData = {};
+  const data = msg.data;
+  function recurse(data) {
+    for(let x in data) {
+      if(Array.isArray(data[x])) {
+        for(let i = 0; i < data[x].length; i++) {
+          //data[x][i] is each object in the array
+          //create node for each object with props
+          let current = data[x][i];
+          for(let y in current) {
+            //check if y matches types in schema
+            //if so then it is a child so 
+          }
+        }
+      }
+    }
+  }
+  recurse(data);
   mainWindow.webContents.send('queryResult', sample);
 });
 

@@ -60,7 +60,6 @@ export default (props) => {
         </div>
         )}
         <div id="propsContainer">
-          // @ts-ignore
           <AttributePanel modal handleClose={handleClose} />
         </div>
       </div>

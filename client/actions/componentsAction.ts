@@ -43,11 +43,12 @@ export const updateComponent = (component: ComponentInt) => ({
   payload: component,
 });
 
-export const addChildComponent = (parentComponent: ComponentInt, child: ChildInt) => ({
+export const addChildComponent = (parentComponent: ComponentInt, child: ChildInt, array: boolean) => ({
   type: ADD_CHILD_COMPONENT,
   payload: {
     parentComponent,
     child,
+    array,
   },
 });
 

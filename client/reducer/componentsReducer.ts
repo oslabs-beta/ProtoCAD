@@ -110,25 +110,58 @@ const addChildComponent = (
   {
     parentComponent,
     child,
+      array,
   }: {
     parentComponent: ParentInt,
-    child: ChildInt
+    child: ChildInt,
+    array: boolean,
     },
-) => components.map((item) => {
-  if (item.name === parentComponent.name) {
+) => {
+    console.dir(components);
+  return components.map((item) => {
+      if (item.component) {
+        if (item.component.name === parentComponent.name) {
+          return {
+            ...item,
+            component: {
+              ...parentComponent,
+              children: [...item.component.children, {
+                array,
+                component: {
+                  ...child,
+                  parent: parentComponent
+                }
+              }]
+            }
+          }
+        } else {
+          return {
+            ...item,
+            component: {
+              ...item.component,
+              children: addChildComponent(item.component.children, { parentComponent, child, array })
+            }
+          }
+        }
+      }
+    if (item.name === parentComponent.name) {
+      return {
+        ...parentComponent,
+        children: [...item.children, {
+          array,
+          component: {
+            ...child,
+            parent: parentComponent,
+          }
+        }],
+      };
+    }
     return {
-      ...parentComponent,
-      children: [...item.children, {
-        ...child,
-        parent: parentComponent,
-      }],
+      ...item,
+      children: addChildComponent(item.children, { parentComponent, child, array }),
     };
-  }
-  return {
-    ...item,
-    children: addChildComponent(item.children, { parentComponent, child }),
-  };
-});
+  });
+};
 
 // recursively add attributes to child components
 const addAttribute = (

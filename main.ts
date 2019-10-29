@@ -132,6 +132,7 @@ app.on('ready', function(){
 
 // catch item
 ipcMain.on('schema', function(e, item){
+  console.dir(item);
   let schema = '';
   let query = 'type Query {\n';
   // translating each node into a graphql type

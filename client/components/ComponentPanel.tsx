@@ -43,6 +43,7 @@ const Panel = (props: ComponentInt) => {
   );
 };
 
+
 /**
  * ************************************
  *
@@ -56,18 +57,24 @@ const AddPanel = (props: AddPanelInt) => {
   const { name, handleClose, data } = props;
   const dispatch = useDispatch();
   const selected = useSelector((state: GlobalState) => state.selected.data);
+  const [array, setArray] = React.useState(false);
 
   // adds a child component to a selected component
   const onClick = () => {
-    dispatch(addChildComponent(selected, data));
+    dispatch(addChildComponent(selected, data, array));
     handleClose();
   };
 
+  const handleCheck = e => setArray(e.target.checked);
+
   return (
-    <div className="panel" onClick={onClick}>
-      <h4>{name}</h4>
-      <div>+</div>
-    </div>
+      <div>
+        <div className="panel" onClick={onClick}>
+          <h4>{ name }</h4>
+          <div>+</div>
+        </div>
+          <input type="checkbox" checked={array} onChange={handleCheck} /> isArray
+      </div>
   );
 };
 
@@ -82,7 +89,14 @@ const AddPanel = (props: AddPanelInt) => {
 export default (props: ComponentPanelInt) => {
   // useSelector grabs redux state and selects components.data value and returns
   const { handleClose, modal } = props;
-  const current = useSelector((state: GlobalState) => state.current.data);
+  const current = useSelector((state: GlobalState) => {
+    return {
+      ...state.current.data,
+      // @ts-ignore
+      children: state.current.data.children.map(item => item.component)
+    }
+  });
+  console.dir(current);
   const components = useSelector((state: GlobalState) => state.components.data);
   const selected = useSelector((state: GlobalState) => state.selected.data);
 
@@ -110,26 +124,28 @@ export default (props: ComponentPanelInt) => {
 
   React.useEffect(() => {
     const updated = components.filter((item: ComponentInt) => item.name === current.name);
+    console.log('run here!');
     if (updated.length > 0) dispatch(setCurrentComponent(updated[0]));
   }, [components]);
 
-  React.useEffect(() => {
-    const find = (component: ComponentInt) => {
-      if (component.name === selected.name) {
-        return component;
-      }
+  // React.useEffect(() => {
+  //   const find = (component: ComponentInt) => {
+  //     if (component.name === selected.name) {
+  //       return component;
+  //     }
+  //
+  //     component.children.forEach((item) => {
+  //       console.log('found!');
+  //       const found = find(item);
+  //       if (found) dispatch(setSelectedComponent(found));
+  //     });
+  //     return undefined;
+  //   };
+  //   find(current);
+  // }, [current]);
 
-      component.children.forEach((item) => {
-        const found = find(item);
-        if (found) dispatch(setSelectedComponent(found));
-      });
-      return undefined;
-    };
-    find(current);
-  }, [current]);
 
-
-/// ATTN: BEN - Explain this below, should we separate into other files
+  // conditional rendering - When modal opened, populate componentPanel with AddPanel and return; otherwise, regular Panel component populated
   return (
     <div id="componentPanel">
       { modal

@@ -10,6 +10,7 @@ const defaultState: SelectedComponentStateInt = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case types.SET_SELECTED_COMPONENT:
+      console.log(action);
       return {
         ...state,
         data: action.payload,

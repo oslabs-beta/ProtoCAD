@@ -41,7 +41,7 @@ interface Props {
  *
  * ************************************
  */
-const EachPanel = (props: Props) => {
+const EachPanel = (props) => {
   const { item, name, attributes } = props;
   const classes = useStyles({});
   const current = useSelector((state: GlobalState) => state.current.data);

@@ -3,6 +3,7 @@ import Tree from 'react-d3-tree';
 import { connect } from 'react-redux';
 import { setCurrentComponent, setSelectedComponent } from '../actions/componentsAction';
 import MyModal from './Modal.jsx';
+import _ from 'lodash';
 
 /**
  * ************************************
@@ -25,6 +26,7 @@ class MyTree extends React.PureComponent {
         x: 0,
         y: 0,
       },
+      component: {}
     };
     this.onClick = this.onClick.bind(this);
     this.onMouseClick = this.onMouseClick.bind(this);
@@ -62,10 +64,23 @@ class MyTree extends React.PureComponent {
 
   // updates the state of the selected node and opens the modal
   onClick = (node) => {
+    console.log(node);
+    const name = node.name[0] === '[' ? node.name.slice(1, node.name.length - 1) : node.name;
     this.handleOpen();
-    const selected = this.props.components.filter((item) => item.name === node.name);
-    if (selected.length > 0) this.props.setSelectedComponent(selected[0]);
+    const selected = this.props.components.filter((item) => item.name === name);
+    if (selected.length > 0) {
+      return this.props.setSelectedComponent(selected[0]);
+    }
   };
+
+  // componentWillReceiveProps(nextProps, nextContext) {
+  //   if (!_.isEqual(this.props, nextProps)) {
+  //     this.setState(prevState => ({
+  //       ...prevState,
+  //       component: nextProps.current
+  //     }))
+  //   }
+  // }
 
   render() {
     const { current } = this.props;
@@ -93,14 +108,20 @@ class MyTree extends React.PureComponent {
   }
 }
 
+const recursivelyGetChildren = (component) => {
+  return {
+    ...component,
+    children: component.children.map(item => recursivelyGetChildren(item.array ? { ...item.component, name: `[${item.component.name}]` } : item.component))
+  };
+};
+
 const mapStateToProps = (state) => ({
   components: state.components.data,
-  current: state.current.data,
+  current: _.isEmpty(state.current.data) ? state.current.data : recursivelyGetChildren(state.current.data),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setSelectedComponent: (data) => dispatch(setSelectedComponent(data)),
-  setCurrentComponent: (data) => dispatch(setCurrentComponent(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTree);

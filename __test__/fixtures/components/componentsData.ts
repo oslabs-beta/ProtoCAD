@@ -52,7 +52,8 @@ export const addchildComponent = {
       parent: {},
       attributes: { id: 'ID' },
       children: []
-    }
+    },
+    array: true,
 };
 
 export const addchildResult = {
@@ -67,7 +68,8 @@ export const addchildResult = {
       parent: {},
       attributes: { id: 'ID' },
       children: []
-    }
+    },
+    array: true,
 };
 
 export const addAttributesComponent = {

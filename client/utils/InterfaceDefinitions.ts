@@ -16,7 +16,7 @@ export interface ChildInt {
   name: string,
   attributes?: {id: string},
   parent?: ParentInt,
-  children: ChildInt[]
+  children: any
 }
 
 export interface AddPanelInt {

@@ -133,6 +133,7 @@ app.on('ready', function(){
 
 // catch item
 ipcMain.on('schema', function(e, item){
+  console.dir(item);
   let schema = '';
   const types  = {};
   let query = 'type Query {\n';

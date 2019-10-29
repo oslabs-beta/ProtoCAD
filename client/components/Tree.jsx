@@ -16,12 +16,12 @@ class MyTree extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      clickPosition: {
+      clickPosition: { // position of modal based on clicked node 
         x: 0,
         y: 0,
       },
-      open: false,
-      translate: {
+      open: false, // status of modal
+      translate: { // position of the root node
         x: 0,
         y: 0,
       },
@@ -59,12 +59,8 @@ class MyTree extends React.PureComponent {
       y: e.clientY,
     },
   });
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('updated!');
-    console.log(prevProps);
-    console.log(prevState);
-  }
 
+  // updates the state of the selected node and opens the modal
   onClick = (node) => {
     this.handleOpen();
     const selected = this.props.components.filter((item) => item.name === node.name);

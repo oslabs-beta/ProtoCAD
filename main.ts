@@ -3,11 +3,10 @@ const url = require('url');
 // @ts-ignore
 const path = require('path');
 const os = require('os');
-const { fork } = require('child_process');
+const { fork } = require('child_process');  
 // @ts-ignore
 const fs = require('fs');
 const getDirectory = require('./utils/getDirectory.ts');
-const genApolloTypedef = require('./utils/genApolloTypedef.ts');
 
 const config = require('./config');
 
@@ -47,8 +46,6 @@ const setMenu = main => {
               getDirectory.readFile(filePaths[0]).then(result => {
                 main.webContents.send('newProject', result);
               }).catch(err => {
-                console.log('error');
-                console.log(err);
                 main.webContents.send('newProject', err);
               });
             });
@@ -133,11 +130,11 @@ app.on('ready', function(){
   })
 });
 
-// Catch item
+// catch item
 ipcMain.on('schema', function(e, item){
   let schema = '';
   let query = 'type Query {\n';
-  //translating each node into a graphql type
+  // translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
 
@@ -155,18 +152,19 @@ ipcMain.on('schema', function(e, item){
     schema += `type ${node.name} {\n${props}${children}}\n\n`;
   };
 
-//run helper function for every root node
+// run helper function for every root node
   for(let i = 0; i < item.length; i++) {
     renderType(item[i]);
   }
-//end query after its finished filling
+// end query after its finished filling
   query += `}`;
-//add type query to schema after all the other types
+// add type query to schema after all the other types
   schema += query;
   stateSchema = schema;
   mainWindow.webContents.send('schema', schema);
 });
 
+// receives query result and sends to subscribers in client  
 server.on('message', (msg) => {
   const sample = {
     data: {
@@ -179,6 +177,7 @@ server.on('message', (msg) => {
   mainWindow.webContents.send('queryResult', sample);
 });
 
+// listens on channel from renderer process that sends array of objects containing file description
 ipcMain.on('openDirectory', (e, { name, path }) => {
   getDirectory.readFile(path).then(result => {
     mainWindow.webContents.send('readDirectory', result);
@@ -187,26 +186,14 @@ ipcMain.on('openDirectory', (e, { name, path }) => {
   });
 });
 
-ipcMain.on('editor', (e, { path, data}) => {
-  const typedef = genApolloTypedef(data);
-  fs.writeFile(path + '/' + 'typdef.js', typedef, err => {
-    if (err) throw err;
-  });
-});
-
-ipcMain.on('readFile', (e, path) => {
-  fs.readFile(path, (err, data) => { // buffer data
-    if (err) throw err;
-    mainWindow.webContents.send('editor', data.toString());
-  });
-});
-
+// saves user written resolvers on to resolver.js
 ipcMain.on('resolver', (e, { path, data }) => {
   fs.writeFile(path + '/' + 'resolver.js', data, err => {
     if (err) throw err;
   });
 });
 
+// child process makes graphql query
 ipcMain.on('query', (e, { path, data }) => {
   server.send([stateSchema, data, path]);
 }); 

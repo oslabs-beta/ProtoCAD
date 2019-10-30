@@ -4,13 +4,26 @@ ProtoCAD is a prototyping tool that empowers developers to build and visualize t
 
 ProtoCAD is in beta. Please post any issues to our GitHub - we are actively looking for opportunities to improve this tool and we welcome your feedback.
 
-## Getting Started:
 
-TBD
+## Getting Started:
+- Run Electron and Webpack in Development Mode 
+```bash
+npm run dev 
+```
+- Run tests 
+```bash
+npm run test
+```
 
 ## How to Use:
+1. When the application starts, select the File tab from the menu and open a project of your choice. You would the find your all project files in the Project tab. To build components, click on Tools. 
+2. You can now see the components you built in a tree structure. Go ahead and add props to the components. The structure can be populated with several child nodes.
+3. Let's convert the components to GraphQL Schema by clicking Convert to Schema Button. You can now see the components in SDL(Schema Definition Language). 
+4. Write GraphQL resolver and save it by clicking on the Send Resolver Button.
+5. You could also write queries to request GraphQL server for data. Returned data is displayed under the GraphQL icon.
 
-TBD
+## LICENSE 
+[MIT](https://github.com/CAD-X/ProtoCAD/blob/master/LICENSE)
 
 ## Contributors
 

@@ -15,6 +15,7 @@ const {app, BrowserWindow, ipcMain, Menu, dialog} = electron;
 const isMac = process.platform === 'darwin';
 
 let stateSchema = '';
+let stateTypes = {};
 
 const setMenu = main => {
   // set menu
@@ -132,14 +133,18 @@ app.on('ready', function(){
 
 // catch item
 ipcMain.on('schema', function(e, item){
-  console.dir(item);
   let schema = '';
+  const types  = {};
   let query = 'type Query {\n';
   // translating each node into a graphql type
   const renderType = function(node) {
     if(!node) return;
 
+    types[node.name.toLowerCase()] = node.name;
+    types[`all${node.name}`] = node.name;
+
     query += `  ${node.name.toLowerCase()}: ${node.name},\n`
+    query += `  all${node.name}: [${node.name}],\n`
 
     let props = '';
     for(let x in node.attributes) {
@@ -147,7 +152,9 @@ ipcMain.on('schema', function(e, item){
     }
     let children = '';
     for(let i = 0; i < node.children.length; i++) {
-      children+= `  ${node.children[i].name.toLowerCase()}: [${node.children[i].name}],\n`;
+      children+= `  ${node.children[i].component.name.toLowerCase()}: `;
+      node.children[i].array ? children+= `[${node.children[i].component.name}],\n`
+                             : children+= `${node.children[i].component.name},\n`
     }
 
     schema += `type ${node.name} {\n${props}${children}}\n\n`;
@@ -162,20 +169,50 @@ ipcMain.on('schema', function(e, item){
 // add type query to schema after all the other types
   schema += query;
   stateSchema = schema;
+  stateTypes = types;
   mainWindow.webContents.send('schema', schema);
 });
 
 // receives query result and sends to subscribers in client  
 server.on('message', (msg) => {
-  const sample = {
-    data: {
-      launch: {
-        launch_year: '2019',
-        mission_name: 'Amos-17',
-      }
+  console.log('message received: ', msg)
+  const treeData = [];
+  const data = msg.data;
+  const rootNode = {};
+  rootNode['name'] = 'Application';
+  rootNode['children'] = [];
+  function recurse(node, name) {
+    let output = {};
+    output['name'] = name;
+    output['children'] = [];
+    output['attributes'] = {};
+    for(let x in node) {
+      //this means that it is a child
+      if(stateTypes[x]) {
+        if(Array.isArray(node[x])) {
+            for(let i = 0; i < node[x].length; i++) {
+              output['children'].push(recurse(node[x][i], stateTypes[x]));
+            }
+          } else {
+            output['children'].push(recurse(node[x], stateTypes[x]));
+          }
+        } else {
+          output['attributes'][x] = node[x];
+        }
     }
-  };
-  mainWindow.webContents.send('queryResult', sample);
+    return output;
+  }
+  for(let x in data) {
+    if(Array.isArray(data[x])) {
+      for(let i = 0; i < data[x].length; i++) {
+        rootNode['children'].push(recurse(data[x][i], stateTypes[x]));
+      }
+    } else {
+      rootNode['children'].push(recurse(data[x], stateTypes[x]));
+    }
+  }
+  treeData.push(rootNode);
+  mainWindow.webContents.send('queryResult', treeData);
 });
 
 // listens on channel from renderer process that sends array of objects containing file description

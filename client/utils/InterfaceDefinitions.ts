@@ -53,7 +53,13 @@ export interface DirectoryStateInt {
 export interface SelectedComponentStateInt {
   loading: boolean,
   error: null,
-  data: object
+  data: object,
+}
+
+export interface GQLStateInt {
+  loading: boolean,
+  error: null,
+  data: object,
 }
 
 export interface GlobalState {
@@ -89,5 +95,10 @@ export interface GlobalState {
   }
   selected: {
     data: ComponentInt
+  }
+  gqlData: {
+    data: {
+
+    }
   }
 }

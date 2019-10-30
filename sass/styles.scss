@@ -149,5 +149,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .MuiTabs-flexContainer {
-  margin: 0px 41px !important;
+  margin: 0 41px !important;
+}
+
+.MuiBox-root {
+  padding: 0 !important;
+  height: 100%;
+  width: 100%;
+}
+
+.rd3t-tree-container {
+  height: 100%;
+  width: 100%;
+}
+.makeStyles-root-157 {
+  height: 100%;
+}
+.MuiTypography-body1 {
+  height: 100%;
+}
+#gql-board {
+  height: 100%;
+  & svg {
+    height: 100vh;
+  }
 }

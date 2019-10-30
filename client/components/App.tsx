@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dashboard from './Dashboard';
 import Library from './Library';
 import Editor from './Editor';
-import {setDirectory, setCode, updateAttribute} from '../actions/componentsAction';
+import {setDirectory, setCode, setGQLdata} from '../actions/componentsAction';
 import { GlobalState } from '../utils/InterfaceDefinitions';
 
 // accessing ipcRenderer from electron based on preload.js
@@ -60,7 +60,8 @@ export default () => {
 
   // updates each node attributes with incoming GraphQL data
   ipcRenderer.on('queryResult', (err, data) => {
-    dispatch(updateAttribute(data));
+    console.log(data);
+    dispatch(setGQLdata(data));
   });
 
   return (

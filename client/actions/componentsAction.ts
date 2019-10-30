@@ -16,7 +16,7 @@ import {
   SET_SELECTED_COMPONENT,
   DELETE_ONE_COMPONENT,
   SET_DIRECTORY,
-  SET_CURRENT_FILE, SET_RESOLVER_CODE, UPDATE_ATTRIBUTE,
+  SET_CURRENT_FILE, SET_RESOLVER_CODE, UPDATE_ATTRIBUTE, SET_GQL_DATA,
 } from './types';
 
 
@@ -107,4 +107,9 @@ export const setCode = (data: any) => ({
 export const setResolverCode = (data: any) => ({
   type: SET_RESOLVER_CODE,
   payload: data,
+});
+
+export const setGQLdata = (data: any) => ({
+  type: SET_GQL_DATA,
+  payload: data
 });

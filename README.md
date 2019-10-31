@@ -18,19 +18,19 @@ npm run test
 
 2. You can now see the components you built in a tree structure. Go ahead and add props to the components. The structure can be populated with several child nodes.
 
-![](build-ui.gif)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/build-ui.gif" width="700">
 
 3. Let's convert the components to GraphQL Schema by clicking Convert to Schema Button. You can now see the components in SDL(Schema Definition Language).
 
-![](schema.gif)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="schema.gif" width="700">
 
 4. Write GraphQL resolver and save it by clicking on the Send Resolver Button.
 
-![](resolver.gif)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="resolver.gif" width="700">
 
 5. You could also write queries to request GraphQL server for data. Returned data is displayed under the GraphQL icon.
 
-![](query.gif)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="query.gif" width="700">
 
 ## Contributing
 ProtoCAD is currently in beta release. We encourage you to submit issues for any bugs or ideas for enhancements. Also feel free to fork this repo and submit pull requests to contribute as well.

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Logo from '../logo.jsx';
+import Logo from '../assets/logo.jsx';
 import Tabs from './Tabs';
 
 /**
